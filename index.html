@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>monhey!</title>
+<meta name="theme-color" content="#F2F2EF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="monhey!">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
+<style>.material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;-webkit-font-smoothing:antialiased;font-feature-settings:'liga'}</style>
+<script src="image-slot.js"></script>
+<style>
+body{margin:0;background:#DCDCD7;font-family:Manrope,-apple-system,sans-serif;color:#0B0B0B}
+a{color:#0B0B0B}a:hover{color:#62665F}
+*{box-sizing:border-box}
+button{font-family:inherit}
+.mh-scroll::-webkit-scrollbar{display:none}
+@keyframes mh-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes mh-down{from{transform:translateY(0)}to{transform:translateY(100%)}}
+@keyframes mh-fade{from{opacity:0}to{opacity:1}}
+@keyframes mh-fadeout{from{opacity:1}to{opacity:0}}
+@keyframes mh-in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes mh-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes mh-pop{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes mh-blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
+@media (max-width: 600px){
+html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
+[data-mh="stage"]{padding:0!important;min-height:0!important;height:100dvh!important;display:block!important}
+[data-mh="app"]{width:100vw!important;height:100dvh!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}
+[data-mh="statusbar"],[data-mh="homebar"]{display:none!important}
+[data-mh="scroll"]{top:env(safe-area-inset-top)!important;-webkit-overflow-scrolling:touch}
+[data-mh="app"]::before{content:"";position:absolute;top:0;left:0;right:0;height:env(safe-area-inset-top);background:#F2F2EF;z-index:30}
+}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms!important;transition-duration:1ms!important}}
+</style>
+</helmet>
+<div data-mh="stage" style="min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:22px 12px;">
+<div data-mh="app" data-screen-label="Monhey App" style="position:relative;width:402px;height:874px;max-width:100%;background:#F2F2EF;border-radius:44px;overflow:hidden;box-shadow:0 20px 60px rgba(11,11,11,0.18);font-family:Manrope,-apple-system,sans-serif;">
+
+  <div data-mh="statusbar" style="position:absolute;top:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:30;background:#F2F2EF;">
+    <span style="font-size:14px;font-weight:700;">9:41</span>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span class="material-symbols-outlined" style="font-size:18px;">signal_cellular_alt</span>
+      <span class="material-symbols-outlined" style="font-size:18px;">wifi</span>
+      <span class="material-symbols-outlined" style="font-size:20px;">battery_full</span>
+    </div>
+  </div>
+
+  <div data-mh="scroll" ref="{{ scrollRef }}" class="mh-scroll" style="position:absolute;top:48px;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;">
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Start" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button onClick="{{ notify }}" aria-label="Benachrichtigungen" style="position:relative;width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <span class="material-symbols-outlined" style="font-size:21px;">notifications</span>
+            <span style="position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:#0B0B0B;"></span>
+          </button>
+          <div style="width:40px;height:40px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">SK</div>
+        </div>
+      </div>
+
+      <h1 style="margin:20px 4px 0;font-size:34px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;">Guten Morgen, <span style="background:linear-gradient(transparent 55%,#E7F41E 55%,#E7F41E 92%,transparent 92%);">Stefan.</span></h1>
+      <p style="margin:8px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Alles, was heute wichtig ist.</p>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 4px 0;">
+        <h2 style="margin:0;font-size:20px;font-weight:800;">Deine Honeys</h2>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:13px;font-weight:700;color:#62665F;">{{ carLabel }}</span>
+          <button onClick="{{ carNext }}" aria-label="Nächster Honey" style="width:36px;height:36px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <span class="material-symbols-outlined" style="font-size:20px;">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+      <div ref="{{ carRef }}" onScroll="{{ onCarScroll }}" onPointerDown="{{ carDown }}" onPointerMove="{{ carMove }}" onPointerUp="{{ carUp }}" onPointerLeave="{{ carUp }}" class="mh-scroll" style="margin:12px -20px 0;padding:0 24px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;touch-action:pan-x pan-y;cursor:grab;user-select:none;">
+        <sc-for list="{{ carCards }}" as="car" hint-placeholder-count="3">
+          <div style="flex:0 0 100%;scroll-snap-align:start;border-radius:24px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+            <div style="position:relative;height:168px;background:#E4E4DF;">
+              <sc-if value="{{ car.hasImage }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;inset:0;background:#0B0B0B url({{ car.image }}) center / cover no-repeat;"></div>
+              </sc-if>
+              <sc-if value="{{ car.noImage }}" hint-placeholder-val="{{ false }}">
+                <image-slot id="{{ car.slotId }}" shape="rect" radius="0" placeholder="{{ car.slotHint }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></image-slot>
+              </sc-if>
+              <div style="position:absolute;top:12px;left:12px;right:12px;display:flex;align-items:center;gap:8px;pointer-events:none;">
+                <span style="background:rgba(255,255,255,0.92);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ car.author }}</span>
+                <span style="background:rgba(255,255,255,0.92);font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;color:#62665F;">{{ car.tag }}</span>
+                <button onClick="{{ car.toggleSave }}" aria-label="Merken" style="pointer-events:auto;margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                  <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ car.saveFill }};animation:{{ car.saveAnim }};">bookmark</span>
+                </button>
+              </div>
+            </div>
+            <div style="padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px;">
+            <h3 style="margin:0;font-size:24px;line-height:1.2;font-weight:800;text-wrap:pretty;min-height:58px;">{{ car.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.5;color:#62665F;min-height:45px;">{{ car.teaser }}</p>
+            <div style="background:#F2F2EF;border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+              <div><div style="font-size:12px;font-weight:600;color:#62665F;">Kurspotenzial</div><div style="font-size:20px;font-weight:800;margin-top:2px;">{{ car.pot }}</div></div>
+              <div style="display:grid;grid-template-columns:auto auto;gap:6px 8px;align-items:center;font-size:11px;font-weight:700;">
+                <span>Chance</span><span style="display:flex;gap:2px;"><sc-for list="{{ car.chanceBars }}" as="b" hint-placeholder-count="3"><span style="width:14px;height:5px;border-radius:3px;background:{{ b }};"></span></sc-for></span>
+                <span>Risiko</span><span style="display:flex;gap:2px;"><sc-for list="{{ car.riskBars }}" as="b" hint-placeholder-count="3"><span style="width:14px;height:5px;border-radius:3px;background:{{ b }};"></span></sc-for></span>
+              </div>
+            </div>
+            <button onClick="{{ car.open }}" style="height:52px;border:0;border-radius:14px;background:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
+              <span>Honey ansehen</span>
+            </button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:center;gap:6px;margin-top:14px;">
+        <sc-for list="{{ carDots }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ d.go }}" aria-label="Honey wählen" style="width:{{ d.w }};height:5px;border-radius:3px;border:0;padding:0;background:{{ d.bg }};cursor:pointer;transition:width .3s cubic-bezier(0.2,0,0,1),background .3s;"></button>
+        </sc-for>
+      </div>
+
+      <h2 style="margin:36px 4px 0;font-size:20px;font-weight:800;">Deine Coaches, deine News</h2>
+
+      <div style="margin-top:12px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+        <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+          <button onClick="{{ n.open }}" style="text-align:left;border:0;border-bottom:1px solid #ECECE8;background:transparent;padding:16px 0;display:flex;gap:14px;align-items:flex-start;cursor:pointer;color:#0B0B0B;">
+            <img src="{{ n.img }}" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+              <span style="font-size:15px;line-height:1.35;font-weight:700;">{{ n.title }}</span>
+              <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#62665F;">{{ n.name }}<span style="background:{{ n.trackBg }};color:#0B0B0B;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;">{{ n.track }}</span></span>
+            </div>
+            <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;margin-top:2px;">chevron_right</span>
+          </button>
+        </sc-for>
+        <button onClick="{{ goCoaches }}" style="border:0;background:transparent;height:52px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;cursor:pointer;color:#0B0B0B;padding:0;">
+          <span>Alle Coaches entdecken</span><span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+        </button>
+      </div>
+      <button onClick="{{ openLive }}" style="margin-top:12px;text-align:left;border:0;background:#0B0B0B;color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="display:flex;align-items:center;gap:6px;background:#E7F41E;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span style="width:6px;height:6px;border-radius:50%;background:#0B0B0B;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
+          <span style="font-size:13px;font-weight:600;color:#B8BCB4;">Heute, 18:00</span>
+          <sc-if value="{{ liveRegistered }}" hint-placeholder-val="{{ false }}">
+            <span style="margin-left:auto;display:flex;align-items:center;gap:4px;background:#E7F41E;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span class="material-symbols-outlined" style="font-size:14px;">check</span>Angemeldet</span>
+          </sc-if>
+        </div>
+        <div style="font-size:19px;line-height:1.3;font-weight:800;">Warum IT-Werte heute so interessant sind</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:14px;color:#B8BCB4;">Webinar mit Marcus Veit</span>
+          <span class="material-symbols-outlined" style="font-size:22px;color:#E7F41E;">arrow_forward</span>
+        </div>
+      </button>
+
+      <h2 style="margin:36px 4px 0;font-size:20px;font-weight:800;">Frag die Monhey KI</h2>
+      <div style="margin-top:12px;background:#fff;border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:8px;background:#F2F2EF;border-radius:16px;height:54px;padding:0 6px 0 16px;">
+          <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="Was möchtest du wissen?" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#0B0B0B;">
+          <button onClick="{{ sendAsk }}" aria-label="Senden" style="width:42px;height:42px;border-radius:12px;border:0;background:#0B0B0B;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;color:#fff;">arrow_upward</span></button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <sc-for list="{{ askChips }}" as="q" hint-placeholder-count="2">
+            <button onClick="{{ q.ask }}" style="border:0;background:#F2F2EF;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;color:#0B0B0B;">{{ q.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isHoneys }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Honeys" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Honeys</h1>
+      <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Marktideen der Redaktion und deiner Coaches.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;">
+        <sc-for list="{{ honeyList }}" as="h" hint-placeholder-count="3">
+          <div style="position:relative;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;animation-delay:{{ h.delay }};">
+            <button onClick="{{ h.open }}" style="width:100%;text-align:left;border:0;background:#fff;border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;cursor:pointer;color:#0B0B0B;transition:transform .15s;" style-active="transform:scale(0.98);">
+              <span style="font-size:12px;font-weight:700;color:#62665F;padding-right:44px;">{{ h.author }} · {{ h.basis }}</span>
+              <span style="font-size:18px;line-height:1.3;font-weight:800;padding-right:36px;">{{ h.title }}</span>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px;">
+                <span style="font-size:15px;font-weight:800;">{{ h.pot }}</span>
+                <span style="font-size:12px;font-weight:700;background:#F2F2EF;padding:4px 10px;border-radius:999px;">{{ h.status }}</span>
+              </div>
+            </button>
+            <button onClick="{{ h.toggleSave }}" aria-label="Merken" style="position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+              <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ h.saveFill }};animation:{{ h.saveAnim }};">bookmark</span>
+            </button>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isWatchlist }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Watchlist" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Watchlist</h1>
+      <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Gemerkte Honeys und Produkte.</p>
+
+      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Honeys</h2>
+      <sc-if value="{{ watchHoneysEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:10px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+          <span style="font-size:15px;line-height:1.5;color:#62665F;">Tippe auf das Lesezeichen an einem Honey, um ihn hier zu speichern.</span>
+          <button onClick="{{ goHoneys }}" style="height:42px;border:0;border-radius:12px;background:#0B0B0B;color:#fff;padding:0 18px;font-size:14px;font-weight:700;cursor:pointer;">Honeys entdecken</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasWatchHoneys }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:10px;background:#fff;border-radius:20px;padding:0 20px;display:flex;flex-direction:column;">
+          <sc-for list="{{ watchHoneys }}" as="w" hint-placeholder-count="0">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #ECECE8;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
+              <button onClick="{{ w.open }}" style="flex:1;min-width:0;border:0;background:transparent;text-align:left;cursor:pointer;padding:0;color:#0B0B0B;display:flex;flex-direction:column;gap:3px;">
+                <span style="font-size:15px;line-height:1.3;font-weight:700;">{{ w.title }}</span>
+                <span style="font-size:13px;color:#62665F;">{{ w.basis }} · <b style="color:#0B0B0B;">{{ w.kurs }}</b> <b style="color:#0B0B0B;">{{ w.chg }}</b></span>
+              </button>
+              <button onClick="{{ w.remove }}" aria-label="Entfernen" style="width:36px;height:36px;border-radius:50%;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' 1;">bookmark</span></button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Produkte</h2>
+      <sc-if value="{{ watchProductsEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:10px;background:#fff;border-radius:20px;padding:20px;font-size:15px;line-height:1.5;color:#62665F;">Produkte aus den Handelsoptionen eines Honeys landen hier.</div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
+        <sc-for list="{{ watchProducts }}" as="p" hint-placeholder-count="0">
+          <div style="background:#fff;border-radius:20px;padding:16px 20px;display:flex;flex-direction:column;gap:12px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
+            <div style="display:flex;justify-content:space-between;gap:10px;">
+              <button onClick="{{ p.detail }}" style="flex:1;min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;display:flex;flex-direction:column;gap:3px;">
+                <span style="display:flex;align-items:center;gap:2px;font-size:15px;font-weight:700;">{{ p.name }}<span class="material-symbols-outlined" style="font-size:18px;color:#62665F;">chevron_right</span></span>
+                <span style="font-size:13px;color:#62665F;">{{ p.issuer }} · {{ p.honeyTitle }} · WKN <b style="color:#0B0B0B;">{{ p.wkn }}</b></span>
+              </button>
+              <button onClick="{{ p.copy }}" aria-label="WKN kopieren" style="border:0;background:transparent;cursor:pointer;padding:4px;display:flex;align-self:flex-start;"><span class="material-symbols-outlined" style="font-size:20px;">content_copy</span></button>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button onClick="{{ p.broker }}" style="flex:1;height:42px;border:0;border-radius:12px;background:#0B0B0B;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">Zum Broker</button>
+              <button onClick="{{ p.remove }}" style="height:42px;border:0;border-radius:12px;background:#F2F2EF;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;color:#0B0B0B;">Entfernen</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isCoaches }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Coaches" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Coaches</h1>
+      <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Lerne Trading-Coaches kennen und folge ihren Ideen.</p>
+      <button onClick="{{ openLive }}" style="margin-top:20px;text-align:left;border:0;background:#0B0B0B;color:#fff;border-radius:20px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+        <span style="display:flex;align-items:center;gap:6px;background:#E7F41E;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;flex:none;"><span style="width:6px;height:6px;border-radius:50%;background:#0B0B0B;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
+        <span style="flex:1;font-size:14px;font-weight:700;">Heute 18:00 · IT-Werte im Fokus</span>
+        <span class="material-symbols-outlined" style="font-size:20px;color:#E7F41E;">arrow_forward</span>
+      </button>
+      <div style="margin-top:12px;background:#fff;border-radius:24px;padding:0 20px;display:flex;flex-direction:column;">
+        <sc-for list="{{ coachList }}" as="c" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #ECECE8;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;animation-delay:{{ c.delay }};">
+            <button onClick="{{ c.open }}" style="flex:1;min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;display:flex;align-items:center;gap:14px;">
+              <img src="{{ c.img }}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none;">
+              <div style="min-width:0;display:flex;flex-direction:column;gap:3px;">
+                <span style="font-size:16px;font-weight:700;">{{ c.name }}</span>
+                <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#62665F;">{{ c.topics }}<span style="background:{{ c.trackBg }};color:#0B0B0B;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;white-space:nowrap;">{{ c.track }}</span></span>
+              </div>
+            </button>
+            <button onClick="{{ c.toggle }}" style="height:36px;border-radius:999px;border:0;background:{{ c.btnBg }};color:{{ c.btnColor }};padding:0 14px;font-size:13px;font-weight:700;cursor:pointer;flex:none;transition:background .2s;">{{ c.btnShort }}</button>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:10px 4px 0;font-size:12px;color:#62665F;">Illustrative Tracks · Zeitraum offen</p>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isCoachProfile }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Coach-Profil" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
+        <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
+      </div>
+      <div style="margin-top:12px;background:#fff;border-radius:24px;padding:24px 20px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;">
+        <img src="{{ cp.img }}" alt="" style="width:84px;height:84px;border-radius:50%;object-fit:cover;">
+        <div style="display:flex;align-items:center;gap:6px;margin-top:8px;"><span style="font-size:22px;font-weight:800;">{{ cp.name }}</span><span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' 1;">verified</span></div>
+        <span style="font-size:14px;color:#62665F;">{{ cp.topics }}</span>
+        <div style="width:100%;margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#F2F2EF;border-radius:16px;padding:12px 0;">
+          <div><div style="font-size:17px;font-weight:800;">{{ cp.track }}</div><div style="font-size:12px;color:#62665F;margin-top:2px;">Track</div></div>
+          <div style="border-left:1px solid #E2E2DD;border-right:1px solid #E2E2DD;"><div style="font-size:17px;font-weight:800;">{{ cp.hit }}</div><div style="font-size:12px;color:#62665F;margin-top:2px;">Trefferquote</div></div>
+          <div><div style="font-size:17px;font-weight:800;">{{ cp.subs }}</div><div style="font-size:12px;color:#62665F;margin-top:2px;">Abonnenten</div></div>
+        </div>
+        <button onClick="{{ cpToggle }}" style="margin-top:12px;width:100%;height:52px;border-radius:14px;border:0;background:{{ cpBtnBg }};color:{{ cpBtnColor }};font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;">
+          <span class="material-symbols-outlined" style="font-size:20px;animation:{{ cpAnim }};">{{ cpBtnIcon }}</span><span>{{ cpBtnLabel }}</span>
+        </button>
+        <span style="font-size:12px;color:#62665F;margin-top:2px;">{{ cpBtnNote }}</span>
+      </div>
+
+      <div style="margin-top:12px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+        <span style="font-size:15px;line-height:1.6;color:#3B3F39;">{{ cp.bio }}</span>
+        <div style="display:flex;align-items:flex-end;gap:6px;height:64px;">
+          <sc-for list="{{ cp.bars }}" as="b" hint-placeholder-count="6">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;">
+              <div style="width:100%;height:{{ b.h }};border-radius:6px;background:{{ b.bg }};animation:mh-rise .5s cubic-bezier(0.2,0,0,1) both;"></div>
+              <span style="font-size:11px;font-weight:600;color:#62665F;">{{ b.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <span style="font-size:12px;color:#62665F;">Trefferquote pro Monat · illustrative Werte</span>
+      </div>
+
+      <sc-if value="{{ cpHasHoneys }}" hint-placeholder-val="{{ false }}">
+        <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Honeys von {{ cp.first }}</h2>
+        <div style="margin-top:10px;background:#fff;border-radius:20px;padding:0 20px;">
+          <sc-for list="{{ cpHoneys }}" as="h" hint-placeholder-count="1">
+            <button onClick="{{ h.open }}" style="width:100%;text-align:left;border:0;background:transparent;padding:16px 0;display:flex;align-items:center;gap:12px;cursor:pointer;color:#0B0B0B;">
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px;"><span style="font-size:15px;font-weight:700;line-height:1.3;">{{ h.title }}</span><span style="font-size:13px;color:#62665F;">{{ h.basis }}</span></div>
+              <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">chevron_right</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">News</h2>
+      <div style="margin-top:10px;background:#fff;border-radius:20px;padding:0 20px;display:flex;flex-direction:column;">
+        <sc-for list="{{ cpNews }}" as="n" hint-placeholder-count="1">
+          <div style="padding:16px 0;border-bottom:1px solid #ECECE8;">
+            <div style="display:flex;align-items:center;gap:8px;"><span style="flex:1;font-size:15px;font-weight:700;line-height:1.3;">{{ n.title }}</span>
+              <sc-if value="{{ n.locked }}" hint-placeholder-val="{{ false }}"><span class="material-symbols-outlined" style="font-size:18px;color:#62665F;">lock</span></sc-if>
+            </div>
+            <div style="font-size:14px;line-height:1.5;color:#62665F;margin-top:4px;white-space:pre-line;filter:{{ n.blur }};">{{ n.text }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Live-Webinar" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
+        <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
+      </div>
+      <div style="margin-top:12px;position:relative;height:200px;border-radius:24px;overflow:hidden;background:#0B0B0B;">
+        <img src="assets/coach-1.jpg" alt="" style="position:absolute;right:0;top:0;height:100%;width:62%;object-fit:cover;">
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,#0B0B0B 36%,rgba(11,11,11,0) 100%);"></div>
+        <div style="position:absolute;top:16px;left:16px;display:flex;gap:8px;">
+          <span style="display:flex;align-items:center;gap:6px;background:#E7F41E;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span style="width:6px;height:6px;border-radius:50%;background:#0B0B0B;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
+          <span style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.16);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;"><span class="material-symbols-outlined" style="font-size:14px;">group</span>{{ liveCount }}</span>
+        </div>
+        <div style="position:absolute;left:18px;bottom:18px;color:#fff;font-size:15px;font-weight:700;">Heute, 18:00 · 45 Min.</div>
+      </div>
+      <h1 style="margin:20px 4px 0;font-size:26px;line-height:1.2;font-weight:800;text-wrap:pretty;">Warum IT-Werte heute so interessant sind</h1>
+      <div style="margin-top:16px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+        <button onClick="{{ openLiveCoach }}" style="border:0;border-bottom:1px solid #ECECE8;background:transparent;padding:14px 0;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:#0B0B0B;">
+          <img src="assets/coach-1.jpg" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+          <div style="flex:1;"><div style="font-size:15px;font-weight:700;">Marcus Veit</div><div style="font-size:13px;color:#62665F;">Technologie · Energie</div></div>
+          <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">chevron_right</span>
+        </button>
+        <p style="margin:0;padding:16px 0;font-size:15px;line-height:1.6;color:#3B3F39;border-bottom:1px solid #ECECE8;">Marcus ordnet die aktuelle Stärke der Technologiewerte ein: welche Treiber hinter der Bewegung stehen, wo die Bewertung bereits viel vorwegnimmt und wie du Chancen und Risiken abwägst.</p>
+        <div style="padding:16px 0;display:flex;flex-direction:column;gap:10px;">
+          <sc-for list="{{ liveAgenda }}" as="a" hint-placeholder-count="3">
+            <div style="display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.4;"><span style="width:22px;height:22px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:15px;">check</span></span><span>{{ a }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ liveNotRegistered }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ openRegister }}" style="margin-top:16px;height:56px;border:0;border-radius:14px;background:#0B0B0B;color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">Kostenlos anmelden</button>
+        <p style="margin:10px 0 0;font-size:12px;color:#62665F;text-align:center;">Inklusive Aufzeichnung für 7 Tage</p>
+      </sc-if>
+      <sc-if value="{{ liveRegistered }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:16px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:40px;height:40px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:22px;">check</span></span>
+            <div><div style="font-size:16px;font-weight:800;">Du bist angemeldet</div><div style="font-size:13px;color:#62665F;">{{ liveRegNote }}</div></div>
+          </div>
+          <button onClick="{{ addCalendar }}" style="height:48px;border:0;background:#F2F2EF;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:700;cursor:pointer;color:#0B0B0B;"><span class="material-symbols-outlined" style="font-size:20px;">calendar_add_on</span>In Kalender eintragen</button>
+          <button onClick="{{ unregister }}" style="height:32px;border:0;background:transparent;font-size:13px;font-weight:700;color:#62665F;cursor:pointer;">Abmelden</button>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isAssistant }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Assistent" style="padding:4px 20px 120px;display:flex;flex-direction:column;gap:14px;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Monhey KI</h1>
+      <p style="margin:-6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Erklärt dir Märkte und Begriffe.</p>
+      <sc-for list="{{ chat }}" as="m" hint-placeholder-count="0">
+        <div style="align-self:{{ m.align }};max-width:86%;background:{{ m.bg }};color:{{ m.color }};border-radius:20px;padding:14px 18px;font-size:15px;line-height:1.5;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">{{ m.text }}</div>
+      </sc-for>
+      <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+        <div style="align-self:flex-start;background:#fff;border-radius:20px;padding:16px 18px;display:flex;gap:5px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#62665F;animation:mh-blink 1.2s infinite;"></span>
+          <span style="width:7px;height:7px;border-radius:50%;background:#62665F;animation:mh-blink 1.2s infinite .2s;"></span>
+          <span style="width:7px;height:7px;border-radius:50%;background:#62665F;animation:mh-blink 1.2s infinite .4s;"></span>
+        </div>
+      </sc-if>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <sc-for list="{{ askChips }}" as="q" hint-placeholder-count="2">
+          <button onClick="{{ q.ask }}" style="border:0;background:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;color:#0B0B0B;">{{ q.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:#fff;border-radius:18px;height:58px;padding:0 8px 0 18px;">
+        <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="Was möchtest du wissen?" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#0B0B0B;">
+        <span class="material-symbols-outlined" style="font-size:21px;color:#62665F;">mic</span>
+        <button onClick="{{ sendAsk }}" aria-label="Senden" style="width:42px;height:42px;border-radius:12px;border:0;background:#0B0B0B;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;color:#fff;">arrow_upward</span></button>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Honey Detail" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <img src="assets/monhey-logo.png" alt="monhey!" style="position:absolute;left:50%;top:7px;transform:translateX(-50%);height:38px;width:117px;display:block;pointer-events:none;">
+        <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
+        <div style="display:flex;gap:8px;">
+          <button onClick="{{ share }}" aria-label="Teilen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;">ios_share</span></button>
+          <button onClick="{{ toggleSaveDetail }}" aria-label="Merken" style="width:40px;height:40px;border-radius:50%;border:0;background:{{ detailSaveBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;"><span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ detailSaveFill }};animation:{{ detailSaveAnim }};">bookmark</span></button>
+        </div>
+      </div>
+
+      <sc-if value="{{ hasImage }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:12px;height:180px;border-radius:24px;overflow:hidden;background:#0B0B0B url({{ h.image }}) center / cover no-repeat;"></div>
+      </sc-if>
+      <sc-if value="{{ noImage }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:12px;height:180px;border-radius:24px;overflow:hidden;background:#E4E4DF;">
+          <image-slot id="{{ slotId }}" shape="rect" radius="0" placeholder="{{ slotHint }}" style="width:100%;height:100%;display:block;"></image-slot>
+        </div>
+      </sc-if>
+      <div style="margin:18px 4px 0;display:flex;"><span style="background:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ h.author }}</span></div>
+      <h1 style="margin:6px 4px 0;font-size:28px;line-height:1.18;font-weight:800;letter-spacing:-0.3px;text-wrap:pretty;">{{ h.title }}</h1>
+      <p style="margin:10px 4px 0;font-size:15px;line-height:1.55;color:#3B3F39;">{{ h.kurz }}</p>
+
+      <div style="margin-top:20px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div><div style="font-size:12px;font-weight:600;color:#62665F;">Basiswert</div><div style="font-size:18px;font-weight:800;margin-top:2px;">{{ h.basis }}</div></div>
+          <button onClick="{{ copyHoneyWkn }}" style="border:0;background:#F2F2EF;border-radius:999px;height:34px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ h.wkn }}<span class="material-symbols-outlined" style="font-size:16px;">content_copy</span></button>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:16px;"><span style="font-size:30px;font-weight:800;letter-spacing:-0.5px;">{{ h.kurs }}</span><span style="font-size:13px;font-weight:800;background:#E7F41E;padding:3px 8px;border-radius:999px;">{{ h.chg }}</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;min-height:56px;padding:10px 16px;border-radius:16px;background:#E7F41E;">
+          <span style="font-size:14px;font-weight:800;">Kurspotenzial</span>
+          <span style="font-size:22px;font-weight:800;letter-spacing:-0.3px;white-space:nowrap;">{{ h.pot }}</span>
+        </div>
+        <div style="font-size:12px;color:#62665F;margin-top:8px;">Szenario im Beispiel · keine Prognose</div>
+        <div style="display:grid;grid-template-columns:54px minmax(0,1fr) 34px;gap:12px 10px;align-items:center;margin-top:18px;">
+          <span style="font-size:13px;font-weight:700;">Chance</span>
+          <div style="display:flex;gap:3px;"><sc-for list="{{ h.chanceFine }}" as="b" hint-placeholder-count="10"><span style="flex:1;height:8px;border-radius:2px;background:{{ b }};"></span></sc-for></div>
+          <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.cScore }}</span>
+          <span style="font-size:13px;font-weight:700;">Risiko</span>
+          <div style="display:flex;gap:3px;"><sc-for list="{{ h.riskFine }}" as="b" hint-placeholder-count="10"><span style="flex:1;height:8px;border-radius:2px;background:{{ b }};"></span></sc-for></div>
+          <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.rScore }}</span>
+        </div>
+        <div style="margin-top:18px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;">
+          <div style="padding:12px 14px;border-right:1px solid #E2E2DD;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#0B0B0B;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.ziel }}</div></div>
+          <div style="padding:12px 14px;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Stopp</div><div style="font-size:15px;font-weight:800;color:#0B0B0B;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.stopp }}</div></div>
+          <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Marktkap.</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.mcap }}</div></div>
+          <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Dividende</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.div }}</div></div>
+        </div>
+      </div>
+
+      <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;margin-top:12px;">
+          <div style="background:#fff;border-radius:24px;padding:20px;filter:blur(4px);opacity:0.6;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(#000 30%,transparent 95%);mask-image:linear-gradient(#000 30%,transparent 95%);">
+            <h2 style="margin:0;font-size:19px;font-weight:800;">Was ist passiert?</h2>
+            <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s1 }}</p>
+          </div>
+          <div style="margin-top:-90px;position:relative;background:#0B0B0B;color:#fff;border-radius:24px;padding:22px 20px;display:flex;flex-direction:column;gap:12px;animation:mh-rise .45s cubic-bezier(0.2,0,0,1) both;">
+            <span style="font-size:20px;font-weight:800;">Ganzen Honey lesen</span>
+            <span style="font-size:14px;line-height:1.5;color:#B8BCB4;">Hintergrund, Deep Dive und die passenden Wege, die Idee umzusetzen.</span>
+            <button onClick="{{ openPayMember }}" style="margin-top:4px;border:0;background:#E7F41E;border-radius:14px;height:54px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:#0B0B0B;font-size:15px;font-weight:800;"><span>Mitglied werden</span><span>19,99 € / Monat</span></button>
+            <button onClick="{{ openPaySingle }}" style="border:0;background:rgba(255,255,255,0.1);border-radius:14px;height:54px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:#fff;font-size:15px;font-weight:700;"><span>Nur diese Analyse</span><span>1,99 €</span></button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ unlocked }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;animation:mh-rise .5s cubic-bezier(0.2,0,0,1) both;">
+        <h2 style="margin:32px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Kursverlauf</h2>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;">
+            <span style="font-size:15px;font-weight:800;">{{ h.basis }}</span>
+            <span style="font-size:12px;color:#62665F;">{{ cdl.note }}</span>
+          </div>
+          <div style="position:relative;height:180px;margin-top:14px;">
+            <div style="position:absolute;left:0;right:46px;top:{{ cdl.zielTop }};transition:top .6s cubic-bezier(0.2,0,0,1);border-top:1px dashed #0B0B0B;opacity:.35;"></div>
+            <span style="position:absolute;right:0;top:{{ cdl.zielTop }};transition:top .6s cubic-bezier(0.2,0,0,1);transform:translateY(-50%);font-size:10px;font-weight:800;background:#E7F41E;padding:2px 5px;border-radius:4px;">Ziel</span>
+            <div style="position:absolute;left:0;right:46px;top:{{ cdl.stopTop }};transition:top .6s cubic-bezier(0.2,0,0,1);border-top:1px dashed #0B0B0B;opacity:.35;"></div>
+            <span style="position:absolute;right:0;top:{{ cdl.stopTop }};transition:top .6s cubic-bezier(0.2,0,0,1);transform:translateY(-50%);font-size:10px;font-weight:800;background:#E4E4DF;padding:2px 5px;border-radius:4px;">Stopp</span>
+            <div style="position:absolute;left:0;right:46px;top:0;bottom:0;display:flex;gap:3px;">
+              <sc-for list="{{ cdl.candles }}" as="c" hint-placeholder-count="24">
+                <div style="position:relative;flex:1;min-width:0;">
+                  <div style="position:absolute;left:50%;width:1.5px;margin-left:-0.75px;top:{{ c.wTop }};height:{{ c.wH }};background:#0B0B0B;transition:top .6s cubic-bezier(0.2,0,0,1),height .6s cubic-bezier(0.2,0,0,1);transition-delay:{{ c.delay }};"></div>
+                  <div style="position:absolute;left:0;right:0;top:{{ c.bTop }};height:{{ c.bH }};min-height:2px;border-radius:2px;background:{{ c.fill }};box-shadow:inset 0 0 0 1.5px #0B0B0B;transition:top .6s cubic-bezier(0.2,0,0,1),height .6s cubic-bezier(0.2,0,0,1),background .3s;transition-delay:{{ c.delay }};"></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;margin-top:12px;font-size:12px;color:#62665F;">
+            <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#E7F41E;box-shadow:inset 0 0 0 1.5px #0B0B0B;"></span>Steigend</span>
+            <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#0B0B0B;"></span>Fallend</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:14px;background:#F2F2EF;border-radius:999px;padding:4px;">
+            <sc-for list="{{ cdl.ranges }}" as="r" hint-placeholder-count="4">
+              <button onClick="{{ r.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ r.bg }};color:{{ r.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ r.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Der Hintergrund</h2>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+          <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was ist passiert?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s1 }}</p></div>
+          <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Warum ist das interessant?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s2 }}</p></div>
+          <div style="padding:18px 0;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was könnte das für dich bedeuten?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s3 }}</p></div>
+        </div>
+
+        <h2 style="margin:32px 4px 0;font-size:20px;font-weight:800;">Du willst mehr Infos?</h2>
+        <div style="margin-top:12px;background:#fff;border-radius:24px;padding:0 8px;display:flex;flex-direction:column;">
+          <sc-for list="{{ focusOpts }}" as="f" hint-placeholder-count="3">
+            <div style="border-bottom:{{ f.divider }};">
+              <button onClick="{{ f.pick }}" style="width:100%;min-height:64px;border:0;background:transparent;padding:10px 12px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+                <span style="width:40px;height:40px;border-radius:12px;background:{{ f.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;transition:background .25s;"><span class="material-symbols-outlined" style="font-size:22px;color:{{ f.iconColor }};transition:color .25s;">{{ f.icon }}</span></span>
+                <span style="flex:1;font-size:16px;font-weight:800;">{{ f.label }}</span>
+                <span class="material-symbols-outlined" style="font-size:24px;color:#62665F;transform:rotate({{ f.rot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
+              </button>
+              <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
+                <div style="overflow:hidden;">
+                  <p style="margin:0;padding:0 12px 18px 66px;font-size:15px;line-height:1.6;color:#3B3F39;">{{ f.text }}</p>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <h2 style="margin:32px 4px 0;font-size:20px;font-weight:800;">Wie willst du traden?</h2>
+        <div style="position:relative;margin-top:12px;background:#fff;border-radius:999px;padding:5px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;">
+          <div style="position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 18px) / 3);border-radius:999px;background:#0B0B0B;transform:translateX({{ modeX }});transition:transform .35s cubic-bezier(0.2,0,0,1);"></div>
+          <sc-for list="{{ modes }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.pick }}" style="position:relative;height:42px;border:0;border-radius:999px;background:transparent;font-size:13px;font-weight:700;cursor:pointer;color:{{ m.color }};transition:color .3s;">{{ m.label }}</button>
+          </sc-for>
+        </div>
+        <div style="position:relative;margin-top:16px;">
+          <div style="position:absolute;top:-7px;left:calc(5px + (100% - 18px) / 6 + {{ modeIdx }} * ((100% - 18px) / 3 + 4px));width:16px;height:16px;margin-left:-8px;background:#fff;border-radius:3px;transform:rotate(45deg);transition:left .35s cubic-bezier(0.2,0,0,1);"></div>
+          <div style="position:relative;background:#fff;border-radius:24px;padding:4px 20px;">
+            <div key="{{ modeKey }}" style="display:flex;flex-direction:column;animation:mh-fade .3s both;">
+              <div style="padding:16px 0;border-bottom:1px solid #ECECE8;"><div style="font-size:16px;font-weight:800;">Wie funktioniert das?</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:6px;">{{ mode.how }}</div></div>
+              <div style="padding:16px 0;border-bottom:1px solid #ECECE8;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span></span><div><div style="font-size:16px;font-weight:800;">Die Chancen</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;">{{ mode.chancen }}</div></div></div>
+              <div style="padding:16px 0;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#E4E4DF;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_downward</span></span><div><div style="font-size:16px;font-weight:800;">Die Risiken</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;">{{ mode.risiken }}</div></div></div>
+            </div>
+          </div>
+        </div>
+        <button onClick="{{ openOptions }}" style="margin-top:12px;height:56px;border:0;border-radius:14px;background:#0B0B0B;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
+          <span>{{ ctaLabel }}</span><span class="material-symbols-outlined" style="font-size:20px;color:#E7F41E;">arrow_forward</span>
+        </button>
+        <p style="margin:16px 4px 0;font-size:12px;line-height:1.5;color:#62665F;">Alle Kurse und Produkte sind illustrative Beispieldaten. Keine individuelle Anlageberatung. Keine Aufforderung zum Kauf oder Verkauf von Finanzinstrumenten.</p>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;left:0;right:0;margin:0 auto;width:max-content;bottom:26px;z-index:25;display:flex;gap:4px;background:#0B0B0B;border-radius:999px;padding:6px;box-shadow:0 12px 30px rgba(11,11,11,0.25);animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+        <button onClick="{{ n.go }}" aria-label="{{ n.label }}" title="{{ n.label }}" style="position:relative;width:48px;height:48px;border-radius:999px;border:0;background:{{ n.bg }};color:{{ n.color }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .25s,color .25s;">
+          <span class="material-symbols-outlined" style="font-size:24px;font-variation-settings:'FILL' {{ n.fill }};">{{ n.icon }}</span>
+          <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:5px;right:5px;min-width:16px;height:16px;border-radius:8px;background:#E7F41E;color:#0B0B0B;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;box-shadow:0 0 0 2px #0B0B0B;animation:mh-pop .4s;">{{ n.badge }}</span>
+          </sc-if>
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(11,11,11,0.4);z-index:40;animation:{{ backdropAnim }};"></div>
+    <div class="mh-scroll" style="position:absolute;left:0;right:0;bottom:0;top:{{ sheetTop }};background:#F2F2EF;border-radius:28px 28px 0 0;z-index:41;overflow-y:auto;scrollbar-width:none;padding:10px 20px 40px;animation:{{ sheetAnim }};">
+      <div style="width:36px;height:4px;border-radius:2px;background:#CFCFC9;margin:0 auto;"></div>
+
+      <sc-if value="{{ isPaySheet }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+          <h2 style="margin:0 4px;font-size:24px;font-weight:800;">{{ pay.title }}</h2>
+          <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
+        </div>
+        <div style="margin-top:16px;background:#fff;border-radius:999px;padding:5px;display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+          <button onClick="{{ pickPaySingle }}" style="height:40px;border:0;border-radius:999px;background:{{ pay.singleBg }};color:{{ pay.singleColor }};font-size:13px;font-weight:700;cursor:pointer;transition:background .25s;">Einzelanalyse</button>
+          <button onClick="{{ pickPayMember }}" style="height:40px;border:0;border-radius:999px;background:{{ pay.memberBg }};color:{{ pay.memberColor }};font-size:13px;font-weight:700;cursor:pointer;transition:background .25s;">Mitgliedschaft</button>
+        </div>
+        <div style="margin-top:12px;background:#fff;border-radius:24px;padding:20px;">
+          <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:36px;font-weight:800;letter-spacing:-0.5px;">{{ pay.price }}</span><span style="font-size:14px;color:#62665F;">{{ pay.note }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+            <sc-for list="{{ pay.bullets }}" as="b" hint-placeholder-count="3">
+              <div style="display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.4;"><span style="width:22px;height:22px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:15px;">check</span></span><span>{{ b }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <button onClick="{{ payConfirm }}" style="margin-top:16px;width:100%;height:56px;border:0;border-radius:14px;background:#0B0B0B;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">{{ pay.cta }}</button>
+        <p style="margin:12px 0 0;font-size:12px;color:#62665F;text-align:center;">{{ pay.fine }}</p>
+      </sc-if>
+
+      <sc-if value="{{ isCoachPaySheet }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
+            <img src="{{ cpay.img }}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+            <div><div style="font-size:12px;font-weight:600;color:#62665F;">Coach-Abo</div><div style="font-size:20px;font-weight:800;">{{ cpay.name }}</div></div>
+          </div>
+          <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
+        </div>
+        <div style="margin-top:16px;background:#fff;border-radius:24px;padding:20px;">
+          <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-size:36px;font-weight:800;letter-spacing:-0.5px;">{{ cpay.price }}</span><span style="font-size:14px;color:#62665F;">pro Monat</span></div>
+          <div style="font-size:13px;color:#62665F;margin-top:2px;">zusätzlich zu deiner Monhey Mitgliedschaft</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+            <sc-for list="{{ cpay.bullets }}" as="b" hint-placeholder-count="3">
+              <div style="display:flex;gap:10px;align-items:center;font-size:14px;line-height:1.4;"><span style="width:22px;height:22px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:15px;">check</span></span><span>{{ b }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <button onClick="{{ confirmCoachPay }}" style="margin-top:16px;width:100%;height:56px;border:0;border-radius:14px;background:#0B0B0B;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">{{ cpay.cta }}</button>
+        <p style="margin:12px 0 0;font-size:12px;color:#62665F;text-align:center;">Monatlich kündbar · Monhey kennt keine Abofallen! ;-)</p>
+      </sc-if>
+
+      <sc-if value="{{ isRegisterSheet }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+          <h2 style="margin:0 4px;font-size:24px;font-weight:800;">Zum Webinar anmelden</h2>
+          <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
+        </div>
+        <div style="margin-top:16px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px;">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;">E-Mail
+            <input value="{{ regEmail }}" onChange="{{ onRegEmail }}" type="email" style="height:50px;border:0;background:#F2F2EF;border-radius:12px;padding:0 14px;font-family:inherit;font-size:15px;outline:none;color:#0B0B0B;">
+          </label>
+          <div style="display:flex;flex-direction:column;gap:8px;"><span style="font-size:13px;font-weight:700;">Erinnerung</span>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;background:#F2F2EF;border-radius:999px;padding:4px;">
+              <sc-for list="{{ reminderOpts }}" as="r" hint-placeholder-count="3">
+                <button onClick="{{ r.pick }}" style="height:38px;border-radius:999px;border:0;background:{{ r.bg }};color:{{ r.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s;">{{ r.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <button onClick="{{ confirmRegister }}" style="margin-top:16px;width:100%;height:56px;border:0;border-radius:14px;background:#0B0B0B;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">Anmeldung bestätigen</button>
+        <p style="margin:12px 0 0;font-size:12px;color:#62665F;text-align:center;">Kostenlos · jederzeit abmeldbar</p>
+      </sc-if>
+
+      <sc-if value="{{ isOptionsSheet }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+          <div style="margin-left:4px;"><div style="font-size:13px;font-weight:600;color:#62665F;">Handelsoptionen</div><h2 style="margin:2px 0 0;font-size:24px;font-weight:800;">{{ mode.sheetSub }}</h2></div>
+          <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
+        </div>
+        <sc-if value="{{ isHebelMode }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px;background:#fff;border-radius:20px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;"><span style="font-size:14px;font-weight:800;">Wie stark soll der Hebel sein?</span><span style="font-size:12px;color:#62665F;">{{ levNote }}</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <button onClick="{{ levDown }}" aria-label="Hebel verringern" style="width:64px;height:64px;border-radius:20px;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{ levDownOp }};transition:transform .15s,opacity .2s;" style-active="transform:scale(0.92);"><span class="material-symbols-outlined" style="font-size:34px;font-weight:700;">remove</span></button>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <span key="{{ levStr }}" style="font-size:40px;line-height:1;font-weight:800;letter-spacing:-1px;animation:mh-pop .3s;">{{ levStr }}</span>
+                <div style="width:100%;height:5px;border-radius:3px;background:#ECECE8;overflow:hidden;"><div style="height:100%;width:{{ levPct }};background:#0B0B0B;border-radius:3px;transition:width .3s cubic-bezier(0.2,0,0,1);"></div></div>
+              </div>
+              <button onClick="{{ levUp }}" aria-label="Hebel erhöhen" style="width:64px;height:64px;border-radius:20px;border:0;background:#0B0B0B;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{ levUpOp }};transition:transform .15s,opacity .2s;" style-active="transform:scale(0.92);"><span class="material-symbols-outlined" style="font-size:34px;color:#E7F41E;">add</span></button>
+            </div>
+          </div>
+        </sc-if>
+        <div key="{{ prodKey }}" style="display:flex;flex-direction:column;animation:mh-fade .3s both;">
+          <div style="margin-top:12px;background:#0B0B0B;color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+              <span style="display:flex;align-items:center;gap:4px;background:#E7F41E;color:#0B0B0B;font-size:12px;font-weight:800;padding:5px 11px 5px 9px;border-radius:999px;"><span class="material-symbols-outlined" style="font-size:15px;font-variation-settings:'FILL' 1;">star</span>Monhey Empfehlung</span>
+              <button onClick="{{ topProd.copy }}" style="border:0;background:rgba(255,255,255,0.12);border-radius:999px;height:32px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;font-weight:700;color:#fff;">{{ topProd.wkn }}<span class="material-symbols-outlined" style="font-size:15px;">content_copy</span></button>
+            </div>
+            <button onClick="{{ topProd.detail }}" style="border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#fff;display:flex;flex-direction:column;gap:4px;">
+              <span style="display:flex;align-items:center;gap:2px;font-size:21px;line-height:1.2;font-weight:800;">{{ topProd.name }}<span class="material-symbols-outlined" style="font-size:22px;color:#E7F41E;">chevron_right</span></span>
+              <span style="font-size:14px;color:#B8BCB4;">{{ topProd.issuer }}</span>
+            </button>
+            <sc-if value="{{ topProd.hasStats }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,0.08);border-radius:14px;">
+                <div style="padding:10px 14px;border-right:1px solid rgba(255,255,255,0.1);"><div style="font-size:12px;color:#B8BCB4;">Hebel</div><div style="font-size:17px;font-weight:800;color:#E7F41E;margin-top:2px;">{{ topProd.levTxt }}</div></div>
+                <div style="padding:10px 14px;"><div style="font-size:12px;color:#B8BCB4;">Knock-out</div><div style="font-size:17px;font-weight:800;margin-top:2px;">{{ topProd.koTxt }}</div></div>
+              </div>
+            </sc-if>
+            <div style="display:flex;gap:8px;">
+              <button onClick="{{ topProd.broker }}" style="flex:1;height:52px;border:0;border-radius:14px;background:#E7F41E;color:#0B0B0B;font-size:15px;font-weight:800;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">Zum Broker</button>
+              <button onClick="{{ topProd.watch }}" aria-label="Merken" style="width:52px;height:52px;border:0;border-radius:14px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:22px;color:#fff;font-variation-settings:'FILL' {{ topProd.watchFill }};">bookmark</span></button>
+            </div>
+          </div>
+          <h3 style="margin:22px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Weitere Optionen</h3>
+          <div style="margin-top:8px;background:#fff;border-radius:20px;padding:0 16px;display:flex;flex-direction:column;">
+            <sc-for list="{{ otherProds }}" as="p" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:{{ p.divider }};">
+                <button onClick="{{ p.detail }}" style="flex:1;min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;display:flex;flex-direction:column;gap:2px;">
+                  <span style="font-size:14px;font-weight:700;">{{ p.issuer }}</span>
+                  <span style="font-size:12px;color:#62665F;">{{ p.sub }}</span>
+                </button>
+                <button onClick="{{ p.watch }}" aria-label="Merken" style="width:34px;height:34px;border-radius:50%;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:17px;font-variation-settings:'FILL' {{ p.watchFill }};">bookmark</span></button>
+                <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">chevron_right</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin:16px 4px 0;font-size:13px;line-height:1.55;color:#62665F;">{{ mode.disclaimer }} Beispielprodukte und fiktive WKNs, keine Order und keine Broker-Anbindung.</p>
+      </sc-if>
+
+
+      <sc-if value="{{ isProductSheet }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:14px;">
+          <div style="margin-left:4px;min-width:0;">
+            <div style="font-size:13px;font-weight:600;color:#62665F;">{{ pd.typeLabel }} · {{ pd.issuer }}</div>
+            <h2 style="margin:2px 0 0;font-size:24px;line-height:1.2;font-weight:800;">{{ pd.title }}</h2>
+          </div>
+          <button onClick="{{ pd.close }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">{{ pd.backIcon }}</span></button>
+        </div>
+
+        <div style="margin-top:16px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-size:30px;font-weight:800;letter-spacing:-0.5px;">{{ pd.price }}</span><span style="font-size:13px;font-weight:800;background:#E7F41E;padding:3px 8px;border-radius:999px;">{{ pd.chg }}</span></div>
+            <button onClick="{{ pd.copy }}" style="border:0;background:#F2F2EF;border-radius:999px;height:34px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;flex:none;">{{ pd.wkn }}<span class="material-symbols-outlined" style="font-size:16px;">content_copy</span></button>
+          </div>
+          <div style="font-size:12px;color:#62665F;margin-top:4px;">{{ pd.rangeNote }}</div>
+          <svg viewBox="0 0 320 140" preserveAspectRatio="none" style="width:100%;height:150px;margin-top:14px;display:block;overflow:visible;">
+            <line x1="0" y1="{{ pd.refY }}" x2="320" y2="{{ pd.refY }}" stroke="#CFCFC9" stroke-width="1" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"></line>
+            <path d="{{ pd.area }}" fill="#E7F41E" fill-opacity="0.45"></path>
+            <path d="{{ pd.line }}" fill="none" stroke="#0B0B0B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+            <circle cx="320" cy="{{ pd.endY }}" r="4" fill="#0B0B0B"></circle>
+          </svg>
+          <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:14px;background:#F2F2EF;border-radius:999px;padding:4px;">
+            <sc-for list="{{ pd.ranges }}" as="r" hint-placeholder-count="5">
+              <button onClick="{{ r.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ r.bg }};color:{{ r.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ r.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <h3 style="margin:24px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Kennzahlen</h3>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+          <sc-for list="{{ pd.facts }}" as="k" hint-placeholder-count="5">
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:{{ k.border }};font-size:15px;"><span style="color:#62665F;">{{ k.label }}</span><span style="font-weight:800;text-align:right;">{{ k.value }}</span></div>
+          </sc-for>
+        </div>
+
+        <h3 style="margin:24px 4px 0;font-size:13px;font-weight:700;color:#62665F;">So funktioniert das Produkt</h3>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+          <p style="margin:0;padding:16px 0;font-size:15px;line-height:1.6;color:#3B3F39;border-bottom:1px solid #ECECE8;">{{ pd.how }}</p>
+          <div style="padding:16px 0;border-bottom:1px solid #ECECE8;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span></span><div><div style="font-size:16px;font-weight:800;">Chance</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;">{{ pd.chance }}</div></div></div>
+          <div style="padding:16px 0;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#E4E4DF;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_downward</span></span><div><div style="font-size:16px;font-weight:800;">Risiko</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;">{{ pd.risk }}</div></div></div>
+        </div>
+
+        <h3 style="margin:24px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Hintergrund</h3>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+          <button onClick="{{ pd.openHoney }}" style="border:0;border-bottom:1px solid #ECECE8;background:transparent;padding:14px 0;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+            <span style="width:36px;height:36px;border-radius:10px;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;">lightbulb</span></span>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;color:#62665F;">Honey zu diesem Produkt</div><div style="font-size:15px;font-weight:700;line-height:1.3;margin-top:2px;">{{ pd.honeyTitle }}</div></div>
+            <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">chevron_right</span>
+          </button>
+          <p style="margin:0;padding:16px 0;font-size:15px;line-height:1.6;color:#3B3F39;border-bottom:1px solid #ECECE8;">{{ pd.background }}</p>
+          <button onClick="{{ pd.kid }}" style="border:0;background:transparent;padding:14px 0;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+            <span style="width:36px;height:36px;border-radius:10px;background:#F2F2EF;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;">description</span></span>
+            <div style="flex:1;"><div style="font-size:15px;font-weight:700;">Basisinformationsblatt</div><div style="font-size:13px;color:#62665F;">PDF vom Emittenten</div></div>
+            <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">open_in_new</span>
+          </button>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:16px;">
+          <button onClick="{{ pd.broker }}" style="flex:1;height:56px;border:0;border-radius:14px;background:#0B0B0B;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">Zum Broker</button>
+          <button onClick="{{ pd.remove }}" aria-label="Watchlist" style="width:56px;height:56px;border:0;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' {{ pd.watchFill }};">bookmark</span></button>
+        </div>
+        <p style="margin:14px 4px 0;font-size:12px;line-height:1.5;color:#62665F;">Illustrative Beispieldaten und fiktive WKNs. Keine Anlageberatung, keine Order.</p>
+      </sc-if>
+      <sc-if value="{{ isBrokerSheet }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+          <h2 style="margin:0 4px;font-size:24px;font-weight:800;">Idee umsetzen</h2>
+          <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
+        </div>
+        <p style="margin:8px 4px 0;font-size:14px;line-height:1.5;color:#62665F;">{{ brokerProduct }}</p>
+        <div style="margin-top:14px;background:#fff;border-radius:24px;padding:0 18px;display:flex;flex-direction:column;">
+          <button onClick="{{ brokerWatch }}" style="border:0;border-bottom:1px solid #ECECE8;background:transparent;padding:14px 0;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+            <span style="width:36px;height:36px;border-radius:10px;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;">bookmark</span></span>
+            <div style="flex:1;"><div style="font-size:15px;font-weight:700;">Zur Watchlist</div><div style="font-size:13px;color:#62665F;">Für später merken</div></div>
+            <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">chevron_right</span>
+          </button>
+          <sc-for list="{{ brokers }}" as="b" hint-placeholder-count="3">
+            <button onClick="{{ b.go }}" style="border:0;border-bottom:1px solid #ECECE8;background:transparent;padding:14px 0;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+              <span style="width:36px;height:36px;border-radius:10px;background:#0B0B0B;color:#fff;display:flex;align-items:center;justify-content:center;flex:none;font-size:14px;font-weight:800;">{{ b.letter }}</span>
+              <div style="flex:1;"><div style="font-size:15px;font-weight:700;">{{ b.name }}</div><div style="font-size:13px;color:#62665F;">Beispielablauf ansehen</div></div>
+              <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">chevron_right</span>
+            </button>
+          </sc-for>
+          <div style="padding:14px 0;display:flex;align-items:center;justify-content:space-between;font-size:14px;color:#62665F;"><span>Weitere Broker folgen</span><span style="font-size:11px;font-weight:800;background:#F2F2EF;padding:3px 8px;border-radius:999px;">BALD</span></div>
+        </div>
+        <button onClick="{{ toggleFollow }}" style="margin-top:12px;width:100%;border:0;background:#fff;border-radius:20px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+          <div style="flex:1;"><div style="font-size:15px;font-weight:700;">Von Monhey begleiten lassen</div><div style="font-size:13px;color:#62665F;margin-top:2px;">Impulse zur Beobachtung deiner Idee</div></div>
+          <span style="width:46px;height:28px;border-radius:14px;background:{{ followTrack }};position:relative;flex:none;transition:background 200ms;">
+            <span style="position:absolute;top:3px;left:{{ followKnob }};width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(11,11,11,0.25);transition:left 200ms cubic-bezier(0.2,0,0,1);"></span>
+          </span>
+        </button>
+        <p style="margin:14px 4px 0;font-size:12px;line-height:1.5;color:#62665F;">Beispielablauf ohne Broker-Anbindung. Es wird keine Order ausgeführt.</p>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:20px;right:20px;bottom:{{ toastBottom }};background:#0B0B0B;color:#fff;border-radius:16px;padding:14px 18px;font-size:14px;font-weight:600;z-index:60;display:flex;align-items:center;gap:10px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
+      <span class="material-symbols-outlined" style="font-size:20px;color:#E7F41E;">check_circle</span><span>{{ toast }}</span>
+    </div>
+  </sc-if>
+
+  <div data-mh="homebar" style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#0B0B0B;z-index:70;"></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const HONEYS = [
+  { id:'siemens', authorType:'REDAKTION', author:'Monhey', tag:'AKTIEN', meta:'Beispiel-Honey · 4 Min. Lesezeit', byline:'Ein Honey aus der Monhey Redaktion',
+    title:'Bei Siemens kommt der Turnaround', teaser:'Was die Neuausrichtung antreibt – und welche Signale jetzt wichtig sind.', chance:'Neue Perspektiven früh einordnen.',
+    kurz:'Was den Turnaround im Beispiel antreibt und welche Erwartungen zu prüfen sind.', image:'assets/hero-siemens.jpg',
+    basis:'Siemens Aktie', wkn:'Q3ZWGF', kurs:'227,38 €', chg:'+2,3 %', ziel:'255,00 €', stopp:'210,00 €', mcap:'500 Mrd. €', div:'0,0 %', pot:'+8 % bis +14 %',
+    cl:3, rl:2, c10:7, r10:5, chanceTxt:'höher', riskTxt:'mittel',
+    s1:'Im Beispiel stabilisiert sich das Geschäft. Aufträge und bessere Margen liefern neue Impulse. Ob sich die Entwicklung fortsetzt, zeigen die nächsten Unternehmenszahlen.',
+    s2:'Ein Turnaround kann Erwartungen verändern. Entscheidend ist, ob die Erholung nachhaltig ist und wie viel davon bereits im Kurs steckt. Die Bewertung gehört deshalb zum Gesamtbild.',
+    s3:'Ordne die Idee in deinen Zeithorizont ein. Prüfe, wie der Titel zu deinem Portfolio passt, und welches Risiko du tragen könntest. Ein Szenario ist eine Möglichkeit, keine Zusage.',
+    deep:{ technik:'Der Kurs hat im Beispiel eine Seitwärtsphase nach oben verlassen. Die Marke um 220 € dient jetzt als Unterstützung, das Volumen ist beim Ausbruch gestiegen.', hinter:'Der Konzern bündelt sein Geschäft stärker auf Automatisierung und Infrastruktur. Weniger Randbereiche bedeuten mehr Fokus und im Idealfall stabilere Margen.', analyse:'Umsatzwachstum und Auftragseingang liegen im Beispiel über den Erwartungen. Das Kurs-Gewinn-Verhältnis bewegt sich im Branchenschnitt, die Verschuldung ist moderat.' } },
+  { id:'nvidia', authorType:'COACH', author:'Marcus Veit', tag:'AKTIEN', meta:'Beispiel-Honey · 3 Min. Lesezeit', byline:'Ein Honey von Coach Marcus Veit',
+    title:'IT-Werte schwingen sich zu neuen Höhenflügen', teaser:'Warum die Nachfrage nach KI-Chips weiter wächst und was das für Nvidia heißt.', chance:'Vom anhaltenden KI-Ausbau profitieren.',
+    kurz:'Wie stark die Nachfrage nach Rechenzentren im Beispiel wächst und wo die Bewertung bereits viel vorwegnimmt.', image:null,
+    slotHint:'Bild: Chips / Rechenzentrum', basis:'Nvidia Aktie', wkn:'918422', kurs:'182,40 €', chg:'+1,8 %', ziel:'205,00 €', stopp:'165,00 €', mcap:'4,4 Bio. €', div:'0,0 %', pot:'+10 % bis +16 %',
+    cl:3, rl:3, c10:8, r10:8, chanceTxt:'höher', riskTxt:'höher',
+    s1:'Im Beispiel melden große Cloud-Anbieter höhere Investitionen in Rechenzentren. Davon profitieren vor allem Hersteller von Grafikprozessoren.',
+    s2:'Die Nachfrage übersteigt im Beispiel weiter das Angebot. Gleichzeitig ist die Erwartung hoch – schon kleine Enttäuschungen können starke Kursbewegungen auslösen.',
+    s3:'Die Idee passt eher zu einem Depot, das Schwankungen aushält. Prüfe, wie hoch dein Anteil an Technologiewerten bereits ist.',
+    deep:{ technik:'Der Trend ist im Beispiel intakt, der Kurs notiert über dem 50-Tage-Durchschnitt. Rücksetzer bis 170 € wurden zuletzt gekauft.', hinter:'Rechenzentren brauchen spezialisierte Chips für KI-Anwendungen. Nvidia liefert Hardware und Software aus einer Hand und bindet Kunden so an die eigene Plattform.', analyse:'Das Umsatzwachstum liegt im Beispiel deutlich über dem Markt, die Bewertung ebenfalls. Entscheidend ist, ob die Margen auf dem hohen Niveau bleiben.' } },
+  { id:'gold', authorType:'COACH', author:'Otto Option', tag:'ROHSTOFFE', meta:'Beispiel-Honey · 3 Min. Lesezeit', byline:'Ein Honey von Coach Otto Option',
+    title:'Gold wieder in der Kaufzone', teaser:'Warum der Goldpreis nach der Korrektur wieder interessant wird.', chance:'Stabilität ins Depot holen.',
+    kurz:'Was nach der Korrektur im Beispiel für Gold spricht und welche Rolle Zinsen spielen.', image:null,
+    slotHint:'Bild: Goldbarren', basis:'Gold (Xetra-Gold)', wkn:'A0S9GB', kurs:'98,20 €', chg:'+0,6 %', ziel:'106,00 €', stopp:'93,50 €', mcap:'–', div:'0,0 %', pot:'+5 % bis +8 %',
+    cl:2, rl:1, c10:5, r10:3, chanceTxt:'mittel', riskTxt:'niedrig',
+    s1:'Im Beispiel hat der Goldpreis nach einem starken Anstieg etwas nachgegeben. Notenbanken kaufen weiter zu.',
+    s2:'Sinkende Zinsen machen Gold im Vergleich zu Anleihen attraktiver. Zudem gilt Gold als Absicherung in unsicheren Phasen.',
+    s3:'Gold kann Schwankungen im Depot abfedern. Es bringt keine laufenden Erträge – der Ertrag entsteht nur über den Preis.',
+    deep:{ technik:'Der Preis hat im Beispiel eine alte Widerstandszone erneut getestet und von oben bestätigt.', hinter:'Zentralbanken stocken ihre Reserven auf, um unabhängiger vom US-Dollar zu werden. Das stützt die Nachfrage.', analyse:'Realzinsen und Dollarkurs sind die wichtigsten Treiber. Beide sprechen im Beispiel aktuell eher für Gold.' } },
+];
+const MODES = {
+  direkt:{ label:'Direkt', sheetSub:'Direktinvestment',
+    how:'Du kaufst den Basiswert selbst. Gewinne und Verluste entwickeln sich eins zu eins mit dem Kurs.',
+    chancen:'Einfach nachvollziehbar, keine Laufzeit und keine Hebelwirkung.',
+    risiken:'Fällt der Kurs, verlierst du im gleichen Maß. Ein Stopp-Kurs hilft, Verluste zu begrenzen.',
+    disclaimer:'Kursschwankungen wirken sich direkt auf deinen Einsatz aus. Prüfe Handelsplatz und Kosten.' },
+  hebel:{ label:'Mit Hebel', sheetSub:'Hebelprodukte',
+    how:'Ein Turbo-Zertifikat bildet die Kursbewegung mit Hebel ab. Schon kleine Bewegungen wirken sich stark auf deinen Einsatz aus.',
+    chancen:'Mit wenig Kapital überproportional an steigenden Kursen teilhaben.',
+    risiken:'Hebel verstärken auch Verluste. Wird die Knock-out-Schwelle erreicht, verfällt das Produkt fast wertlos.',
+    disclaimer:'Hebel verstärken Gewinne und Verluste. Ein vollständiger Verlust des Einsatzes ist möglich. Prüfe Produktbedingungen und Kosten.' },
+  puffer:{ label:'Mit Risikopuffer', sheetSub:'Produkte mit Risikopuffer',
+    how:'Ein Discount-Zertifikat kaufst du günstiger als den Basiswert. Dafür ist dein Gewinn nach oben begrenzt (Cap).',
+    chancen:'Der Abschlag wirkt wie ein Puffer: Auch bei leicht fallenden Kursen kann ein Ertrag entstehen.',
+    risiken:'Steigt der Kurs stark, profitierst du nur bis zum Cap. Fällt er deutlich, entstehen Verluste wie bei der Aktie.',
+    disclaimer:'Der Puffer schützt nur bis zu einer bestimmten Schwelle. Darunter sind Verluste möglich. Prüfe Cap, Laufzeit und Emittentenrisiko.' },
+};
+const MODE_KEYS = Object.keys(MODES);
+const productsFor = (h, mode, lev) => {
+  if (mode === 'direkt') return [
+    { name:h.basis, issuer:'Börse Xetra', wkn:h.wkn }, { name:h.basis, issuer:'Tradegate', wkn:h.wkn } ];
+  if (mode === 'hebel') { const L = lev || 5;
+    const ISS = [['Morgan Stanley','MS'],['BNP Paribas','PB'],['Société Générale','SQ'],['Vontobel','VU'],['HSBC','HS'],['UBS','UL']];
+    const CH = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+    const wk = (pre, i) => { let x = (L * 7919 + i * 104729 + h.id.length * 31) >>> 0, out = pre; for (let j = 0; j < 4; j++) { out += CH[x % CH.length]; x = Math.floor(x / CH.length) + 17 * (j + 3); } return out; };
+    const start = (L * 5) % ISS.length;
+    const ko = v => (h.basis || '').replace(/ Aktie$/, '');
+    return [0,1,2,3].map(i => { const [iss, pre] = ISS[(start + i) % ISS.length]; const lv = i === 0 ? L : Math.round(L * [1, 1.1, 0.9, 1.2][i] * 10) / 10;
+      return { name:'Turbo Long ' + ko() + ' · ' + String(lv).replace('.', ',') + 'x', issuer:iss, wkn:wk(pre, i), lev:lv }; }); }
+  return [
+    { name:'Discount-Zertifikat', issuer:'UBS', wkn:'UL8D3P' }, { name:'Discount-Zertifikat', issuer:'HSBC', wkn:'HS7RQ2' }, { name:'Discount-Zertifikat', issuer:'Vontobel', wkn:'VD4N8M' } ];
+};
+const COACHES = [
+  { id:'veit', name:'Marcus Veit', topics:'Technologie · Energie', last:'2 Std.', track:'+32 %', pos:true, img:'assets/coach-1.jpg', price:'5,90 €', since:'2021', subs:'3.240', ideas:46, hit:'64 %',
+    bio:'Marcus analysiert seit über zehn Jahren Technologie- und Energiewerte. Er verbindet Chartanalyse mit Fundamentaldaten und erklärt seine Ideen so, dass du sie selbst nachvollziehen kannst.',
+    months:[42,58,66,51,72,64] },
+  { id:'weber', name:'Hannah Weber', topics:'FMCG · Logistik', last:'1 Std.', track:'−2 %', pos:false, img:'assets/coach-2.jpg', price:'3,90 €', since:'2023', subs:'860', ideas:18, hit:'48 %',
+    bio:'Hannah kommt aus dem Handel und kennt Konsumgüter- und Logistikunternehmen von innen. Ihr Fokus liegt auf soliden Geschäftsmodellen mit planbaren Erträgen.',
+    months:[55,40,47,52,38,44] },
+  { id:'max', name:'Max Mustercoach', topics:'Optionsscheine · Knock-outs', last:'6 Std.', track:'+48 %', pos:true, img:'assets/coach-3.jpg', price:'7,90 €', since:'2020', subs:'5.120', ideas:112, hit:'59 %',
+    bio:'Max ist auf kurzfristige Trades mit Hebelprodukten spezialisiert. Er zeigt dir, wie du Einstieg, Stopp und Positionsgröße sauber planst.',
+    months:[61,48,70,66,58,74] },
+  { id:'otto', name:'Otto Option', topics:'Rohstoffe · Edelmetalle', last:'6 Std.', track:'+28 %', pos:true, img:'assets/coach-4.jpg', price:'4,90 €', since:'2022', subs:'1.980', ideas:34, hit:'62 %',
+    bio:'Otto beobachtet Rohstoffmärkte und Edelmetalle. Er ordnet Makrodaten wie Zinsen und Währungen ein und leitet daraus mittelfristige Ideen ab.',
+    months:[50,57,63,60,69,66] },
+];
+const NEWS = [
+  { title:'SAP: Neue Allianz mit IBM sorgt für Aufwind', text:'Mit „IBM Ready for SAP Solutions“ wollen die Konzerne mittelständischen Unternehmen den Umstieg auf moderne Cloud-ERP-Systeme erleichtern.', c:2 },
+  { title:'Die Hidden Player, die noch keiner kennt', text:'Ich zeige dir, wie du dein Portfolio krisensicher machst.', c:1 },
+  { title:'Börsenbrief #112', text:'Heute mit den Themen:\n· die Novo Aktie\n· Gold wieder in der Kaufzone\n· Bitcoin: Ist die Rally vorbei?', c:3 },
+  { title:'Energie-Werte: Wo jetzt die Chancen liegen', text:'Netzausbau und Speicher rücken in den Fokus. Drei Unternehmen, die davon profitieren könnten.', c:0 },
+];
+const ANSWERS = {
+  'Was ist ein ETF?':'Ein ETF ist ein börsengehandelter Fonds, der einen Index wie den DAX nachbildet. Du investierst damit breit gestreut in viele Unternehmen auf einmal.',
+  'Was ist ein Turbo?':'Ein Turbo-Zertifikat bildet die Kursbewegung eines Basiswerts mit Hebel ab. Erreicht der Kurs die Knock-out-Schwelle, verfällt das Produkt nahezu wertlos.',
+  'Risiko verstehen':'Das Risiko beschreibt, wie stark der Wert einer Anlage schwanken kann. Monhey zeigt es dir pro Honey als qualitatives Profil: niedrig, mittel oder höher.',
+};
+const FOCUS = [['technik','Erklär mir das Chart'],['hinter','Erklär mir die Lage'],['analyse','Erklär mir beides']];
+const MONTHS = ['Mai','Jun','Jul','Aug','Sep','Okt'];
+const bars = (n, color) => [0,1,2].map(i => i < n ? color : '#E4E4DF');
+const bars10 = (n, color) => Array.from({ length:10 }, (_, i) => i < n ? color : '#E4E4DF');
+const POP = 'mh-pop .4s cubic-bezier(0.2,0,0,1)';
+const NAV_SCREENS = ['home','honeys','watchlist','coaches','assistant'];
+
+class Component extends DCLogic {
+  state = { screen:'home', hist:[], car:0, honeyId:'siemens', mode:'hebel', unlocked:[], member:false, sheet:null, closing:false, payPlan:'single',
+    focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:[], watchProducts:[], popped:null,
+    following:['veit'], cdlRange:'1M', lev:5, coachId:'veit', liveReg:false, regEmail:'stefan.k@beispiel.de', reminder:'15', askText:'', chat:[], typing:false };
+  scrollRef = React.createRef();
+  carRef = React.createRef();
+  drag = null;
+
+  go(screen, extra) {
+    this.setState(s => ({ screen, sheet:null, closing:false, hist: NAV_SCREENS.includes(screen) ? [] : [...s.hist, s.screen], ...(extra||{}) }));
+    if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0;
+  }
+  back() { const h = this.state.hist; const prev = h.length ? h[h.length-1] : 'home';
+    this.setState({ screen:prev, hist:h.slice(0,-1), sheet:null }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; }
+  openSheet(sheet, extra) { clearTimeout(this._c); this.setState({ sheet, closing:false, ...(extra||{}) }); }
+  closeSheet(then) { if (!this.state.sheet) return; this.setState({ closing:true });
+    clearTimeout(this._c); this._c = setTimeout(() => { this.setState({ sheet:null, closing:false }); then && then(); }, 240); }
+  showToast(t) { clearTimeout(this._t); this.setState({ toast:null }, () => this.setState({ toast:t })); this._t = setTimeout(() => this.setState({ toast:null }), 2200); }
+  pop(key) { clearTimeout(this._p); this.setState({ popped:key }); this._p = setTimeout(() => this.setState({ popped:null }), 450); }
+  subscribe(c) {
+    if (this.state.following.includes(c.id)) {
+      this.setState(st => ({ following:st.following.filter(x => x!==c.id) })); this.showToast(c.name + ' nicht mehr abonniert');
+    } else this.openSheet('coachpay', { coachPayId:c.id });
+  }
+  candles(h, s) {
+    const num = v => parseFloat(String(v).replace(/[^0-9,]/g,'').replace(',','.')) || 100;
+    const base = num(h.kurs), ziel = num(h.ziel), stop = num(h.stopp);
+    const R = { '1W':[26,0.006,'4-Stunden-Kerzen · 1 Woche'], '1M':[26,0.016,'Tageskerzen · 1 Monat'], '3M':[26,0.035,'Wochenkerzen · 3 Monate'], '1J':[26,0.06,'Zweiwochenkerzen · 1 Jahr'] };
+    const [n, vol, note] = R[s.cdlRange] || R['1M'];
+    let seed = 7; for (const ch of h.id + s.cdlRange) seed = (seed * 31 + ch.charCodeAt(0)) >>> 0;
+    const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    const raw = []; let c = 1;
+    for (let i = 0; i < n; i++) { const o = c; c = o * (1 + (rnd() - 0.44) * vol * 2); const hi = Math.max(o,c) * (1 + rnd() * vol * 0.8), lo = Math.min(o,c) * (1 - rnd() * vol * 0.8); raw.push([o,hi,lo,c]); }
+    const k = base / c; const cs = raw.map(r => r.map(v => v * k));
+    const mn = Math.min(stop, ...cs.map(r => r[2])) * 0.99, mx = Math.max(ziel, ...cs.map(r => r[1])) * 1.01;
+    const y = v => ((1 - (v - mn) / (mx - mn)) * 100);
+    const pct = v => v.toFixed(2) + '%';
+    return { key:h.id + s.cdlRange, note, gap: n < 10 ? '10px' : '3px',
+      zielTop: pct(y(ziel)), stopTop: pct(y(stop)),
+      candles: cs.map(([o,hi,lo,cl], i) => ({ delay:(i*12)+'ms', wTop:pct(y(hi)), wH:pct(y(lo) - y(hi)), bTop:pct(y(Math.max(o,cl))), bH:pct(Math.abs(y(o) - y(cl))), fill: cl >= o ? '#E7F41E' : '#0B0B0B' })),
+      ranges: Object.keys(R).map(r => ({ label:r, bg: s.cdlRange===r ? '#0B0B0B' : 'transparent', color: s.cdlRange===r ? '#fff' : '#0B0B0B', pick:() => this.setState({ cdlRange:r }) })) };
+  }
+  morph(key, target) {
+    if (this._mKey !== key) {
+      const from = this._mCur && this._mCur.length === target.length ? this._mCur : target;
+      this._mKey = key; this._mFrom = from; this._mTo = target; this._mT0 = performance.now();
+      cancelAnimationFrame(this._mRaf);
+      const tick = () => { this.forceUpdate(); if (performance.now() - this._mT0 < 600) this._mRaf = requestAnimationFrame(tick); };
+      this._mRaf = requestAnimationFrame(tick);
+    }
+    const t = Math.min(1, (performance.now() - this._mT0) / 600), e = 1 - Math.pow(1 - t, 3);
+    this._mCur = this._mTo.map((v, i) => this._mFrom[i] + (v - this._mFrom[i]) * e);
+    return this._mCur;
+  }
+  componentWillUnmount() { cancelAnimationFrame(this._mRaf); }
+  productDetail(s) {
+    const p = s.pdProduct; const fromOpt = s.pdFrom === 'options'; const watched = !!p && s.watchProducts.some(x => x.key === p.key);
+    if (!p) return { ranges:[], facts:[] };
+    const h = HONEYS.find(x => x.id === p.honeyId) || HONEYS[0];
+    const type = /Turbo/.test(p.name) ? 'hebel' : /Discount/.test(p.name) ? 'puffer' : 'direkt';
+    const num = v => parseFloat(String(v).replace(/[^0-9,]/g,'').replace(',','.')) || 100;
+    const fmt = n => n.toLocaleString('de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
+    const base = num(h.kurs), stop = num(h.stopp), ziel = num(h.ziel);
+    const ko = Math.round(base * (p.lev ? 1 - 1 / p.lev : 0.86) * 100) / 100, ratio = 0.1, cap = Math.round(base * 1.04);
+    const price = type === 'direkt' ? base : type === 'hebel' ? (base - ko) * ratio : Math.min(base, cap) * 0.94;
+    const lev = base / (base - ko);
+    const R = { '1T':[24,0.004], '1W':[30,0.01], '1M':[40,0.025], '6M':[48,0.06], '1J':[56,0.09] };
+    const [n0, vol] = R[s.pdRange] || R['1M']; const n = 48;
+    let seed = 0; for (const ch of p.key + s.pdRange) seed = (seed * 31 + ch.charCodeAt(0)) >>> 0;
+    const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    const amp = type === 'hebel' ? vol * lev : type === 'puffer' ? vol * 0.6 : vol;
+    const pts = [1]; for (let i = 1; i < n; i++) pts.push(pts[i-1] * (1 + (rnd() - 0.42) * amp * 0.6));
+    const end = pts[pts.length-1]; const norm = pts.map(v => v / end * price);
+    const mn = Math.min(...norm), mx = Math.max(...norm), y = v => 12 + (1 - (v - mn) / ((mx - mn) || 1)) * 116;
+    const ys = this.morph(p.key + s.pdRange, norm.map(y).concat([y(norm[0])]));
+    const line = ys.slice(0, n).map((v,i) => (i ? 'L' : 'M') + (i / (n-1) * 320).toFixed(1) + ' ' + v.toFixed(1)).join(' ');
+    const chg = (end / pts[0] - 1) * 100;
+    const chgTxt = (chg >= 0 ? '+' : '–') + Math.abs(chg).toLocaleString('de-DE', { maximumFractionDigits:1, minimumFractionDigits:1 }) + ' %';
+    const rangeTxt = { '1T':'heute', '1W':'in 1 Woche', '1M':'in 1 Monat', '6M':'in 6 Monaten', '1J':'in 1 Jahr' }[s.pdRange];
+    const facts = type === 'direkt' ? [['Basiswert', h.basis], ['Handelsplatz', p.issuer], ['Spread', '0,05 %'], ['Kursziel (Honey)', h.ziel], ['Stopp (Honey)', h.stopp], ['Marktkap.', h.mcap]]
+      : type === 'hebel' ? [['Basiswert', h.basis], ['Hebel', lev.toFixed(1).replace('.', ',') + 'x'], ['Knock-out-Schwelle', fmt(ko)], ['Abstand zur Schwelle', Math.round((1 - ko / base) * 100) + ' %'], ['Bezugsverhältnis', '0,1'], ['Laufzeit', 'Open End']]
+      : [['Basiswert', h.basis], ['Cap', fmt(cap)], ['Rabatt zum Basiswert', Math.round((1 - price / base) * 100) + ' %'], ['Max. Rendite', Math.round((cap / price - 1) * 100) + ' %'], ['Bewertungstag', '18.06.2027'], ['Bezugsverhältnis', '1,0']];
+    const T = {
+      direkt: { label:'Aktie', how:'Du kaufst den Basiswert direkt. Jede Kursbewegung wirkt eins zu eins auf deinen Anteil, ohne Hebel und ohne Laufzeit.', chance:'Du profitierst voll, wenn sich die Idee aus dem Honey bestätigt, und bekommst ggf. Dividenden.', risk:'Fällt der Kurs, verlierst du im gleichen Maß. Im schlimmsten Fall bis zum gesamten Einsatz.' },
+      hebel: { label:'Turbo · Long', how:'Der Turbo bildet die Bewegung des Basiswerts mit Hebel ab. Steigt der Basiswert um 1 %, steigt der Turbo um etwa ' + lev.toFixed(1).replace('.', ',') + ' %. Berührt der Kurs die Knock-out-Schwelle, verfällt das Produkt.', chance:'Schon kleine Kursanstiege führen zu deutlich größeren Gewinnen bei geringem Kapitaleinsatz.', risk:'Verluste werden genauso verstärkt. Bei Erreichen der Knock-out-Schwelle ist der Einsatz weitgehend verloren.' },
+      puffer: { label:'Discount-Zertifikat', how:'Du kaufst den Basiswert mit Rabatt. Im Gegenzug ist dein Gewinn auf den Cap begrenzt. Am Bewertungstag erhältst du den Cap oder den Basiswert, je nach Kurs.', chance:'Der Rabatt wirkt wie ein Puffer: Auch bei leicht fallenden Kursen kannst du noch Gewinn machen.', risk:'Steigt der Basiswert über den Cap, profitierst du nicht weiter. Fällt er stark, trägst du die Verluste abzüglich Rabatt.' } }[type];
+    return { title: p.name, issuer: p.issuer, wkn: p.wkn, typeLabel: T.label, price: fmt(price), chg: chgTxt, rangeNote: 'Veränderung ' + rangeTxt + ' · Beispielkurs',
+      line, area: line + ' L320 140 L0 140 Z', endY: ys[n-1].toFixed(1), refY: ys[n].toFixed(1),
+      ranges: Object.keys(R).map(k => ({ label:k, bg: s.pdRange===k ? '#0B0B0B' : 'transparent', color: s.pdRange===k ? '#fff' : '#0B0B0B', pick:() => this.setState({ pdRange:k }) })),
+      facts: facts.map(([label, value], i) => ({ label, value, border: i === facts.length-1 ? '0' : '1px solid #ECECE8' })),
+      how: T.how, chance: T.chance, risk: T.risk, honeyTitle: h.title,
+      background: h.s2,
+      copy: () => this.copy(p.wkn),
+      kid: () => this.showToast('Basisinformationsblatt geöffnet (Beispiel)'),
+      openHoney: () => this.closeSheet(() => this.openHoney(h.id)),
+      broker: () => this.closeSheet(() => this.openSheet('broker', { product:p, honeyId:p.honeyId })),
+      watchFill: watched ? 1 : 0, backIcon: fromOpt ? 'arrow_back' : 'close',
+      close: () => fromOpt ? this.closeSheet(() => this.openSheet('options')) : this.closeSheet(),
+      remove: () => {
+        if (fromOpt) { if (watched) { this.setState(st => ({ watchProducts:st.watchProducts.filter(x => x.key!==p.key) })); this.showToast('Von Watchlist entfernt'); } else { this.addProduct(p); this.showToast('Zur Watchlist hinzugefügt'); } return; }
+        this.closeSheet(() => { this.setState(st => ({ watchProducts:st.watchProducts.filter(x => x.key!==p.key) })); this.showToast('Produkt entfernt'); }); } };
+  }
+  openHoney(id) { this.go('detail', { honeyId:id, deepShown:false }); }
+  openCoach(id) { this.go('coach', { coachId:id }); }
+  copy(w) { try { navigator.clipboard && navigator.clipboard.writeText(w); } catch(e) {} this.showToast('WKN ' + w + ' kopiert'); }
+  toggleSave(id) {
+    const on = this.state.watchHoneys.includes(id);
+    this.setState(s => ({ watchHoneys: on ? s.watchHoneys.filter(x => x!==id) : [...s.watchHoneys, id] }));
+    if (!on) this.pop('h-' + id);
+    this.showToast(on ? 'Von der Watchlist entfernt' : 'Honey auf der Watchlist gespeichert');
+  }
+  addProduct(p) {
+    const key = p.wkn + p.issuer;
+    if (this.state.watchProducts.some(x => x.key === key)) return false;
+    this.setState(s => ({ watchProducts:[...s.watchProducts, { ...p, key, honeyId:p.honeyId || s.honeyId }] }));
+    return true;
+  }
+  ask(q) { if (!q || !q.trim()) return; const text = q.trim();
+    const a = ANSWERS[text] || 'Gute Frage. Im Prototyp antwortet die Monhey KI mit Beispieltexten – hier würde sie dir „' + text + '“ verständlich erklären.';
+    if (this.state.screen !== 'assistant') this.go('assistant');
+    this.setState(s => ({ askText:'', chat:[...s.chat, { from:'u', text }], typing:true }));
+    clearTimeout(this._a); this._a = setTimeout(() => this.setState(s => ({ typing:false, chat:[...s.chat, { from:'a', text:a }] })), 900); }
+  unlock() { const s = this.state;
+    if (s.payPlan === 'member') this.closeSheet(() => { this.setState({ member:true }); this.showToast('Monhey Mitgliedschaft aktiv'); });
+    else this.closeSheet(() => { this.setState(st => ({ unlocked:[...st.unlocked, st.honeyId] })); this.showToast('Analyse geöffnet · 1,99 €'); }); }
+
+  carIndexFromScroll() { const el = this.carRef.current; if (!el) return 0; const w = el.clientWidth - 48 + 12; return Math.max(0, Math.min(HONEYS.length-1, Math.round(el.scrollLeft / w))); }
+  carTo(i) { const el = this.carRef.current; if (!el) return; const w = el.clientWidth - 48 + 12; el.scrollTo({ left:i*w, behavior:'smooth' }); this.setState({ car:i }); }
+
+  renderVals() {
+    const navAct = ({ detail:'honeys', coach:'coaches', live:'coaches' })[this.state.screen] || this.state.screen;
+    const s = this.state;
+    const h0 = HONEYS.find(x => x.id === s.honeyId);
+    const decorate = x => ({ ...x, chanceBars:bars(x.cl,'#E7F41E'), riskBars:bars(x.rl,'#0B0B0B') });
+    const h = { ...decorate(h0), chanceFine:bars10(h0.c10,'#E7F41E'), riskFine:bars10(h0.r10,'#0B0B0B'), cScore:h0.c10+'/10', rScore:h0.r10+'/10' };
+    const saved = id => s.watchHoneys.includes(id);
+    const saveFill = id => saved(id) ? 1 : 0;
+    const saveAnim = id => s.popped === 'h-' + id ? POP : 'none';
+    const isUnlocked = s.member || s.unlocked.includes(s.honeyId);
+    const mode = MODES[s.mode];
+    const prodWatched = p => s.watchProducts.some(x => x.key === p.wkn + p.issuer);
+    const plist = productsFor(h0, s.mode, s.lev);
+    const numV = v => parseFloat(String(v).replace(/[^0-9,]/g,'').replace(',','.')) || 100;
+    const fmtEur = n => n.toLocaleString('de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
+    const prods = plist.map((p, i) => {
+      const first = i === 0, last = i === plist.length - 1, w = prodWatched(p);
+      return { ...p, first, delay:(i*60)+'ms', detail:() => this.closeSheet(() => this.openSheet('product', { pdProduct:{ ...p, key:p.wkn + p.issuer, honeyId:s.honeyId }, pdFrom:'options', pdRange:'1M' })), cardBorder: first ? '2px solid #E7F41E' : '2px solid transparent',
+        bg: first ? '#F5F7F1' : '#fff', border: first ? '1px solid #E7F41E' : '0', divider: first ? '1px solid #E7F41E' : (last ? '0' : '1px solid #E4E7E1'),
+        radius: first ? '16px' : '0', pad: first ? '18px 18px 8px' : '18px 0 6px', mb: first ? '8px' : '0', watchPad: first ? '16px' : '0',
+        watchLabel: w ? 'Auf deiner Watchlist' : 'Zur Watchlist hinzufügen', watchShort: w ? 'Gemerkt' : 'Merken', watchIcon: w ? 'check' : 'bookmark',
+        copy: () => this.copy(p.wkn),
+        broker: () => this.setState({ sheet:'broker', product:p, closing:false }),
+        watchFill: w ? 1 : 0,
+        hasStats: !!p.lev, levTxt: p.lev ? String(p.lev).replace('.', ',') + 'x' : '', koTxt: p.lev ? fmtEur(numV(h0.kurs) * (1 - 1 / p.lev)) : '',
+        sub: (p.lev ? 'Hebel ' + String(p.lev).replace('.', ',') + 'x · KO ' + fmtEur(numV(h0.kurs) * (1 - 1 / p.lev)) + ' · ' : '') + 'WKN ' + p.wkn,
+        divider: last ? '0' : '1px solid #ECECE8',
+        watch: () => { if (w) { this.setState(st => ({ watchProducts:st.watchProducts.filter(x => x.key !== p.wkn + p.issuer) })); this.showToast('Von Watchlist entfernt'); } else if (this.addProduct(p)) this.showToast(p.issuer + ' auf der Watchlist'); } };
+    });
+    const coachVals = (c, i) => ({ ...c, trackBg: c.pos ? '#E7F41E' : '#E4E4DF', delay:((i||0)*60)+'ms', open: () => this.openCoach(c.id) });
+    const cp0 = COACHES.find(c => c.id === s.coachId);
+    const cpFollow = s.following.includes(cp0.id);
+    const pIsM = s.payPlan === 'member';
+    const nav = [['home','Start','home'],['honeys','Honeys','lightbulb'],['watchlist','Watchlist','bookmark'],['coaches','Coaches','group'],['assistant','Assistent','auto_awesome']];
+    const watchCount = s.watchHoneys.length + s.watchProducts.length;
+    const sheetAnim = s.closing ? 'mh-down .24s cubic-bezier(0.3,0,0.8,0.15) both' : 'mh-up .36s cubic-bezier(0.2,0,0,1) both';
+    return {
+      scrollRef:this.scrollRef, carRef:this.carRef,
+      isHome:s.screen==='home', isHoneys:s.screen==='honeys', isWatchlist:s.screen==='watchlist', isCoaches:s.screen==='coaches',
+      isCoachProfile:s.screen==='coach', isLive:s.screen==='live', isAssistant:s.screen==='assistant', isDetail:s.screen==='detail',
+      showNav:true,
+      notify:() => this.showToast('Keine neuen Benachrichtigungen'),
+      carLabel:(s.car+1)+' / '+HONEYS.length,
+      carNext:() => this.carTo((s.car+1)%HONEYS.length),
+      carCards:HONEYS.map(x => ({ ...decorate(x), hasImage:!!x.image, noImage:!x.image, slotId:'honey-img-' + x.id, saveFill:saveFill(x.id), saveAnim:saveAnim(x.id),
+        toggleSave:e => { e.stopPropagation(); this.toggleSave(x.id); },
+        open:() => { if (!this.drag || !this.drag.moved) this.openHoney(x.id); } })),
+      onCarScroll:() => { const i = this.carIndexFromScroll(); if (i !== this.state.car) this.setState({ car:i }); },
+      carDown:e => { if (e.pointerType !== 'mouse') return; const el = this.carRef.current; this.drag = { x:e.clientX, left:el.scrollLeft, moved:false }; el.style.scrollSnapType = 'none'; },
+      carMove:e => { if (!this.drag) return; const dx = e.clientX - this.drag.x; if (Math.abs(dx) > 4) this.drag.moved = true; this.carRef.current.scrollLeft = this.drag.left - dx; },
+      carUp:() => { if (!this.drag) return; const el = this.carRef.current; const d = this.drag; const w = el.clientWidth - 48 + 12;
+        const dx = el.scrollLeft - d.left; let i = Math.round(d.left / w); if (dx > 40) i++; else if (dx < -40) i--;
+        i = Math.max(0, Math.min(HONEYS.length-1, i)); el.scrollTo({ left:i*w, behavior:'smooth' });
+        setTimeout(() => { el.style.scrollSnapType = 'x mandatory'; }, 400); this.setState({ car:i });
+        setTimeout(() => { this.drag = null; }, 0); },
+      carDots:HONEYS.map((x,i) => ({ w: i===s.car ? '28px' : '6px', bg: i===s.car ? '#0B0B0B' : '#E4E4DF', go:() => this.carTo(i) })),
+      openLive:() => this.go('live'),
+      liveRegistered:s.liveReg, liveNotRegistered:!s.liveReg, liveCount: s.liveReg ? 25 : 24,
+      liveAgenda:['Live-Einordnung der wichtigsten Technologiewerte','Chancen und Risiken an konkreten Beispielen','Deine Fragen im Q&A'],
+      liveRegNote:'Erinnerung ' + ({ '15':'15 Min. vorher', '60':'1 Std. vorher', '0':'aus' }[s.reminder]) + ' · ' + s.regEmail,
+      openLiveCoach:() => this.openCoach('veit'),
+      openRegister:() => this.openSheet('register'),
+      regEmail:s.regEmail, onRegEmail:e => this.setState({ regEmail:e.target.value }),
+      reminderOpts:[['15','15 Min.'],['60','1 Std.'],['0','Keine']].map(([k,l]) => ({ label:l, color: s.reminder===k ? '#fff' : '#0B0B0B', bg: s.reminder===k ? '#0B0B0B' : 'transparent', border: s.reminder===k ? '1px solid #E7F41E' : '1px solid #E4E7E1', pick:() => this.setState({ reminder:k }) })),
+      confirmRegister:() => this.closeSheet(() => { this.setState({ liveReg:true }); this.showToast('Du bist für das Webinar angemeldet'); }),
+      unregister:() => { this.setState({ liveReg:false }); this.showToast('Vom Webinar abgemeldet'); },
+      addCalendar:() => this.showToast('Termin im Kalender gespeichert'),
+      news:NEWS.slice(0,3).map(n => ({ ...coachVals(COACHES[n.c]), title:n.title, text:n.text, open:() => this.openCoach(COACHES[n.c].id) })),
+      recommended:[COACHES[0], COACHES[1]].map(coachVals),
+      goCoaches:() => this.go('coaches'), goHoneys:() => this.go('honeys'),
+      coachList:COACHES.map((c,i) => { const f = s.following.includes(c.id); return { ...coachVals(c,i),
+        btnLabel: f ? 'Abonniert' : 'Abonnieren · ' + c.price + ' / Monat', btnShort: f ? 'Abonniert' : c.price, btnBg: f ? '#F2F2EF' : '#0B0B0B', btnColor: f ? '#0B0B0B' : '#fff', btnBorder:'0',
+        toggle:() => this.subscribe(c) }; }),
+      cp:{ ...coachVals(cp0), first:cp0.name.split(' ')[0],
+        bars:cp0.months.map((v,i) => ({ label:MONTHS[i], h:v+'%', bg: i===cp0.months.length-1 ? '#E7F41E' : '#E4E4DF' })) },
+      cpToggle:() => this.subscribe(cp0),
+      cpBtnLabel: cpFollow ? 'Abonniert' : 'Abonnieren · ' + cp0.price + ' / Monat', cpBtnIcon: cpFollow ? 'notifications_active' : 'add',
+      cpBtnBg: cpFollow ? '#F2F2EF' : '#0B0B0B', cpBtnColor: cpFollow ? '#0B0B0B' : '#fff', cpBtnBorder:'0',
+      cpBtnNote: cpFollow ? 'Du erhältst alle News und Honeys von ' + cp0.name.split(' ')[0] + '.' : 'Monatlich kündbar · News und Honeys direkt in deinem Feed',
+      cpAnim: s.popped === 'c-' + cp0.id ? POP : 'none',
+      cpHoneys:HONEYS.filter(x => x.author === cp0.name).map(x => ({ ...x, open:() => this.openHoney(x.id) })),
+      cpHasHoneys:HONEYS.some(x => x.author === cp0.name),
+      cpNews:NEWS.filter(n => COACHES[n.c].id === cp0.id).concat([{ title:'Wochenausblick', text:'Welche Termine in der kommenden Woche wichtig werden und worauf ich besonders achte.' }])
+        .map(n => ({ title:n.title, text:n.text, locked:!cpFollow, blur: cpFollow ? 'none' : 'blur(3px)' })),
+      honeyList:HONEYS.map((x,i) => ({ ...x, delay:(i*60)+'ms', status: (s.member || s.unlocked.includes(x.id)) ? 'GEÖFFNET' : '1,99 €',
+        saveFill:saveFill(x.id), saveAnim:saveAnim(x.id), toggleSave:() => this.toggleSave(x.id), open:() => this.openHoney(x.id) })),
+      watchHoneys:HONEYS.filter(x => saved(x.id)).map(x => ({ ...x, open:() => this.openHoney(x.id), remove:() => this.toggleSave(x.id) })),
+      watchHoneysEmpty:s.watchHoneys.length === 0, hasWatchHoneys:s.watchHoneys.length > 0,
+      watchProducts:s.watchProducts.map(p => ({ ...p, honeyTitle:HONEYS.find(x => x.id===p.honeyId).basis,
+        copy:() => this.copy(p.wkn),
+        broker:() => this.openSheet('broker', { product:p, honeyId:p.honeyId }),
+        detail:() => this.openSheet('product', { pdProduct:p, pdFrom:'watchlist', pdRange:'1M' }),
+        remove:() => { this.setState(st => ({ watchProducts:st.watchProducts.filter(x => x.key!==p.key) })); this.showToast('Produkt entfernt'); } })),
+      watchProductsEmpty:s.watchProducts.length === 0,
+      askText:s.askText, onAsk:e => this.setState({ askText:e.target.value }), onAskKey:e => { if (e.key==='Enter') this.ask(s.askText); },
+      sendAsk:() => this.ask(s.askText), typing:s.typing,
+      askChips:Object.keys(ANSWERS).map(q => ({ label:q, ask:() => this.ask(q) })),
+      chat:s.chat.map(m => ({ text:m.text, align: m.from==='u' ? 'flex-end' : 'flex-start', bg: m.from==='u' ? '#0B0B0B' : '#fff', color: m.from==='u' ? '#fff' : '#0B0B0B' })),
+      navItems:nav.map(([k,l,ic]) => ({ label:l, icon:ic, bg: navAct===k ? '#E7F41E' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0,
+        hasBadge: k==='watchlist' && watchCount > 0, badge: watchCount, go:() => this.go(k) })),
+      h, hasImage:!!h0.image, noImage:!h0.image, slotId:'honey-img-' + h0.id, slotHint:h0.slotHint || 'Bild ziehen', back:() => this.back(),
+      toggleSaveDetail:() => this.toggleSave(h0.id), detailSaveFill:saveFill(h0.id), detailSaveAnim:saveAnim(h0.id), detailSaveBg: saved(h0.id) ? '#E7F41E' : '#fff',
+      copyHoneyWkn:() => this.copy(h0.wkn),
+      locked:!isUnlocked, unlocked:isUnlocked, cdl:this.candles(h0, s), kpiBlur: isUnlocked ? 'none' : 'blur(6px)', kpiSelect: isUnlocked ? 'auto' : 'none',
+      openPaySingle:() => this.openSheet('pay', { payPlan:'single' }),
+      openPayMember:() => this.openSheet('pay', { payPlan:'member' }),
+      pickPaySingle:() => this.setState({ payPlan:'single' }), pickPayMember:() => this.setState({ payPlan:'member' }),
+      focusOpts:FOCUS.map(([k,l],i) => { const open = s.deepShown && s.focus===k; return { label:l, icon:['candlestick_chart','public','insights'][i], text:h0.deep[k],
+        iconBg: open ? '#0B0B0B' : '#E7F41E', iconColor: open ? '#E7F41E' : '#0B0B0B', rot: open ? '180deg' : '0deg', rows: open ? '1fr' : '0fr', divider: i === FOCUS.length-1 ? '0' : '1px solid #ECECE8',
+        pick:() => this.setState(st => ({ focus:k, deepShown: !(st.deepShown && st.focus===k) })) }; }),
+      deepIdx:FOCUS.findIndex(f => f[0]===s.focus), deepPos:(FOCUS.findIndex(f => f[0]===s.focus)*50)+'%',
+      onDeepSlide:e => this.setState({ focus:FOCUS[+e.target.value][0] }),
+      toggleDeep:() => this.setState(st => ({ deepShown:!st.deepShown })),
+      deepRows: s.deepShown ? '1fr' : '0fr', deepRot: s.deepShown ? '180deg' : '0deg',
+      deepLabel:{ technik:'ERKLÄR’S MIR TECHNISCH', hinter:'DIE HINTERGRÜNDE', analyse:'CHART- UND UNTERNEHMENSANALYSE' }[s.focus], deepText:h0.deep[s.focus],
+      modes:MODE_KEYS.map(k => ({ label:MODES[k].label, color: s.mode===k ? '#fff' : '#0B0B0B', pick:() => this.setState({ mode:k }) })),
+      modeX:'calc(' + MODE_KEYS.indexOf(s.mode) + ' * (100% + 4px))', modeKey:s.mode, modeIdx:MODE_KEYS.indexOf(s.mode), ctaLabel:({ direkt:'Direkt traden', hebel:'Mit Hebel traden', puffer:'Mit Puffer traden' })[s.mode] || 'Zeig mir die Optionen',
+      mode, openOptions:() => this.openSheet('options'),
+      share:() => this.showToast('Link zum Honey kopiert'),
+      sheetOpen:!!s.sheet, closeSheet:() => this.closeSheet(),
+      sheetAnim, backdropAnim: s.closing ? 'mh-fadeout .24s both' : 'mh-fade .25s both',
+      sheetTop: s.sheet==='product' ? '40px' : s.sheet==='options' ? '64px' : (s.sheet==='broker' ? '150px' : (s.sheet==='register' ? '300px' : (s.sheet==='coachpay' ? '220px' : '260px'))),
+      isProductSheet:s.sheet==='product', pd:this.productDetail(s), isPaySheet:s.sheet==='pay', isOptionsSheet:s.sheet==='options', isBrokerSheet:s.sheet==='broker', isRegisterSheet:s.sheet==='register', isCoachPaySheet:s.sheet==='coachpay',
+      cpay:(() => { const c = COACHES.find(x => x.id===s.coachPayId) || COACHES[0]; return { name:c.name, first:c.name.split(' ')[0], img:c.img, price:c.price, topics:c.topics,
+        cta:'Für ' + c.price + ' / Monat abonnieren',
+        bullets:['Alle News und Analysen von ' + c.name.split(' ')[0] + ' in voller Länge','Neue Honeys direkt in deinem Feed','Bevorzugter Zugang zu Live-Webinaren'] }; })(),
+      confirmCoachPay:() => { const id = s.coachPayId; const c = COACHES.find(x => x.id===id);
+        this.closeSheet(() => { this.setState(st => ({ following:[...st.following, id] })); this.pop('c-' + id); this.showToast(c.name + ' abonniert · ' + c.price + ' / Monat'); }); },
+      pay:{ title: pIsM ? 'Mitglied werden' : 'Einzelanalyse kaufen', price: pIsM ? '19,99 €' : '1,99 €', note: pIsM ? 'pro Monat' : 'einmalig',
+        singleBg: pIsM ? 'transparent' : '#0B0B0B', memberBg: pIsM ? '#0B0B0B' : 'transparent', singleColor: pIsM ? '#0B0B0B' : '#fff', memberColor: pIsM ? '#fff' : '#0B0B0B',
+        bullets: pIsM ? ['Alle Honey-Analysen ohne Einzelkauf','Deep Dive, angepasst an deinen Wissensstand','Handelsoptionen und Begleitung durch Monhey'] : ['Vollständige Analyse zu diesem Honey','Hintergrund und Deep Dive','Passende Handelsoptionen'],
+        cta: pIsM ? 'Mitglied werden für 19,99 € / Monat' : 'Analyse für 1,99 € kaufen',
+        fine: pIsM ? 'Monatlich kündbar · Monhey kennt keine Abofallen! ;-)' : 'Einmalzahlung · keine Mitgliedschaft nötig' },
+      payConfirm:() => this.unlock(),
+      products:prods, topProd:prods[0] || {}, otherProds:prods.slice(1).map((p, i, a) => ({ ...p, divider: i === a.length - 1 ? '0' : '1px solid #ECECE8' })),
+      prodKey: s.mode + s.lev, isHebelMode: s.mode === 'hebel',
+      levStr: s.lev + 'x', levPct: ((s.lev - 1) / 19 * 100) + '%',
+      levNote: s.lev <= 3 ? 'vorsichtig' : s.lev <= 7 ? 'ausgewogen' : s.lev <= 12 ? 'offensiv' : 'sehr riskant',
+      levDown: () => this.setState(st => ({ lev: Math.max(1, st.lev - 1) })), levUp: () => this.setState(st => ({ lev: Math.min(20, st.lev + 1) })),
+      levDownOp: s.lev <= 1 ? 0.35 : 1, levUpOp: s.lev >= 20 ? 0.35 : 1,
+      brokerProduct: s.product ? s.product.name + ' · ' + s.product.issuer + ' · WKN ' + s.product.wkn : '',
+      brokerWatch:() => { const p = s.product; const added = p && this.addProduct(p); this.closeSheet(); this.showToast(added ? 'Zur Watchlist hinzugefügt' : 'Bereits auf deiner Watchlist'); },
+      brokers:[['T','Trade Republic'],['S','Scalable'],['c','comdirect']].map(([l,n]) => ({ letter:l, name:n, go:() => this.showToast('Beispielablauf bei ' + n + ' – keine Order') })),
+      toggleFollow:() => this.setState(st => ({ follow:!st.follow })),
+      followTrack: s.follow ? '#0B0B0B' : '#DCDCD7', followKnob: s.follow ? '21px' : '3px',
+      hasToast:!!s.toast, toast:s.toast, toastBottom: (!NAV_SCREENS.includes(s.screen) || s.sheet) ? '32px' : '100px',
+    };
+  }
+}
+</script>
+</body>
+</html>
