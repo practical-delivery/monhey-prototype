@@ -76,11 +76,72 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
         </div>
       </div>
 
-      <h1 style="margin:20px 4px 0;font-size:34px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;">Guten Morgen, <span style="background:linear-gradient(transparent 55%,#E7F41E 55%,#E7F41E 92%,transparent 92%);">Stefan.</span></h1>
+      <h1 style="margin:20px 4px 0;font-size:34px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;">Hey, <span style="background: linear-gradient(transparent 55%, rgb(231, 244, 30) 55%, rgb(231, 244, 30) 92%, transparent 92%);">Stefan.</span></h1>
       <p style="margin:8px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Alles, was heute wichtig ist.</p>
-      <div style="margin-top:18px;display:flex;align-items:center;gap:6px;background:#fff;border-radius:999px;height:56px;padding:0 6px 0 20px;">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 4px 0;">
+        <h2 style="margin:0;font-size:20px;font-weight:800;">Deine Honeys</h2>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:13px;font-weight:700;color:#62665F;">{{ carLabel }}</span>
+          <button onClick="{{ carNext }}" aria-label="Nächster Honey" style="width:36px;height:36px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <span class="material-symbols-outlined" style="font-size:20px;">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+      <div ref="{{ carRef }}" onScroll="{{ onCarScroll }}" onPointerDown="{{ carDown }}" onPointerMove="{{ carMove }}" onPointerUp="{{ carUp }}" onPointerLeave="{{ carUp }}" class="mh-scroll" style="margin:12px -20px 0;padding:0 24px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;touch-action:pan-x pan-y;cursor:grab;user-select:none;">
+        <sc-for list="{{ carCards }}" as="car" hint-placeholder-count="3">
+          <div style="flex:0 0 100%;scroll-snap-align:start;border-radius:28px;background:#fff;overflow:hidden;display:flex;flex-direction:column;height:500px;">
+            <div style="position:relative;flex:1;min-height:0;background:#E4E4DF;">
+              <sc-if value="{{ car.hasImage }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;inset:0;background:#0B0B0B url({{ car.image }}) center / cover no-repeat;"></div>
+              </sc-if>
+              <sc-if value="{{ car.noImage }}" hint-placeholder-val="{{ false }}">
+                <image-slot id="{{ car.slotId }}" shape="rect" radius="0" placeholder="{{ car.slotHint }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></image-slot>
+              </sc-if>
+              <div style="position:absolute;top:16px;left:16px;right:16px;display:flex;align-items:center;gap:8px;pointer-events:none;">
+                <span style="background:rgba(255,255,255,0.92);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ car.author }}</span>
+                <span style="background:rgba(255,255,255,0.92);font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;color:#62665F;">{{ car.tag }}</span>
+                <button onClick="{{ car.toggleSave }}" aria-label="Merken" style="pointer-events:auto;margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                  <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ car.saveFill }};animation:{{ car.saveAnim }};">bookmark</span>
+                </button>
+              </div>
+            </div>
+            <div style="padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;flex:none;">
+            <h3 style="margin:0;font-size:28px;line-height:1.12;font-weight:800;letter-spacing:-0.4px;text-wrap:pretty;">{{ car.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.45;color:#62665F;text-wrap:pretty;min-height:66px;">{{ car.teaser }}</p>
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding:4px 0 2px;">
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;align-items:baseline;gap:6px;font-size:13px;"><span style="font-weight:800;">Chance</span><span style="color:#62665F;font-weight:600;">{{ car.chanceTxt }}</span></div>
+                <div style="display:flex;gap:3px;"><sc-for list="{{ car.chanceHex }}" as="x" hint-placeholder-count="5"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;align-items:baseline;gap:6px;font-size:13px;"><span style="font-weight:800;">Risiko</span><span style="color:#62665F;font-weight:600;">{{ car.riskTxt }}</span></div>
+                <div style="display:flex;gap:3px;"><sc-for list="{{ car.riskHex }}" as="x" hint-placeholder-count="5"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
+              </div>
+            </div>
+            <button onClick="{{ car.open }}" style="height:56px;border:0;border-radius:16px;background:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
+              <span>Honey ansehen</span>
+            </button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:center;gap:6px;margin-top:14px;">
+        <sc-for list="{{ carDots }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ d.go }}" aria-label="Honey wählen" style="width:{{ d.w }};height:5px;border-radius:3px;border:0;padding:0;background:{{ d.bg }};cursor:pointer;transition:width .3s cubic-bezier(0.2,0,0,1),background .3s;"></button>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:24px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="width:40px;height:40px;border-radius:12px;background:#0B0B0B;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#E7F41E;font-variation-settings:'FILL' 1;">auto_awesome</span></span>
+          <h2 style="margin:0;font-size:20px;font-weight:800;">Monhey KI</h2>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#62665F;">Suche Produkte oder frag, was Dich beschäftigt</p>
+      <div style="display:flex;align-items:center;gap:6px;background:#F1F2EE;border-radius:16px;height:60px;padding:0 8px 0 18px;">
         <sc-if value="{{ notRec }}" hint-placeholder-val="{{ true }}">
-          <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="Suche Produkte oder frag irgendwas" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#0B0B0B;">
+          <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" onFocus="{{ askFocus }}" onBlur="{{ askBlur }}" placeholder="Frag mich alles" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#0B0B0B;">
         </sc-if>
         <sc-if value="{{ rec }}" hint-placeholder-val="{{ false }}">
           <div style="flex:1;min-width:0;display:flex;align-items:center;gap:12px;animation:mh-fade .2s both;">
@@ -95,56 +156,16 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
         <button onClick="{{ toggleRec }}" aria-label="{{ micLabel }}" style="width:44px;height:44px;border-radius:50%;border:0;background:{{ micBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;animation:{{ micAnim }};transition:background .2s;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;font-variation-settings:'FILL' {{ micFill }};">{{ micIcon }}</span></button>
         <button onClick="{{ sendAsk }}" aria-label="Monhey KI fragen" style="width:44px;height:44px;border-radius:50%;border:0;background:#0B0B0B;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#E7F41E;font-variation-settings:'FILL' 1;">auto_awesome</span></button>
       </div>
-
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 4px 0;">
-        <h2 style="margin:0;font-size:20px;font-weight:800;">Deine Honeys</h2>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:13px;font-weight:700;color:#62665F;">{{ carLabel }}</span>
-          <button onClick="{{ carNext }}" aria-label="Nächster Honey" style="width:36px;height:36px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-            <span class="material-symbols-outlined" style="font-size:20px;">chevron_right</span>
-          </button>
+        <div style="display:grid;grid-template-rows:{{ flyRows }};opacity:{{ flyOp }};margin-top:{{ flyMt }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1),opacity .25s,margin-top .35s cubic-bezier(0.2,0,0,1);">
+        <div style="overflow:hidden;min-height:0;">
+        <div style="font-size:12px;font-weight:700;color:#62665F;margin:0 2px 10px;">Vorschläge</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <sc-for list="{{ askChips }}" as="q" hint-placeholder-count="3">
+            <button onMouseDown="{{ q.keep }}" onClick="{{ q.ask }}" style="border:0;background:#F1F2EE;border-radius:999px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;color:#0B0B0B;">{{ q.label }}</button>
+          </sc-for>
         </div>
-      </div>
-
-      <div ref="{{ carRef }}" onScroll="{{ onCarScroll }}" onPointerDown="{{ carDown }}" onPointerMove="{{ carMove }}" onPointerUp="{{ carUp }}" onPointerLeave="{{ carUp }}" class="mh-scroll" style="margin:12px -20px 0;padding:0 24px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;touch-action:pan-x pan-y;cursor:grab;user-select:none;">
-        <sc-for list="{{ carCards }}" as="car" hint-placeholder-count="3">
-          <div style="flex:0 0 100%;scroll-snap-align:start;border-radius:24px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
-            <div style="position:relative;height:168px;background:#E4E4DF;">
-              <sc-if value="{{ car.hasImage }}" hint-placeholder-val="{{ false }}">
-                <div style="position:absolute;inset:0;background:#0B0B0B url({{ car.image }}) center / cover no-repeat;"></div>
-              </sc-if>
-              <sc-if value="{{ car.noImage }}" hint-placeholder-val="{{ false }}">
-                <image-slot id="{{ car.slotId }}" shape="rect" radius="0" placeholder="{{ car.slotHint }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></image-slot>
-              </sc-if>
-              <div style="position:absolute;top:12px;left:12px;right:12px;display:flex;align-items:center;gap:8px;pointer-events:none;">
-                <span style="background:rgba(255,255,255,0.92);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ car.author }}</span>
-                <span style="background:rgba(255,255,255,0.92);font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;color:#62665F;">{{ car.tag }}</span>
-                <button onClick="{{ car.toggleSave }}" aria-label="Merken" style="pointer-events:auto;margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;cursor:pointer;">
-                  <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ car.saveFill }};animation:{{ car.saveAnim }};">bookmark</span>
-                </button>
-              </div>
-            </div>
-            <div style="padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px;">
-            <h3 style="margin:0;font-size:24px;line-height:1.2;font-weight:800;text-wrap:pretty;min-height:58px;">{{ car.title }}</h3>
-            <p style="margin:0;font-size:15px;line-height:1.5;color:#62665F;min-height:45px;">{{ car.teaser }}</p>
-            <div style="background:#F2F2EF;border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
-              <div><div style="font-size:12px;font-weight:600;color:#62665F;">Kurspotenzial</div><div style="font-size:20px;font-weight:800;margin-top:2px;">{{ car.pot }}</div></div>
-              <div style="display:grid;grid-template-columns:auto auto;gap:6px 8px;align-items:center;font-size:11px;font-weight:700;">
-                <span>Chance</span><span style="display:flex;gap:2px;"><sc-for list="{{ car.chanceBars }}" as="b" hint-placeholder-count="3"><span style="width:14px;height:5px;border-radius:3px;background:{{ b }};"></span></sc-for></span>
-                <span>Risiko</span><span style="display:flex;gap:2px;"><sc-for list="{{ car.riskBars }}" as="b" hint-placeholder-count="3"><span style="width:14px;height:5px;border-radius:3px;background:{{ b }};"></span></sc-for></span>
-              </div>
-            </div>
-            <button onClick="{{ car.open }}" style="height:52px;border:0;border-radius:14px;background:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
-              <span>Honey ansehen</span>
-            </button>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-      <div style="display:flex;justify-content:center;gap:6px;margin-top:14px;">
-        <sc-for list="{{ carDots }}" as="d" hint-placeholder-count="3">
-          <button onClick="{{ d.go }}" aria-label="Honey wählen" style="width:{{ d.w }};height:5px;border-radius:3px;border:0;padding:0;background:{{ d.bg }};cursor:pointer;transition:width .3s cubic-bezier(0.2,0,0,1),background .3s;"></button>
-        </sc-for>
+        </div>
+        </div>
       </div>
 
       <h2 style="margin:36px 4px 0;font-size:20px;font-weight:800;">Deine Coaches, deine News</h2>
@@ -152,7 +173,7 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
       <div style="margin-top:12px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
         <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
           <button onClick="{{ n.open }}" style="text-align:left;border:0;border-bottom:1px solid #ECECE8;background:transparent;padding:16px 0;display:flex;gap:14px;align-items:flex-start;cursor:pointer;color:#0B0B0B;">
-            <img src="{{ n.img }}" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;">
+            <div role="img" style="width:40px;height:40px;border-radius:50%;background:#E4E4DF url({{ n.img }}) center / cover no-repeat;flex:none;"></div>
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
               <span style="font-size:15px;line-height:1.35;font-weight:700;">{{ n.title }}</span>
               <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#62665F;">{{ n.name }}<span style="background:{{ n.trackBg }};color:#0B0B0B;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;">{{ n.track }}</span></span>
@@ -272,7 +293,7 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
         <sc-for list="{{ coachList }}" as="c" hint-placeholder-count="4">
           <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #ECECE8;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;animation-delay:{{ c.delay }};">
             <button onClick="{{ c.open }}" style="flex:1;min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;display:flex;align-items:center;gap:14px;">
-              <img src="{{ c.img }}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none;">
+              <div role="img" style="width:48px;height:48px;border-radius:50%;background:#E4E4DF url({{ c.img }}) center / cover no-repeat;flex:none;"></div>
               <div style="min-width:0;display:flex;flex-direction:column;gap:3px;">
                 <span style="font-size:16px;font-weight:700;">{{ c.name }}</span>
                 <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#62665F;">{{ c.topics }}<span style="background:{{ c.trackBg }};color:#0B0B0B;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;white-space:nowrap;">{{ c.track }}</span></span>
@@ -286,6 +307,38 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
     </div>
     </sc-if>
 
+    <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Beitrag" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
+        <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
+      </div>
+      <div style="margin-top:12px;background:#fff;border-radius:24px;padding:24px 22px;display:flex;flex-direction:column;gap:18px;">
+        <button onClick="{{ art.openCoach }}" style="border:0;background:transparent;padding:0;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:#0B0B0B;">
+          <div role="img" style="width:44px;height:44px;border-radius:50%;background:#E4E4DF url({{ art.img }}) center / cover no-repeat;flex:none;"></div>
+          <div style="display:flex;flex-direction:column;gap:2px;"><span style="display:flex;align-items:center;gap:4px;font-size:15px;font-weight:800;">{{ art.name }}<span class="material-symbols-outlined" style="font-size:16px;font-variation-settings:'FILL' 1;">verified</span></span><span style="font-size:13px;color:#62665F;">{{ art.date }}</span></div>
+        </button>
+        <h1 style="margin:0;font-size:28px;line-height:1.15;font-weight:800;letter-spacing:-0.4px;text-wrap:pretty;">{{ art.title }}</h1>
+        <sc-for list="{{ art.sections }}" as="sec" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <sc-if value="{{ sec.hasT }}" hint-placeholder-val="{{ true }}"><h2 style="margin:0;font-size:18px;font-weight:800;">{{ sec.t }}</h2></sc-if>
+            <p style="margin:0;font-size:16px;line-height:1.6;color:#3B3F39;text-wrap:pretty;">{{ sec.b }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ art.hasHoney }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ art.openHoney }}" style="margin-top:12px;border:0;background:#0B0B0B;color:#fff;border-radius:24px;padding:20px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:transform .15s;" style-active="transform:scale(0.98);">
+          <span style="width:44px;height:44px;border-radius:50%;background:#E7F41E;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;">lightbulb</span></span>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;"><span style="font-size:12px;font-weight:700;color:#E7F41E;">Honey zum Thema · {{ art.honeyBasis }}</span><span style="font-size:16px;font-weight:800;line-height:1.3;">{{ art.honeyTitle }}</span></div>
+          <span class="material-symbols-outlined" style="font-size:22px;">arrow_forward</span>
+        </button>
+      </sc-if>
+      <button onClick="{{ art.openCoach }}" style="margin-top:12px;border:0;background:#fff;border-radius:24px;height:56px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;cursor:pointer;color:#0B0B0B;">
+        <span>Profil von {{ art.name }}</span><span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+      </button>
+    </div>
+    </sc-if>
+
     <sc-if value="{{ isCoachProfile }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Coach-Profil" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
@@ -293,7 +346,7 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
         <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
       </div>
       <div style="margin-top:12px;background:#fff;border-radius:24px;padding:24px 20px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;">
-        <img src="{{ cp.img }}" alt="" style="width:84px;height:84px;border-radius:50%;object-fit:cover;">
+        <div role="img" style="width:84px;height:84px;border-radius:50%;background:#E4E4DF url({{ cp.img }}) center / cover no-repeat;"></div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:8px;"><span style="font-size:22px;font-weight:800;">{{ cp.name }}</span><span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' 1;">verified</span></div>
         <span style="font-size:14px;color:#62665F;">{{ cp.topics }}</span>
         <div style="width:100%;margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#F2F2EF;border-radius:16px;padding:12px 0;">
@@ -424,20 +477,20 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
         <div style="display:flex;align-items:baseline;gap:10px;margin-top:16px;"><span style="font-size:30px;font-weight:800;letter-spacing:-0.5px;">{{ h.kurs }}</span><span style="font-size:13px;font-weight:800;background:#E7F41E;padding:3px 8px;border-radius:999px;">{{ h.chg }}</span></div>
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;min-height:56px;padding:10px 16px;border-radius:16px;background:#E7F41E;">
           <span style="font-size:14px;font-weight:800;">Kurspotenzial</span>
-          <span style="font-size:22px;font-weight:800;letter-spacing:-0.3px;white-space:nowrap;">{{ h.pot }}</span>
+          <span style="font-size:22px;font-weight:800;letter-spacing:-0.3px;white-space:nowrap;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .3s;">{{ h.pot }}</span>
         </div>
         <div style="font-size:12px;color:#62665F;margin-top:8px;">Szenario im Beispiel · keine Prognose</div>
         <div style="display:grid;grid-template-columns:54px minmax(0,1fr) 34px;gap:12px 10px;align-items:center;margin-top:18px;">
           <span style="font-size:13px;font-weight:700;">Chance</span>
-          <div style="display:flex;gap:3px;"><sc-for list="{{ h.chanceFine }}" as="b" hint-placeholder-count="10"><span style="flex:1;height:8px;border-radius:2px;background:{{ b }};"></span></sc-for></div>
+          <div style="display:flex;gap:3px;"><sc-for list="{{ h.chanceFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
           <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.cScore }}</span>
           <span style="font-size:13px;font-weight:700;">Risiko</span>
-          <div style="display:flex;gap:3px;"><sc-for list="{{ h.riskFine }}" as="b" hint-placeholder-count="10"><span style="flex:1;height:8px;border-radius:2px;background:{{ b }};"></span></sc-for></div>
+          <div style="display:flex;gap:3px;"><sc-for list="{{ h.riskFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
           <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.rScore }}</span>
         </div>
         <div style="margin-top:18px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;">
-          <div style="padding:12px 14px;border-right:1px solid #E2E2DD;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#0B0B0B;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.ziel }}</div></div>
-          <div style="padding:12px 14px;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Stopp</div><div style="font-size:15px;font-weight:800;color:#0B0B0B;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.stopp }}</div></div>
+          <div style="padding:12px 14px;border-right:1px solid #E2E2DD;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#33DA00;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.ziel }}</div></div>
+          <div style="padding:12px 14px;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Stopp</div><div style="font-size:15px;font-weight:800;color:#FF6608;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.stopp }}</div></div>
           <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Marktkap.</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.mcap }}</div></div>
           <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Dividende</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.div }}</div></div>
         </div>
@@ -622,7 +675,7 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
       <sc-if value="{{ isCoachPaySheet }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
           <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
-            <img src="{{ cpay.img }}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+            <div role="img" style="width:48px;height:48px;border-radius:50%;background:#E4E4DF url({{ cpay.img }}) center / cover no-repeat;"></div>
             <div><div style="font-size:12px;font-weight:600;color:#62665F;">Coach-Abo</div><div style="font-size:20px;font-weight:800;">{{ cpay.name }}</div></div>
           </div>
           <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
@@ -826,7 +879,7 @@ html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
 <script type="text/x-dc" data-dc-script>
 const HONEYS = [
   { id:'siemens', authorType:'REDAKTION', author:'Monhey', tag:'AKTIEN', meta:'Beispiel-Honey · 4 Min. Lesezeit', byline:'Ein Honey aus der Monhey Redaktion',
-    title:'Bei Siemens kommt der Turnaround', teaser:'Was die Neuausrichtung antreibt – und welche Signale jetzt wichtig sind.', chance:'Neue Perspektiven früh einordnen.',
+    title:'Bei Siemens kommt der Turnaround', teaser:'Bei Siemens kommt gerade richtig Bewegung rein. In diesem Honey zeigen wir dir, was hinter der Neuausrichtung steckt und auf welche Signale es jetzt ankommt.', chance:'Neue Perspektiven früh einordnen.',
     kurz:'Was den Turnaround im Beispiel antreibt und welche Erwartungen zu prüfen sind.', image:'assets/hero-siemens-wind.jpg',
     basis:'Siemens Aktie', wkn:'Q3ZWGF', kurs:'227,38 €', chg:'+2,3 %', ziel:'255,00 €', stopp:'210,00 €', mcap:'500 Mrd. €', div:'0,0 %', pot:'+8 % bis +14 %',
     cl:3, rl:2, c10:7, r10:5, chanceTxt:'höher', riskTxt:'mittel',
@@ -899,10 +952,24 @@ const COACHES = [
     bio:'Otto beobachtet Rohstoffmärkte und Edelmetalle. Er ordnet Makrodaten wie Zinsen und Währungen ein und leitet daraus mittelfristige Ideen ab.',
     months:[50,57,63,60,69,66] },
 ];
+const EXTRA_HONEYS = [
+  { id:'sap', authorType:'COACH', author:'Max Mustercoach', tag:'AKTIEN', meta:'Beispiel-Honey · 3 Min. Lesezeit', byline:'Ein Honey von Coach Max Mustercoach',
+    title:'SAP: Neue Allianz mit IBM sorgt für Aufwind', teaser:'Was die Partnerschaft mit IBM für SAP bedeutet und worauf es jetzt ankommt.', chance:'Vom Cloud-Umstieg im Mittelstand profitieren.',
+    kurz:'Wie die Allianz mit IBM den Cloud-Umstieg im Mittelstand beschleunigen soll und welche Erwartungen zu prüfen sind.', image:'',
+    slotHint:'Bild: SAP / Cloud', basis:'SAP Aktie', wkn:'716460', kurs:'241,10 €', chg:'+1,4 %', ziel:'265,00 €', stopp:'226,00 €', mcap:'282 Mrd. €', div:'1,0 %', pot:'+6 % bis +10 %',
+    cl:2, rl:2, c10:6, r10:4, chanceTxt:'mittel', riskTxt:'mittel',
+    s1:'Mit „IBM Ready for SAP Solutions“ wollen die Konzerne mittelständischen Unternehmen den Umstieg auf moderne Cloud-ERP-Systeme erleichtern.',
+    s2:'Für SAP kann die Allianz das Cloud-Geschäft zusätzlich beschleunigen. Entscheidend ist, wie schnell Kunden tatsächlich wechseln und ob die Margen im Cloud-Segment weiter steigen.',
+    s3:'Die Idee passt zu einem Depot mit mittlerem Zeithorizont. Prüfe, wie hoch dein Anteil an Software-Werten bereits ist.',
+    deep:{ technik:'Der Kurs hat im Beispiel die Marke um 235 € zurückerobert. Sie dient jetzt als Unterstützung, das nächste Ziel liegt am Jahreshoch.', hinter:'Viele Mittelständler nutzen noch ältere SAP-Systeme. Die Partnerschaft mit IBM soll den Wechsel in die Cloud einfacher und günstiger machen.', analyse:'Das Cloud-Geschäft wächst im Beispiel zweistellig. Die Bewertung ist anspruchsvoll, wird aber durch planbare Abo-Umsätze gestützt.' } },
+];
+const ALL_HONEYS = [...HONEYS, ...EXTRA_HONEYS];
 const NEWS = [
-  { title:'SAP: Neue Allianz mit IBM sorgt für Aufwind', text:'Mit „IBM Ready for SAP Solutions“ wollen die Konzerne mittelständischen Unternehmen den Umstieg auf moderne Cloud-ERP-Systeme erleichtern.', c:2 },
-  { title:'Die Hidden Player, die noch keiner kennt', text:'Ich zeige dir, wie du dein Portfolio krisensicher machst.', c:1 },
-  { title:'Börsenbrief #112', text:'Heute mit den Themen:\n· die Novo Aktie\n· Gold wieder in der Kaufzone\n· Bitcoin: Ist die Rally vorbei?', c:3 },
+  { title:'SAP: Neue Allianz mit IBM sorgt für Aufwind', text:'Mit „IBM Ready for SAP Solutions“ wollen die Konzerne mittelständischen Unternehmen den Umstieg auf moderne Cloud-ERP-Systeme erleichtern.', c:2, honey:'sap' },
+  { title:'Die Hidden Player, die noch keiner kennt', text:'Ich zeige dir, wie du dein Portfolio krisensicher machst.', c:1, date:'Heute · 4 Min. Lesezeit',
+    body:[['','Die bekannten Namen kennt jeder. Spannender sind oft Unternehmen, die im Hintergrund arbeiten: Zulieferer, Logistiker und Hersteller, ohne die große Marken nicht funktionieren.'],['Warum gerade jetzt','In unsicheren Phasen zahlen sich solide Geschäftsmodelle mit planbaren Erträgen aus. Viele dieser Hidden Player haben langfristige Verträge und eine starke Stellung in ihrer Nische.'],['Worauf ich achte','Stabile Margen, geringe Verschuldung und ein Geschäft, das ich in zwei Sätzen erklären kann. In den nächsten Wochen stelle ich dir drei Kandidaten genauer vor.']] },
+  { title:'Börsenbrief #112', text:'Heute mit den Themen:\n· die Novo Aktie\n· Gold wieder in der Kaufzone\n· Bitcoin: Ist die Rally vorbei?', c:3, date:'Heute · 6 Min. Lesezeit',
+    body:[['Die Novo Aktie','Nach dem starken Rücksetzer der letzten Monate stabilisiert sich der Kurs im Beispiel. Die nächsten Studiendaten werden zeigen, ob die Erholung trägt.'],['Gold wieder in der Kaufzone','Der Goldpreis hat nach dem starken Anstieg etwas nachgegeben. Notenbanken kaufen weiter zu, sinkende Zinsen machen Gold im Vergleich zu Anleihen attraktiver.'],['Bitcoin: Ist die Rally vorbei?','Nach dem Rekordhoch hat Bitcoin im Beispiel rund zehn Prozent abgegeben. Solange die Marke um 90.000 Dollar hält, bleibt der übergeordnete Trend intakt.']], honey:'gold' },
   { title:'Energie-Werte: Wo jetzt die Chancen liegen', text:'Netzausbau und Speicher rücken in den Fokus. Drei Unternehmen, die davon profitieren könnten.', c:0 },
 ];
 const ANSWERS = {
@@ -913,6 +980,8 @@ const ANSWERS = {
 const FOCUS = [['technik','Erklär mir das Chart'],['hinter','Erklär mir die Lage'],['analyse','Erklär mir beides']];
 const MONTHS = ['Mai','Jun','Jul','Aug','Sep','Okt'];
 const bars = (n, color) => [0,1,2].map(i => i < n ? color : '#E4E4DF');
+const hexes = (n, on) => Array.from({ length:5 }, (_, i) => i < Math.round(n/2) ? { edge:'#0B0B0B', fill:on } : { edge:'#D6D7D2', fill:'#fff' });
+const hex10 = (n, on, edge) => Array.from({ length:10 }, (_, i) => i < n ? { edge:edge || '#0B0B0B', fill:on } : { edge:'#D6D7D2', fill:'#fff' });
 const bars10 = (n, color) => Array.from({ length:10 }, (_, i) => i < n ? color : '#E4E4DF');
 const POP = 'mh-pop .4s cubic-bezier(0.2,0,0,1)';
 const NAV_SCREENS = ['home','honeys','watchlist','coaches'];
@@ -975,7 +1044,7 @@ class Component extends DCLogic {
   productDetail(s) {
     const p = s.pdProduct; const fromOpt = s.pdFrom === 'options'; const watched = !!p && s.watchProducts.some(x => x.key === p.key);
     if (!p) return { ranges:[], facts:[] };
-    const h = HONEYS.find(x => x.id === p.honeyId) || HONEYS[0];
+    const h = ALL_HONEYS.find(x => x.id === p.honeyId) || HONEYS[0];
     const type = /Turbo/.test(p.name) ? 'hebel' : /Discount/.test(p.name) ? 'puffer' : 'direkt';
     const num = v => parseFloat(String(v).replace(/[^0-9,]/g,'').replace(',','.')) || 100;
     const fmt = n => n.toLocaleString('de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 }) + ' €';
@@ -1048,11 +1117,11 @@ class Component extends DCLogic {
   carTo(i) { const el = this.carRef.current; if (!el) return; const w = el.clientWidth - 48 + 12; el.scrollTo({ left:i*w, behavior:'smooth' }); this.setState({ car:i }); }
 
   renderVals() {
-    const navAct = ({ detail:'honeys', coach:'coaches', live:'coaches' })[this.state.screen] || this.state.screen;
+    const navAct = ({ detail:'honeys', coach:'coaches', live:'coaches', article:'home' })[this.state.screen] || this.state.screen;
     const s = this.state;
-    const h0 = HONEYS.find(x => x.id === s.honeyId);
+    const h0 = ALL_HONEYS.find(x => x.id === s.honeyId);
     const decorate = x => ({ ...x, chanceBars:bars(x.cl,'#E7F41E'), riskBars:bars(x.rl,'#0B0B0B') });
-    const h = { ...decorate(h0), chanceFine:bars10(h0.c10,'#E7F41E'), riskFine:bars10(h0.r10,'#0B0B0B'), cScore:h0.c10+'/10', rScore:h0.r10+'/10' };
+    const h = { ...decorate(h0), chanceFine:hex10(h0.c10,'#33DA00','#33DA00'), riskFine:hex10(h0.r10,'#FF6608','#FF6608'), cScore:h0.c10+'/10', rScore:h0.r10+'/10' };
     const saved = id => s.watchHoneys.includes(id);
     const saveFill = id => saved(id) ? 1 : 0;
     const saveAnim = id => s.popped === 'h-' + id ? POP : 'none';
@@ -1091,7 +1160,7 @@ class Component extends DCLogic {
       notify:() => this.showToast('Keine neuen Benachrichtigungen'),
       carLabel:(s.car+1)+' / '+HONEYS.length,
       carNext:() => this.carTo((s.car+1)%HONEYS.length),
-      carCards:HONEYS.map(x => ({ ...decorate(x), hasImage:!!x.image, noImage:!x.image, slotId:'honey-img-' + x.id, saveFill:saveFill(x.id), saveAnim:saveAnim(x.id),
+      carCards:HONEYS.map(x => ({ ...decorate(x), chanceHex:hexes(x.c10,'#E7F41E'), riskHex:hexes(x.r10,'#0B0B0B'), hasImage:!!x.image, noImage:!x.image, slotId:'honey-img-' + x.id, saveFill:saveFill(x.id), saveAnim:saveAnim(x.id),
         toggleSave:e => { e.stopPropagation(); this.toggleSave(x.id); },
         open:() => { if (!this.drag || !this.drag.moved) this.openHoney(x.id); } })),
       onCarScroll:() => { const i = this.carIndexFromScroll(); if (i !== this.state.car) this.setState({ car:i }); },
@@ -1114,7 +1183,11 @@ class Component extends DCLogic {
       confirmRegister:() => this.closeSheet(() => { this.setState({ liveReg:true }); this.showToast('Du bist für das Webinar angemeldet'); }),
       unregister:() => { this.setState({ liveReg:false }); this.showToast('Vom Webinar abgemeldet'); },
       addCalendar:() => this.showToast('Termin im Kalender gespeichert'),
-      news:NEWS.slice(0,3).map(n => ({ ...coachVals(COACHES[n.c]), title:n.title, text:n.text, open:() => this.openCoach(COACHES[n.c].id) })),
+      news:NEWS.slice(0,3).map((n,i) => ({ ...coachVals(COACHES[n.c]), title:n.title, text:n.text, open:() => n.body ? this.go('article', { articleIdx:i }) : n.honey ? this.openHoney(n.honey) : this.openCoach(COACHES[n.c].id) })),
+      isArticle:s.screen==='article',
+      art:(() => { const n = NEWS[s.articleIdx || 0]; const c = COACHES[n.c]; const hy = n.honey && ALL_HONEYS.find(x => x.id === n.honey);
+        return { title:n.title, date:n.date || 'Heute', name:c.name, img:c.img, topics:c.topics, sections:(n.body || []).map(([t,b]) => ({ t, b, hasT:!!t })),
+          openCoach:() => this.openCoach(c.id), hasHoney:!!hy, honeyTitle: hy ? hy.title : '', honeyBasis: hy ? hy.basis : '', openHoney:() => hy && this.openHoney(hy.id) }; })(),
       recommended:[COACHES[0], COACHES[1]].map(coachVals),
       goCoaches:() => this.go('coaches'), goHoneys:() => this.go('honeys'),
       coachList:COACHES.map((c,i) => { const f = s.following.includes(c.id); return { ...coachVals(c,i),
@@ -1127,15 +1200,15 @@ class Component extends DCLogic {
       cpBtnBg: cpFollow ? '#F2F2EF' : '#0B0B0B', cpBtnColor: cpFollow ? '#0B0B0B' : '#fff', cpBtnBorder:'0',
       cpBtnNote: cpFollow ? 'Du erhältst alle News und Honeys von ' + cp0.name.split(' ')[0] + '.' : 'Monatlich kündbar · News und Honeys direkt in deinem Feed',
       cpAnim: s.popped === 'c-' + cp0.id ? POP : 'none',
-      cpHoneys:HONEYS.filter(x => x.author === cp0.name).map(x => ({ ...x, open:() => this.openHoney(x.id) })),
-      cpHasHoneys:HONEYS.some(x => x.author === cp0.name),
+      cpHoneys:ALL_HONEYS.filter(x => x.author === cp0.name).map(x => ({ ...x, open:() => this.openHoney(x.id) })),
+      cpHasHoneys:ALL_HONEYS.some(x => x.author === cp0.name),
       cpNews:NEWS.filter(n => COACHES[n.c].id === cp0.id).concat([{ title:'Wochenausblick', text:'Welche Termine in der kommenden Woche wichtig werden und worauf ich besonders achte.' }])
         .map(n => ({ title:n.title, text:n.text, locked:!cpFollow, blur: cpFollow ? 'none' : 'blur(3px)' })),
       honeyList:HONEYS.map((x,i) => ({ ...x, delay:(i*60)+'ms', status: (s.member || s.unlocked.includes(x.id)) ? 'GEÖFFNET' : '1,99 €',
         saveFill:saveFill(x.id), saveAnim:saveAnim(x.id), toggleSave:() => this.toggleSave(x.id), open:() => this.openHoney(x.id) })),
-      watchHoneys:HONEYS.filter(x => saved(x.id)).map(x => ({ ...x, open:() => this.openHoney(x.id), remove:() => this.toggleSave(x.id) })),
+      watchHoneys:ALL_HONEYS.filter(x => saved(x.id)).map(x => ({ ...x, open:() => this.openHoney(x.id), remove:() => this.toggleSave(x.id) })),
       watchHoneysEmpty:s.watchHoneys.length === 0, hasWatchHoneys:s.watchHoneys.length > 0,
-      watchProducts:s.watchProducts.map(p => ({ ...p, honeyTitle:HONEYS.find(x => x.id===p.honeyId).basis,
+      watchProducts:s.watchProducts.map(p => ({ ...p, honeyTitle:ALL_HONEYS.find(x => x.id===p.honeyId).basis,
         copy:() => this.copy(p.wkn),
         broker:() => this.openSheet('broker', { product:p, honeyId:p.honeyId }),
         detail:() => this.openSheet('product', { pdProduct:p, pdFrom:'watchlist', pdRange:'1M' }),
@@ -1146,7 +1219,10 @@ class Component extends DCLogic {
       waveBars: Array.from({ length:16 }, (_, i) => ({ h: [14,22,10,26,18,24,12,20,26,16,22,10,24,14,20,12][i] + 'px', dur: (0.7 + (i % 5) * 0.12).toFixed(2) + 's', delay: (-(i * 0.09)).toFixed(2) + 's' })),
       toggleRec:() => { clearTimeout(this._r); if (s.rec) { this.setState({ rec:false }); this.ask('Was ist ein Turbo?'); } else { this.setState({ rec:true }); this._r = setTimeout(() => { this.setState({ rec:false }); this.ask('Was ist ein Turbo?'); }, 3200); } },
       sendAsk:() => s.askText.trim() ? this.ask(s.askText) : (s.sheet !== 'ai' && this.openSheet('ai')), typing:s.typing,
-      askChips:Object.keys(ANSWERS).map(q => ({ label:q, ask:() => this.ask(q) })),
+      askChips:Object.keys(ANSWERS).map(q => ({ label:q, ask:() => { this.setState({ askOpen:false }); this.ask(q); }, keep:(e) => e.preventDefault() })),
+      askFocus:() => { clearTimeout(this._af); this.setState({ askOpen:true }); },
+      askBlur:() => { this._af = setTimeout(() => this.setState({ askOpen:false }), 120); },
+      flyRows: s.askOpen ? '1fr' : '0fr', flyOp: s.askOpen ? 1 : 0, flyMt: s.askOpen ? '0px' : '-14px',
       chat:s.chat.map(m => ({ text:m.text, align: m.from==='u' ? 'flex-end' : 'flex-start', bg: m.from==='u' ? '#0B0B0B' : '#fff', color: m.from==='u' ? '#fff' : '#0B0B0B' })),
       navItems:nav.map(([k,l,ic]) => ({ label:l, icon:ic, bg: navAct===k ? '#E7F41E' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0,
         hasBadge: k==='watchlist' && watchCount > 0, badge: watchCount, go:() => k==='assistant' ? this.openSheet('ai') : this.go(k) })),
