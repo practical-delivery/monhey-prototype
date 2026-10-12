@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#DCDCD7;font-family:Manrope,-apple-system,sans-serif;color:#0B0B0B}
+a{color:#0B0B0B}a:hover{color:#62665F}
+[data-shot] [data-mh="stage"]{min-height:0!important;padding:0!important;display:block!important}
+[data-shot] [data-mh="app"]{max-width:none!important;box-shadow:none!important}
+[data-flat] [data-mh="app"]{height:auto!important;min-height:874px}
+[data-flat] [data-mh="scroll"]{position:relative!important;top:auto!important;bottom:auto!important;overflow:visible!important;margin-top:48px}
+</style>
+</helmet>
+<div style="width:max-content;padding:80px;display:flex;flex-direction:column;gap:96px;">
+  <h1 style="margin:0;font-size:48px;font-weight:800;">monhey! · Alle Screens</h1>
+
+  <div style="display:flex;flex-direction:column;gap:32px;">
+    <h2 style="margin:0;font-size:28px;font-weight:800;">Hauptnavigation</h2>
+    <div style="display:flex;gap:64px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Start</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="home" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Honeys</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="honeys" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Watchlist</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="watchlist" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Watchlist leer</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="watchlistEmpty" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Coaches</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="coaches" hint-size="402px,874px"></dc-import></div></div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:32px;">
+    <h2 style="margin:0;font-size:28px;font-weight:800;">Honey-Detail</h2>
+    <div style="display:flex;gap:64px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Gesperrt</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="detail" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Freigeschaltet</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="detailUnlocked" hint-size="402px,874px"></dc-import></div></div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:32px;">
+    <h2 style="margin:0;font-size:28px;font-weight:800;">Inhalte und Coaches</h2>
+    <div style="display:flex;gap:64px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Beitrag · Hidden Player</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="article1" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Beitrag · Börsenbrief</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="article2" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Coach-Profil</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="coach" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Live-Webinar</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="live" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Assistent</span><div data-shot="1" data-flat="1"><dc-import name="app" preset="assistant" hint-size="402px,874px"></dc-import></div></div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:32px;">
+    <h2 style="margin:0;font-size:28px;font-weight:800;">Bottom Sheets</h2>
+    <div style="display:flex;gap:64px;align-items:flex-start;">
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Monhey-KI</span><div data-shot="1"><dc-import name="app" preset="ai" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Freischalten</span><div data-shot="1"><dc-import name="app" preset="pay" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Handelsoptionen</span><div data-shot="1"><dc-import name="app" preset="options" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Produkt</span><div data-shot="1"><dc-import name="app" preset="product" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Idee umsetzen</span><div data-shot="1"><dc-import name="app" preset="broker" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Coach abonnieren</span><div data-shot="1"><dc-import name="app" preset="coachpay" hint-size="402px,874px"></dc-import></div></div>
+      <div style="display:flex;flex-direction:column;gap:16px;"><span style="font-size:18px;font-weight:700;">Webinar-Anmeldung</span><div data-shot="1"><dc-import name="app" preset="register" hint-size="402px,874px"></dc-import></div></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
