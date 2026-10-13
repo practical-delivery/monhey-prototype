@@ -168,7 +168,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
       <div ref="{{ carRef }}" onScroll="{{ onCarScroll }}" onPointerDown="{{ carDown }}" onPointerMove="{{ carMove }}" onPointerUp="{{ carUp }}" onPointerLeave="{{ carUp }}" class="mh-scroll" style="margin:12px -20px 0;padding:0 24px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;touch-action:pan-x pan-y;cursor:grab;user-select:none;">
         <sc-for list="{{ carCards }}" as="car" hint-placeholder-count="3">
-          <div style="flex:0 0 100%;scroll-snap-align:start;border-radius:28px;background:linear-gradient(180deg,#2B2B2B 0%,#262626 60%,#1F1F1F 100%);overflow:hidden;display:flex;flex-direction:column;height:552px;color:#fff;">
+          <div style="flex:0 0 100%;scroll-snap-align:start;border-radius:28px;background:linear-gradient(180deg,#2B2B2B 0%,#262626 60%,#1F1F1F 100%);overflow:hidden;display:flex;flex-direction:column;height:650px;color:#fff;">
             <div style="position:relative;flex:1;min-height:0;background:#2F2F2F;">
               <sc-if value="{{ car.hasImage }}" hint-placeholder-val="{{ false }}">
                 <div style="position:absolute;inset:0;background:#262626 url({{ car.image }}) center / cover no-repeat;"></div>
@@ -185,18 +185,22 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
                 </button>
               </div>
             </div>
-            <div style="padding:24px 24px 26px;display:flex;flex-direction:column;gap:20px;flex:none;">
+            <div style="padding:26px 24px 26px;display:flex;flex-direction:column;gap:24px;flex:none;">
               <h3 style="margin:0;font-size:28px;line-height:1.12;font-weight:800;letter-spacing:-0.4px;text-wrap:pretty;color:#FFF765;">{{ car.title }}</h3>
               <p style="margin:0;font-size:15px;line-height:1.45;color:#FFF765;opacity:0.9;text-wrap:pretty;min-height:66px;">{{ car.teaser }}</p>
-              <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding:2px 0 4px;">
-                <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="border-radius:18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden;">
+                <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.65);">Kurspotenzial</span><span style="font-size:17px;font-weight:800;color:#33DA00;white-space:nowrap;">{{ car.pot }}</span></div>
+                <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.65);">Kursziel</span><span style="font-size:17px;font-weight:800;white-space:nowrap;">{{ car.ziel }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-right:1px solid rgba(255,255,255,0.08);">
                   <div style="display:flex;align-items:baseline;gap:6px;font-size:13px;"><span style="font-weight:800;">Chance</span><span style="color:#33DA00;font-weight:600;">{{ car.chanceTxt }}</span></div>
                   <div style="display:flex;gap:3px;"><sc-for list="{{ car.chanceHexD }}" as="x" hint-placeholder-count="5"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};flex:none;"></span></sc-for></div>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:10px;">
+                
+                <div style="display:flex;flex-direction:column;gap:8px;padding:12px 14px;">
                   <div style="display:flex;align-items:baseline;gap:6px;font-size:13px;"><span style="font-weight:800;">Risiko</span><span style="color:#FF5A4E;font-weight:600;">{{ car.riskTxt }}</span></div>
                   <div style="display:flex;gap:3px;"><sc-for list="{{ car.riskHexD }}" as="x" hint-placeholder-count="5"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};flex:none;"></span></sc-for></div>
                 </div>
+              
               </div>
               <button onClick="{{ car.open }}" style="height:56px;border:0;border-radius:16px;background:#FFF765;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;color:#0B0B0B;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
                 <span>Honey ansehen</span>
@@ -213,7 +217,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
       <div style="margin-top:24px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
         <div style="display:flex;align-items:center;gap:12px;">
-          <span style="width:40px;height:40px;border-radius:12px;background:#262626;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;font-variation-settings:'FILL' 1;">auto_awesome</span></span>
+          <span style="width:40px;height:40px;border-radius:12px;background:#262626;display:flex;align-items:center;justify-content:center;flex:none;"><span aria-hidden="true" style="color:#FFF765;width:24px;height:24px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></span>
           <h2 style="margin:0;font-size:20px;font-weight:800;">Monhey KI</h2>
         </div>
         <p style="margin:0;font-size:15px;line-height:1.5;color:#62665F;">Suche Produkte oder frag, was Dich beschäftigt</p>
@@ -232,7 +236,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           </div>
         </sc-if>
         <button onClick="{{ toggleRec }}" aria-label="{{ micLabel }}" style="width:44px;height:44px;border-radius:50%;border:0;background:{{ micBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;animation:{{ micAnim }};transition:background .2s;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;font-variation-settings:'FILL' {{ micFill }};">{{ micIcon }}</span></button>
-        <button onClick="{{ sendAsk }}" aria-label="Monhey KI fragen" style="width:44px;height:44px;border-radius:50%;border:0;background:#262626;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;font-variation-settings:'FILL' 1;">auto_awesome</span></button>
+        <button onClick="{{ sendAsk }}" aria-label="Monhey KI fragen" style="width:44px;height:44px;border-radius:50%;border:0;background:#262626;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span aria-hidden="true" style="color:#FFF765;width:24px;height:24px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></button>
       </div>
         <div style="display:grid;grid-template-rows:{{ flyRows }};opacity:{{ flyOp }};margin-top:{{ flyMt }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1),opacity .25s,margin-top .35s cubic-bezier(0.2,0,0,1);">
         <div style="overflow:hidden;min-height:0;">
@@ -307,24 +311,26 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <div data-screen-label="Watchlist" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
       <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Watchlist</h1>
-      <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Gemerkte Honeys und Produkte.</p>
-
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Honeys</h2>
-      <sc-if value="{{ watchHoneysEmpty }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:10px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
-          <span style="font-size:15px;line-height:1.5;color:#62665F;">Tippe auf das Lesezeichen an einem Honey, um ihn hier zu speichern.</span>
+      <sc-if value="{{ watchAllEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:20px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+          <span style="font-size:15px;line-height:1.5;color:#62665F;">Tippe auf das Lesezeichen an einem Honey oder Produkt, um es hier zu speichern.</span>
           <button onClick="{{ goHoneys }}" style="height:42px;border:0;border-radius:12px;background:#262626;color:#fff;padding:0 18px;font-size:14px;font-weight:700;cursor:pointer;">Honeys entdecken</button>
         </div>
       </sc-if>
       <sc-if value="{{ hasWatchHoneys }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:10px;background:#fff;border-radius:20px;padding:0 20px;display:flex;flex-direction:column;">
+        <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;">
           <sc-for list="{{ watchHoneys }}" as="w" hint-placeholder-count="0">
-            <div style="display:flex;flex-direction:column;padding:14px 0 12px;border-bottom:1px solid #ECECE8;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
+            <div style="display:flex;flex-direction:column;background:#fff;border-radius:20px;padding:16px 20px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
             <div style="display:flex;align-items:center;gap:12px;">
-              <button onClick="{{ w.open }}" style="flex:1;min-width:0;border:0;background:transparent;text-align:left;cursor:pointer;padding:0;color:#0B0B0B;display:flex;flex-direction:column;gap:3px;">
-                <span style="font-size:15px;line-height:1.3;font-weight:700;">{{ w.title }}</span>
-                <span style="font-size:13px;color:#62665F;">{{ w.basis }} · <b style="color:#0B0B0B;">{{ w.kurs }}</b> <b style="color:#0B0B0B;">{{ w.chg }}</b></span>
-              </button>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+                <button onClick="{{ w.detail }}" style="border:0;background:transparent;text-align:left;cursor:pointer;padding:0;color:#0B0B0B;display:flex;flex-direction:column;gap:3px;">
+                  <span style="display:flex;align-items:center;gap:2px;font-size:16px;line-height:1.3;font-weight:800;">{{ w.basis }}<span class="material-symbols-outlined" style="font-size:18px;color:#62665F;">chevron_right</span></span>
+                  <span style="display:flex;align-items:baseline;gap:8px;font-size:14px;"><b style="color:#0B0B0B;">{{ w.kurs }}</b><span style="font-size:12px;font-weight:800;padding:2px 7px;border-radius:999px;background:{{ w.chgBg }};color:{{ w.chgColor }};">{{ w.chg }}</span></span>
+                </button>
+                <button onClick="{{ w.open }}" style="align-self:flex-start;border:0;background:transparent;padding:2px 0;cursor:pointer;display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#62665F;text-align:left;min-width:0;max-width:100%;">
+                  <span class="material-symbols-outlined" style="font-size:15px;">link</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Honey: {{ w.title }}</span>
+                </button>
+              </div>
               <button onClick="{{ w.remove }}" aria-label="Entfernen" style="width:36px;height:36px;border-radius:50%;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' 1;">bookmark</span></button>
             </div>
             <button onClick="{{ w.begToggle }}" aria-pressed="{{ w.begOn }}" style="margin-top:10px;width:100%;border:0;background:#F7F7F4;border-radius:12px;padding:8px 10px 8px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;color:#0B0B0B;text-align:left;">
@@ -337,10 +343,6 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         </div>
       </sc-if>
 
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Produkte</h2>
-      <sc-if value="{{ watchProductsEmpty }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:10px;background:#fff;border-radius:20px;padding:20px;font-size:15px;line-height:1.5;color:#62665F;">Produkte aus den Handelsoptionen eines Honeys landen hier.</div>
-      </sc-if>
       <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
         <sc-for list="{{ watchProducts }}" as="p" hint-placeholder-count="0">
           <div style="background:#fff;border-radius:20px;padding:16px 20px;display:flex;flex-direction:column;gap:12px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
@@ -759,7 +761,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <div style="position:absolute;left:20px;right:20px;bottom:26px;z-index:25;display:flex;justify-content:space-between;gap:4px;background:linear-gradient(180deg,rgba(52,52,52,0.88) 0%,rgba(30,30,30,0.92) 100%);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-radius:999px;padding:6px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.18),0 12px 30px rgba(0,0,0,0.35),0 0 0 1px rgba(0,0,0,0.25);animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
       <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
         <button onClick="{{ n.go }}" aria-label="{{ n.label }}" title="{{ n.label }}" style="position:relative;flex:1;min-width:0;height:52px;border-radius:999px;border:0;background:{{ n.bg }};color:{{ n.color }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .25s,color .25s;">
-          <span class="material-symbols-outlined" style="font-size:24px;font-variation-settings:'FILL' {{ n.fill }};">{{ n.icon }}</span>
+          <sc-if value="{{ n.notBee }}" hint-placeholder-val="{{ true }}"><span class="material-symbols-outlined" style="font-size:24px;font-variation-settings:'FILL' {{ n.fill }};">{{ n.icon }}</span></sc-if>
+          <sc-if value="{{ n.isBee }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width:26px;height:26px;display:block;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></sc-if>
           <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}">
             <span style="position:absolute;top:5px;right:5px;min-width:16px;height:16px;border-radius:8px;background:#FFF765;color:#0B0B0B;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;box-shadow:0 0 0 2px #262626;animation:mh-pop .4s;">{{ n.badge }}</span>
           </sc-if>
@@ -777,7 +780,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         <div style="display:flex;flex-direction:column;min-height:calc(100% - 4px);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
             <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
-              <span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:21px;color:#FFF765;font-variation-settings:'FILL' 1;">auto_awesome</span></span>
+              <span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><span aria-hidden="true" style="color:#FFF765;width:23px;height:23px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></span>
               <div><div style="font-size:20px;font-weight:800;">Monhey KI</div><div style="font-size:13px;color:#62665F;">Erklärt dir Märkte und Begriffe.</div></div>
             </div>
             <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
@@ -1106,7 +1109,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           <button onClick="{{ podFwd }}" aria-label="10 Sekunden vor" style="width:52px;height:52px;border-radius:50%;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:32px;">forward_10</span></button>
           <button onClick="{{ podAsk }}" aria-label="Frage stellen" style="width:52px;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;">record_voice_over</span></button>
         </div>
-        <button onClick="{{ podAsk }}" style="align-self:center;border:0;border-radius:999px;background:rgba(255,255,255,0.1);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;font-variation-settings:'FILL' 1;">auto_awesome</span>Mitreden: Frage ans Gespräch stellen</button>
+        <button onClick="{{ podAsk }}" style="align-self:center;border:0;border-radius:999px;background:rgba(255,255,255,0.1);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;cursor:pointer;"><span aria-hidden="true" style="color:#FFF765;width:22px;height:22px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span>Mitreden: Frage ans Gespräch stellen</button>
       </div>
     </div>
   </sc-if>
@@ -1394,7 +1397,7 @@ class Component extends DCLogic {
   }
   begVals(key, kind, small) {
     const on = this.state.begleitet.includes(key);
-    const sub = { honey:'Stop-Loss, Kursziel, Kursbewegung ab 5 %', aktie:'Stop-Loss, Kursziel, Kursbewegung ab 5 %', hebel:'Stop-Loss, Knock-out, Kursbewegung ab 10 %' }[kind];
+    const sub = { honey:'Stop, Ziel, ±5 %', aktie:'Stop, Ziel, ±5 %', hebel:'Stop, Knock-out, ±10 %' }[kind];
     return { begOn:on, begFill: on ? 1 : 0, begIcon: on ? 'notifications_active' : 'notifications', begLabel: on ? 'Begleitet' : 'Begleiten', begTitle: on ? 'Begleitet' : 'Monhey begleiten lassen',
       begSub: on ? 'Push bei ' + sub : sub, begTrack: on ? '#262626' : '#DCDCD7', begKnob: on ? '19px' : '3px', begKnobL: on ? '21px' : '3px',
       begToggle: e => { e && e.stopPropagation && e.stopPropagation(); this.toggleBeg(key, kind); } };
@@ -1565,8 +1568,8 @@ class Component extends DCLogic {
         .map(n => ({ title:n.title, text:n.text, locked:!cpFollow, blur: cpFollow ? 'none' : 'blur(3px)' })),
       honeyList:HONEYS.map((x,i) => ({ ...x, delay:(i*60)+'ms', status: (s.member || s.unlocked.includes(x.id)) ? 'GEÖFFNET' : '1,99 €',
         saveFill:saveFill(x.id), saveAnim:saveAnim(x.id), toggleSave:() => this.toggleSave(x.id), open:() => this.openHoney(x.id) })),
-      watchHoneys:ALL_HONEYS.filter(x => saved(x.id)).map(x => ({ ...x, ...this.begVals('h:' + x.id, 'honey'), open:() => this.openHoney(x.id), remove:() => this.toggleSave(x.id) })),
-      watchHoneysEmpty:s.watchHoneys.length === 0, hasWatchHoneys:s.watchHoneys.length > 0,
+      watchHoneys:ALL_HONEYS.filter(x => saved(x.id)).map(x => { const neg = String(x.chg).includes('−') || String(x.chg).includes('–'); return { ...x, ...this.begVals('h:' + x.id, 'honey'), basis:(PROD_META[x.id] && PROD_META[x.id].name) || x.basis, chgBg: neg ? 'rgba(255,90,78,0.14)' : 'rgba(51,218,0,0.16)', chgColor: neg ? '#D63A2F' : '#1F7A00', open:() => this.openHoney(x.id), detail:() => PERF[x.id] ? this.go('product', { productId:x.id }) : this.openHoney(x.id), remove:() => this.toggleSave(x.id) }; }),
+      watchHoneysEmpty:s.watchHoneys.length === 0, watchAllEmpty: s.watchHoneys.length === 0 && s.watchProducts.length === 0, hasWatchHoneys:s.watchHoneys.length > 0,
       watchProducts:s.watchProducts.map(p => ({ ...p, ...this.begVals('p:' + p.key, /Turbo/.test(p.name) ? 'hebel' : 'aktie'), honeyTitle:ALL_HONEYS.find(x => x.id===p.honeyId).basis,
         copy:() => this.copy(p.wkn),
         broker:() => this.openSheet('broker', { product:p, honeyId:p.honeyId }),
@@ -1583,7 +1586,7 @@ class Component extends DCLogic {
       askBlur:() => { this._af = setTimeout(() => this.setState({ askOpen:false }), 120); },
       flyRows: s.askOpen ? '1fr' : '0fr', flyOp: s.askOpen ? 1 : 0, flyMt: s.askOpen ? '0px' : '-14px',
       chat:s.chat.map(m => ({ text:m.text, align: m.from==='u' ? 'flex-end' : 'flex-start', bg: m.from==='u' ? '#262626' : '#fff', color: m.from==='u' ? '#fff' : '#0B0B0B' })),
-      navItems:nav.map(([k,l,ic]) => ({ label:l, icon:ic, bg: navAct===k ? '#FFF765' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0,
+      navItems:nav.map(([k,l,ic]) => ({ label:l, icon:ic, isBee: k==='assistant', notBee: k!=='assistant', bg: navAct===k ? '#FFF765' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0,
         hasBadge: k==='watchlist' && watchCount > 0, badge: watchCount, go:() => k==='assistant' ? this.openSheet('ai') : this.go(k) })),
       pod:(() => { const ci = POD_CH.reduce((k, c, i) => s.podPos >= c[0] ? i : k, 0); const caps = [h0.kurz, h0.s1, h0.s2, h0.s3];
         return { title:h0.title, by:h0.author, image:h0.image || 'assets/monhey-bee.png', prog:(s.podPos / POD_LEN * 100).toFixed(2) + '%', cur:mmss(s.podPos), left:mmss(POD_LEN - s.podPos),
