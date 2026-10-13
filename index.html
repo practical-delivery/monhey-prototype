@@ -71,7 +71,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div data-screen-label="Start" style="padding:0 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
-      <div style="margin:0 -20px;padding:4px 24px 30px;min-height:735px;border-radius:0 0 36px 36px;background:radial-gradient(90% 55% at 100% 42%, rgba(255,247,101,0.13) 0%, rgba(255,247,101,0) 70%), radial-gradient(70% 40% at 0% 100%, rgba(255,247,101,0.07) 0%, rgba(255,247,101,0) 70%), linear-gradient(180deg,#2B2B2B 0%,#262626 50%,#1F1F1F 100%);color:#fff;display:flex;flex-direction:column;">
+      <div style="margin:0 -20px;padding:4px 24px 28px;border-radius:0 0 36px 36px;background:radial-gradient(90% 55% at 100% 42%, rgba(255,247,101,0.13) 0%, rgba(255,247,101,0) 70%), radial-gradient(70% 40% at 0% 100%, rgba(255,247,101,0.07) 0%, rgba(255,247,101,0) 70%), url(assets/hex-pattern.svg) top center / 700px 1100px no-repeat, linear-gradient(180deg,#2B2B2B 0%,#262626 50%,#1F1F1F 100%);color:#fff;display:flex;flex-direction:column;">
         <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
           <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;filter:brightness(0) invert(1);">
           <div style="display:flex;gap:8px;align-items:center;">
@@ -82,15 +82,15 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
             <div style="width:40px;height:40px;border-radius:50%;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">SK</div>
           </div>
         </div>
-        <h1 style="margin:28px 2px 0;font-size:36px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, Stefan.</h1>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:28px;">
-          <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:18px 16px;min-height:112px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
+        <h1 style="margin:26px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, Stefan.</h1>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:30px;">
+          <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:14px 16px;min-height:92px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Honeys</span>
             <div style="display:flex;align-items:center;gap:8px;"><div style="display:flex;align-items:center;flex:none;">
             <sc-for list="{{ hexHoneys }}" as="hx" hint-placeholder-count="3"><span style="width:22px;height:25px;margin-left:{{ hx.ml }};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:18px;height:21px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#2F2F2F;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#FFF765;">{{ hx.num }}</span></span></sc-for>
           </div><span style="font-size:12px;line-height:1.2;font-weight:700;">5 neue<br>Honeys</span></div>
           </button>
-          <button onClick="{{ goCoaches }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:18px 16px;min-height:112px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
+          <button onClick="{{ goCoaches }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:14px 16px;min-height:92px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Coaches</span>
             <div style="display:flex;align-items:center;gap:8px;"><div style="display:flex;align-items:center;flex:none;">
             <sc-for list="{{ hexCoaches }}" as="hx" hint-placeholder-count="3"><span style="width:22px;height:25px;margin-left:{{ hx.ml }};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:18px;height:21px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#2F2F2F;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#FFF765;">{{ hx.num }}</span></span></sc-for>
@@ -102,11 +102,11 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;">{{ perfAvg }}</span>
         </div>
         <sc-if value="{{ hasPerf }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ perf.open }}" style="margin-top:16px;text-align:left;border:0;background:transparent;padding:0 2px;display:flex;flex-direction:column;gap:2px;cursor:pointer;color:#fff;">
-            <span style="display:flex;align-items:baseline;gap:10px;"><span style="font-size:48px;line-height:1.05;font-weight:800;letter-spacing:-1.2px;color:{{ perf.pctColor }};">{{ perf.pct }}</span><span style="font-size:15px;font-weight:700;">Gesamt</span></span>
+          <button onClick="{{ perf.open }}" style="margin-top:14px;text-align:left;border:0;background:transparent;padding:0 2px;display:flex;flex-direction:column;gap:2px;cursor:pointer;color:#fff;">
+            <span style="display:flex;align-items:baseline;gap:10px;"><span style="font-size:36px;line-height:1.05;font-weight:800;letter-spacing:-0.8px;color:{{ perf.pctColor }};">{{ perf.pct }}</span><span style="font-size:15px;font-weight:700;">Gesamt</span></span>
             <span style="font-size:13px;color:rgba(255,255,255,0.7);">{{ perf.sub }}</span>
           </button>
-          <div onPointerMove="{{ perfMove }}" onPointerDown="{{ perfMove }}" onPointerLeave="{{ perfLeave }}" style="touch-action:pan-y;cursor:crosshair;position:relative;flex:1;min-height:180px;margin:22px 0 0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:100% 25%,40px 100%;border-bottom:1px solid rgba(255,255,255,0.12);">
+          <div onPointerMove="{{ perfMove }}" onPointerDown="{{ perfDown }}" onPointerUp="{{ perfLeave }}" onPointerCancel="{{ perfLeave }}" onPointerLeave="{{ perfLeave }}" onContextMenu="{{ perfNoMenu }}" style="touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;cursor:crosshair;position:relative;height:114px;margin:24px 0 0;border-bottom:1px solid rgba(255,255,255,0.12);">
             <svg viewBox="0 0 320 120" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;">
               <defs>
                 <linearGradient id="mhPerfFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF765" stop-opacity="0.42"></stop><stop offset="100%" stop-color="#FFF765" stop-opacity="0"></stop></linearGradient>
@@ -116,7 +116,6 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
               <path d="{{ perf.line }}" style="d:path('{{ perf.line }}');transition:d .7s cubic-bezier(0.2,0,0,1);" fill="none" stroke="url(#mhPerfLine)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
             </svg>
             <sc-if value="{{ perf.hov }}" hint-placeholder-val="{{ false }}">
-              <span style="position:absolute;top:0;bottom:0;left:{{ perf.hx }};right:0;background:linear-gradient(90deg,rgba(38,38,38,0.55),rgba(38,38,38,0.7));transition:left .12s cubic-bezier(0.2,0,0,1);pointer-events:none;"></span>
               <span style="position:absolute;top:0;bottom:0;left:{{ perf.hx }};width:1px;margin-left:-0.5px;background:linear-gradient(180deg,rgba(255,247,101,0) 0%,rgba(255,247,101,0.9) {{ perf.hy }},rgba(255,247,101,0) 100%);transition:left .12s cubic-bezier(0.2,0,0,1);pointer-events:none;"></span>
               <span style="position:absolute;top:8px;left:{{ perf.hx }};transform:translateX({{ perf.tipX }});transition:left .12s cubic-bezier(0.2,0,0,1);z-index:2;box-shadow:0 4px 14px rgba(0,0,0,0.35);background:#FFF765;color:#0B0B0B;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap;pointer-events:none;">{{ perf.hDate }}</span>
               <span style="position:absolute;left:{{ perf.hx }};top:{{ perf.hy }};width:64px;height:64px;border-radius:50%;background:radial-gradient(circle,rgba(255,247,101,0.7) 0%,rgba(255,247,101,0.25) 35%,rgba(255,247,101,0) 70%);filter:blur(6px);transform:translate(-50%,-50%);transition:left .12s cubic-bezier(0.2,0,0,1),top .12s cubic-bezier(0.2,0,0,1);pointer-events:none;mix-blend-mode:screen;"></span>
@@ -125,7 +124,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
             </sc-if>
             <span style="position:absolute;right:0;top:{{ perf.endTop }};transition:top .7s cubic-bezier(0.2,0,0,1);width:10px;height:10px;border-radius:50%;background:#FFF765;transform:translate(50%,-50%);box-shadow:0 0 0 5px rgba(255,247,101,0.18),0 0 18px rgba(255,247,101,0.9);"></span>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:14px;background:rgba(255,255,255,0.06);border-radius:999px;padding:4px;">
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:20px;background:rgba(255,255,255,0.06);border-radius:999px;padding:4px;">
             <sc-for list="{{ perfRanges }}" as="pr" hint-placeholder-count="4">
               <button onClick="{{ pr.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ pr.bg }};color:{{ pr.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ pr.label }}</button>
             </sc-for>
@@ -169,7 +168,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
       <div ref="{{ carRef }}" onScroll="{{ onCarScroll }}" onPointerDown="{{ carDown }}" onPointerMove="{{ carMove }}" onPointerUp="{{ carUp }}" onPointerLeave="{{ carUp }}" class="mh-scroll" style="margin:12px -20px 0;padding:0 24px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;touch-action:pan-x pan-y;cursor:grab;user-select:none;">
         <sc-for list="{{ carCards }}" as="car" hint-placeholder-count="3">
-          <div style="flex:0 0 100%;scroll-snap-align:start;border-radius:28px;background:linear-gradient(180deg,#2B2B2B 0%,#262626 60%,#1F1F1F 100%);overflow:hidden;display:flex;flex-direction:column;height:500px;color:#fff;">
+          <div style="flex:0 0 100%;scroll-snap-align:start;border-radius:28px;background:linear-gradient(180deg,#2B2B2B 0%,#262626 60%,#1F1F1F 100%);overflow:hidden;display:flex;flex-direction:column;height:552px;color:#fff;">
             <div style="position:relative;flex:1;min-height:0;background:#2F2F2F;">
               <sc-if value="{{ car.hasImage }}" hint-placeholder-val="{{ false }}">
                 <div style="position:absolute;inset:0;background:#262626 url({{ car.image }}) center / cover no-repeat;"></div>
@@ -186,10 +185,10 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
                 </button>
               </div>
             </div>
-            <div style="padding:18px 22px 22px;display:flex;flex-direction:column;gap:14px;flex:none;">
+            <div style="padding:24px 24px 26px;display:flex;flex-direction:column;gap:20px;flex:none;">
               <h3 style="margin:0;font-size:28px;line-height:1.12;font-weight:800;letter-spacing:-0.4px;text-wrap:pretty;color:#FFF765;">{{ car.title }}</h3>
               <p style="margin:0;font-size:15px;line-height:1.45;color:#FFF765;opacity:0.9;text-wrap:pretty;min-height:66px;">{{ car.teaser }}</p>
-              <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding:4px 0 2px;">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding:2px 0 4px;">
                 <div style="display:flex;flex-direction:column;gap:10px;">
                   <div style="display:flex;align-items:baseline;gap:6px;font-size:13px;"><span style="font-weight:800;">Chance</span><span style="color:#33DA00;font-weight:600;">{{ car.chanceTxt }}</span></div>
                   <div style="display:flex;gap:3px;"><sc-for list="{{ car.chanceHexD }}" as="x" hint-placeholder-count="5"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};flex:none;"></span></sc-for></div>
@@ -260,9 +259,6 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
             <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;margin-top:2px;">chevron_right</span>
           </button>
         </sc-for>
-        <button onClick="{{ goCoaches }}" style="border:0;background:transparent;height:52px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;cursor:pointer;color:#0B0B0B;padding:0;">
-          <span>Alle Coaches entdecken</span><span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
-        </button>
       </div>
       <button onClick="{{ openLive }}" style="margin-top:12px;text-align:left;border:0;background:#262626;color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -380,6 +376,20 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         <span style="flex:1;font-size:14px;font-weight:700;">Heute 18:00 · IT-Werte im Fokus</span>
         <span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;">arrow_forward</span>
       </button>
+      <h2 style="margin:28px 4px 0;font-size:20px;font-weight:800;">Deine Coaches, deine News</h2>
+      <div style="margin-top:12px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+        <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+          <button onClick="{{ n.open }}" style="text-align:left;border:0;border-bottom:1px solid #ECECE8;background:transparent;padding:16px 0;display:flex;gap:14px;align-items:flex-start;cursor:pointer;color:#0B0B0B;">
+            <div role="img" style="width:40px;height:40px;border-radius:50%;background:#E4E4DF url({{ n.img }}) center / cover no-repeat;flex:none;"></div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+              <span style="font-size:15px;line-height:1.35;font-weight:700;">{{ n.title }}</span>
+              <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#62665F;">{{ n.name }}<span style="background:{{ n.trackBg }};color:#0B0B0B;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px;">{{ n.track }}</span></span>
+            </div>
+            <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;margin-top:2px;">chevron_right</span>
+          </button>
+        </sc-for>
+      </div>
+      <h2 style="margin:32px 4px 0;font-size:20px;font-weight:800;">Coaches entdecken</h2>
       <div style="margin-top:12px;background:#fff;border-radius:24px;padding:0 20px;display:flex;flex-direction:column;">
         <sc-for list="{{ coachList }}" as="c" hint-placeholder-count="4">
           <div style="display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #ECECE8;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;animation-delay:{{ c.delay }};">
@@ -534,6 +544,57 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           <button onClick="{{ unregister }}" style="height:32px;border:0;background:transparent;font-size:13px;font-weight:700;color:#62665F;cursor:pointer;">Abmelden</button>
         </div>
       </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Produkt Detail" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
+        <button onClick="{{ prodPage.copyWkn }}" style="border:0;background:#fff;border-radius:999px;height:36px;padding:0 14px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ prodPage.wkn }}<span class="material-symbols-outlined" style="font-size:16px;">content_copy</span></button>
+      </div>
+      <div style="margin:14px 4px 0;display:flex;gap:6px;"><span style="background:#262626;color:#FFF765;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ prodPage.type }}</span></div>
+      <h1 style="margin:10px 4px 0;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-0.4px;text-wrap:pretty;">{{ prodPage.name }}</h1>
+      <div style="display:flex;align-items:baseline;gap:10px;margin:10px 4px 0;"><span style="font-size:30px;font-weight:800;letter-spacing:-0.5px;">{{ prodPage.kurs }}</span><span style="font-size:13px;font-weight:800;padding:3px 8px;border-radius:999px;background:{{ prodPage.chgBg }};color:{{ prodPage.chgColor }};">{{ prodPage.chg }}</span></div>
+
+      <div style="margin-top:18px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;">
+          <span style="font-size:13px;font-weight:700;color:#62665F;">Deine Performance · {{ prodPage.rangeLabel }}</span>
+          <span style="font-size:18px;font-weight:800;color:{{ prodPage.pctColor }};">{{ prodPage.pct }}</span>
+        </div>
+        <div style="position:relative;height:150px;margin-top:14px;background-image:linear-gradient(#F0F0EC 1px,transparent 1px);background-size:100% 25%;border-bottom:1px solid #E2E2DD;">
+          <svg viewBox="0 0 320 120" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;">
+            <defs><linearGradient id="mhProdFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="{{ prodPage.lineColor }}" stop-opacity="0.28"></stop><stop offset="100%" stop-color="{{ prodPage.lineColor }}" stop-opacity="0"></stop></linearGradient></defs>
+            <path d="{{ prodPage.area }}" fill="url(#mhProdFill)" style="d:path('{{ prodPage.area }}');transition:d .7s cubic-bezier(0.2,0,0,1);"></path>
+            <path d="{{ prodPage.line }}" fill="none" stroke="{{ prodPage.lineColor }}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" style="d:path('{{ prodPage.line }}');transition:d .7s cubic-bezier(0.2,0,0,1);"></path>
+          </svg>
+          <span style="position:absolute;right:0;top:{{ prodPage.endTop }};width:10px;height:10px;border-radius:50%;background:{{ prodPage.lineColor }};transform:translate(50%,-50%);transition:top .7s cubic-bezier(0.2,0,0,1);box-shadow:0 0 0 5px rgba(38,38,38,0.08);"></span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:14px;background:#F2F2EF;border-radius:999px;padding:4px;">
+          <sc-for list="{{ prodPage.ranges }}" as="r" hint-placeholder-count="4">
+            <button onClick="{{ r.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ r.bg }};color:{{ r.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ r.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Kennzahlen</h2>
+      <div style="margin-top:10px;background:#fff;border-radius:24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden;">
+        <sc-for list="{{ prodPage.facts }}" as="f" hint-placeholder-count="4">
+          <div style="padding:14px 18px;border-right:{{ f.br }};border-bottom:{{ f.bb }};"><div style="font-size:12px;color:#62665F;">{{ f.k }}</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ f.v }}</div></div>
+        </sc-for>
+      </div>
+
+      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Gemerkt aus dem Honey</h2>
+      <button onClick="{{ prodPage.openHoney }}" style="margin-top:10px;border:0;background:#fff;border-radius:24px;padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+        <span style="width:56px;height:56px;border-radius:16px;flex:none;background:#262626 url({{ prodPage.honeyImg }}) center / cover no-repeat;"></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:15px;font-weight:800;line-height:1.25;text-wrap:pretty;">{{ prodPage.honeyTitle }}</span><span style="font-size:12px;color:#62665F;">Honey von {{ prodPage.by }}</span></span>
+        <span class="material-symbols-outlined" style="font-size:22px;color:#62665F;">chevron_right</span>
+      </button>
+
+      <button onClick="{{ prodPage.trade }}" style="margin-top:20px;height:56px;border:0;border-radius:14px;background:#262626;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
+        <span>Beim Broker handeln</span><span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;">arrow_outward</span>
+      </button>
+      <p style="margin:16px 4px 0;font-size:12px;line-height:1.5;color:#62665F;">Alle Kurse und Werte sind illustrative Beispieldaten. Keine individuelle Anlageberatung.</p>
     </div>
     </sc-if>
 
@@ -867,8 +928,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
               </div>
             </sc-if>
             <div style="display:flex;gap:8px;">
-              <button onClick="{{ topProd.broker }}" style="flex:1;height:52px;border:0;border-radius:14px;background:#FFF765;color:#0B0B0B;font-size:15px;font-weight:800;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">Zum Broker</button>
-              <button onClick="{{ topProd.watch }}" aria-label="Merken" style="width:52px;height:52px;border:0;border-radius:14px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:22px;color:#fff;font-variation-settings:'FILL' {{ topProd.watchFill }};">bookmark</span></button>
+              <button onClick="{{ topProd.watch }}" style="flex:1;height:52px;border:0;border-radius:14px;background:#FFF765;color:#0B0B0B;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s;" style-active="transform:scale(0.98);"><span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ topProd.watchFill }};">bookmark</span><span>Auf die Merkliste</span></button>
+              <button onClick="{{ topProd.broker }}" aria-label="Zum Broker" style="height:52px;padding:0 14px;border:0;border-radius:14px;background:rgba(255,255,255,0.12);color:#fff;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;font-size:13px;font-weight:700;"><span>Broker</span><span class="material-symbols-outlined" style="font-size:18px;">arrow_outward</span></button>
             </div>
           </div>
           <h3 style="margin:22px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Weitere Optionen</h3>
@@ -1063,6 +1124,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 <script type="text/x-dc" data-dc-script>
 const PERF = { nvidia:{ pcts:{ '1W':3, '1M':9, '3M':18, '1J':31 }, seed:7 }, siemens:{ pcts:{ '1W':-1, '1M':3, '3M':5, '1J':8 }, seed:3 }, gold:{ pcts:{ '1W':1, '1M':-2, '3M':1, '1J':3 }, seed:11 } };
 const DASH_PRODUCTS = [{ id:'turbo-dax', name:'Turbo Long DAX · Hebel 5', by:'Monhey', pcts:{ '1W':-4, '1M':-9, '3M':6, '1J':-6 }, seed:5, honey:'dax' }];
+const PROD_META = { gold:{ name:'Xetra-Gold', type:'ETC' }, 'turbo-dax':{ name:'Turbo Long DAX', type:'Hebelprodukt', wkn:'MH5DAX', kurs:'18,42 €', chg:'−2,1 %',
+  facts:[['Hebel','5,0'],['Knock-out','20.180 Pkt.'],['Basiswert','DAX Index'],['Abstand KO','16,5 %'],['Emittent','Beispielbank'],['Laufzeit','Open End']] } };
 const PERF_RANGES = [['1W','1 Woche'],['1M','1 Monat'],['3M','3 Monate'],['1J','1 Jahr']];
 const fmtPct = v => (v >= 0 ? '+' : '−') + Math.abs(v) + ' %';
 const perfSeries = (pct, seed) => { let r = seed * 997; const rnd = () => { r = (r * 9301 + 49297) % 233280; return r / 233280; };
@@ -1408,11 +1471,13 @@ class Component extends DCLogic {
     const perfRows = perfSorted.map((x, i) => { const v = x.pct;
       return { name: x.name, by: 'Honey von ' + x.by, pct: fmtPct(v),
         bg: v >= 15 ? '#33DA00' : v < 0 ? 'rgba(255,90,78,0.18)' : 'rgba(255,255,255,0.1)', color: v >= 15 ? '#0B0B0B' : v < 0 ? '#FF5A4E' : '#FFFFFF',
-        divider: i === perfSorted.length - 1 ? '0' : '1px solid rgba(255,255,255,0.08)', open: () => this.openHoney(x.honey) }; });
+        divider: i === perfSorted.length - 1 ? '0' : '1px solid rgba(255,255,255,0.08)', open: () => this.go('product', { productId:x.id }) }; });
     return {
       sbBg: s.podOpen ? '#141414' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF', sbColor: s.podOpen || s.screen === 'home' ? '#FFFFFF' : '#0B0B0B',
       hasPerf: dashList.length > 0, noPerf: dashList.length === 0, perf, perfRows, perfAvg: '', perfOpen: s.perfOpen, perfRot: s.perfOpen ? '180deg' : '0deg', perfRows2: s.perfOpen ? '1fr' : '0fr', perfMove: e => { const r = e.currentTarget.getBoundingClientRect(); const i = Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35); if (i !== this.state.perfHover) this.setState({ perfHover:i }); },
-      perfLeave: () => this.setState({ perfHover:null }),
+      perfDown: e => { e.preventDefault(); try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} const sel = window.getSelection && window.getSelection(); if (sel) sel.removeAllRanges(); const r = e.currentTarget.getBoundingClientRect(); this.setState({ perfHover: Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35) }); },
+      perfNoMenu: e => e.preventDefault(),
+      perfLeave: e => { if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return; this.setState({ perfHover:null }); },
       togglePerfList: () => this.setState(st => ({ perfOpen: !st.perfOpen })),
       perfRanges: PERF_RANGES.map(([k]) => ({ label:k, bg: s.perfRange===k ? '#FFF765' : 'transparent', color: s.perfRange===k ? '#0B0B0B' : '#FFFFFF', pick: () => this.setState({ perfRange:k, perfHover:null }) })),
       hexHoneys: Array.from({ length:5 }, (_, i, a) => ({ ml: i ? '-7px' : '0', num: i === 4 ? '5' : '' })),
@@ -1462,6 +1527,22 @@ class Component extends DCLogic {
       unregister:() => { this.setState({ liveReg:false }); this.showToast('Vom Webinar abgemeldet'); },
       addCalendar:() => this.showToast('Termin im Kalender gespeichert'),
       news:NEWS.slice(0,3).map((n,i) => ({ ...coachVals(COACHES[n.c]), title:n.title, text:n.text, open:() => n.body ? this.go('article', { articleIdx:i }) : n.honey ? this.openHoney(n.honey) : this.openCoach(COACHES[n.c].id) })),
+      isProduct:s.screen==='product',
+      prodPage:(() => { const all = [...['nvidia','siemens','gold'].map(id => { const x = ALL_HONEYS.find(y => y.id === id); return { id, name:x.basis, by:x.author, honey:id, ...PERF[id] }; }), ...DASH_PRODUCTS];
+        const p = all.find(x => x.id === s.productId) || all[0]; const hy = ALL_HONEYS.find(y => y.id === p.honey) || {}; const M = PROD_META[p.id] || {};
+        const rIdx = Math.max(0, PERF_RANGES.findIndex(r => r[0] === s.perfRange)); const v = p.pcts[PERF_RANGES[rIdx][0]];
+        const ser = perfSeries(v, p.seed + rIdx * 13); const mn = Math.min(...ser), mx = Math.max(...ser), pad = (mx - mn) * 0.1 || 1;
+        const pts = ser.map((q, i) => [(i / (ser.length - 1)) * 320, 116 - ((q - mn + pad) / (mx - mn + 2 * pad)) * 110]);
+        const line = 'M' + pts.map(q => q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' L'); const up = v >= 0; const neg = String(M.chg || hy.chg || '').includes('−');
+        const facts = M.facts || [['Marktkap.', hy.mcap], ['Dividende', hy.div], ['Kursziel', hy.ziel], ['Stopp', hy.stopp]];
+        return { name:M.name || hy.basis || p.name, type:M.type || 'Aktie', wkn:M.wkn || hy.wkn, kurs:M.kurs || hy.kurs, chg:M.chg || hy.chg,
+          chgBg: neg ? 'rgba(255,90,78,0.14)' : '#FFF765', chgColor: neg ? '#D63A2F' : '#0B0B0B',
+          pct:fmtPct(v), pctColor: up ? '#1F9E00' : '#D63A2F', lineColor: up ? '#33DA00' : '#FF5A4E', rangeLabel:PERF_RANGES[rIdx][1],
+          line, area: line + ' L320 120 L0 120 Z', endTop:(pts[pts.length-1][1] / 120 * 100).toFixed(1) + '%',
+          ranges:PERF_RANGES.map(([k]) => ({ label:k, bg: s.perfRange===k ? '#262626' : 'transparent', color: s.perfRange===k ? '#FFFFFF' : '#0B0B0B', pick:() => this.setState({ perfRange:k }) })),
+          facts:facts.map(([k, val], i) => ({ k, v:val || '–', br: i % 2 ? '0' : '1px solid #ECECE8', bb: i < facts.length - 2 ? '1px solid #ECECE8' : '0' })),
+          honeyTitle:hy.title, honeyImg:hy.image || 'assets/monhey-bee.png', by:p.by, openHoney:() => this.openHoney(p.honey),
+          copyWkn:() => this.copy(M.wkn || hy.wkn), trade:() => this.showToast('Weiterleitung zum Broker ist im Prototyp nicht verfügbar') }; })(),
       isArticle:s.screen==='article',
       art:(() => { const n = NEWS[s.articleIdx || 0]; const c = COACHES[n.c]; const hy = n.honey && ALL_HONEYS.find(x => x.id === n.honey);
         return { title:n.title, date:n.date || 'Heute', name:c.name, img:c.img, topics:c.topics, sections:(n.body || []).map(([t,b]) => ({ t, b, hasT:!!t })),
