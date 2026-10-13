@@ -43,7 +43,7 @@ button{font-family:inherit}
 @keyframes mh-breathe{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.05);opacity:.9}}
 @keyframes mh-blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
 @media (max-width: 600px){
-html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
+html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 [data-mh="stage"]{padding:0!important;min-height:0!important;height:100dvh!important;display:block!important}
 [data-mh="app"]{width:100vw!important;height:100dvh!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}
 [data-mh="statusbar"],[data-mh="homebar"]{display:none!important}
@@ -1192,7 +1192,12 @@ const mmss = t => Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart
 const NAV_SCREENS = ['home','honeys','watchlist','coaches'];
 
 class Component extends DCLogic {
-  componentDidUpdate() { const m = document.querySelector('meta[name="theme-color"]'); const c = this.state.podOpen ? '#141414' : this.state.screen === 'home' ? '#2B2B2B' : '#F2F2EF'; if (m && m.content !== c) m.content = c; }
+  syncBar() { const c = this.state.podOpen ? '#141414' : this.state.screen === 'home' ? '#2B2B2B' : '#F2F2EF';
+    if (this._bar === c) return; this._bar = c;
+    const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = c;
+    if (window.matchMedia('(max-width: 600px)').matches) { document.documentElement.style.setProperty('background', c, 'important'); document.body.style.setProperty('background', c, 'important'); } }
+  componentDidMount() { this.syncBar(); }
+  componentDidUpdate() { this.syncBar(); }
   state = { screen:'home', hist:[], car:0, honeyId:'siemens', mode:'hebel', unlocked:[], member:false, sheet:null, closing:false, payPlan:'single',
     focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'1J', perfOpen:false, perfHover:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
     following:['veit'], rec:false, cdlRange:'1M', lev:5, coachId:'veit', liveReg:false, regEmail:'stefan.k@beispiel.de', reminder:'15', askText:'', chat:[], typing:false, begleitet:[], pushPerm:'unknown', begPending:null, sysAlert:false };
