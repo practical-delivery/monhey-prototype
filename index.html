@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <title>monhey!</title>
 <meta name="theme-color" content="#2B2B2B">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,6 +28,7 @@ a{color:#0B0B0B}a:hover{color:#62665F}
 *{box-sizing:border-box}
 button{font-family:inherit}
 .mh-scroll::-webkit-scrollbar{display:none}
+@media (max-width: 600px){input,textarea,select{font-size:16px!important}}
 .mh-dark-input::placeholder{color:rgba(255,255,255,0.62)}
 @keyframes mh-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes mh-down{from{transform:translateY(0)}to{transform:translateY(100%)}}
@@ -633,41 +634,21 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         </div>
       </sc-if>
       <div style="margin:18px 4px 0;display:flex;"><span style="background:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ h.author }}</span></div>
-      <h1 style="margin:6px 4px 0;font-size:28px;line-height:1.18;font-weight:800;letter-spacing:-0.3px;text-wrap:pretty;">{{ h.title }}</h1>
-      <p style="margin:10px 4px 0;font-size:15px;line-height:1.55;color:#3B3F39;">{{ h.kurz }}</p>
-      <button onClick="{{ openPod }}" style="margin-top:16px;width:100%;border:0;border-radius:20px;padding:14px 16px 14px 14px;display:flex;align-items:center;gap:14px;cursor:pointer;color:#fff;text-align:left;background:radial-gradient(120% 140% at 0% 0%,rgba(255,247,101,0.22) 0%,rgba(255,247,101,0) 55%),#262626;transition:transform .15s;" style-active="transform:scale(0.98);">
-        <span style="width:48px;height:48px;border-radius:50%;background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 0 20px rgba(255,247,101,0.35);"><span class="material-symbols-outlined" style="font-size:28px;color:#0B0B0B;font-variation-settings:'FILL' 1;">play_arrow</span></span>
-        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:15px;font-weight:800;">Honey anhören</span><span style="font-size:13px;line-height:1.4;color:rgba(255,255,255,0.7);">Als Podcast · 6 Min.</span></span>
-        <span style="display:flex;align-items:center;gap:2px;height:24px;flex:none;">
-          <sc-for list="{{ podMini }}" as="m" hint-placeholder-count="7"><span style="width:3px;height:{{ m }};border-radius:2px;background:#FFF765;opacity:0.8;"></span></sc-for>
-        </span>
-      </button>
+      <h1 style="margin:8px 4px 0;font-size:28px;line-height:1.18;font-weight:800;letter-spacing:-0.3px;text-wrap:pretty;">{{ h.title }}</h1>
 
-      <div style="margin-top:20px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-          <div><div style="font-size:12px;font-weight:600;color:#62665F;">Basiswert</div><div style="font-size:18px;font-weight:800;margin-top:2px;">{{ h.basis }}</div></div>
-          <button onClick="{{ copyHoneyWkn }}" style="border:0;background:#F2F2EF;border-radius:999px;height:34px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ h.wkn }}<span class="material-symbols-outlined" style="font-size:16px;">content_copy</span></button>
+      <div style="margin-top:16px;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px;color:#fff;background:radial-gradient(90% 80% at 100% 0%,rgba(255,247,101,0.12) 0%,rgba(255,247,101,0) 60%),#262626;">
+        <span style="font-size:13px;font-weight:800;color:#FFF765;">What’s in it?</span>
+        <p style="margin:-8px 0 0;font-size:15px;line-height:1.55;color:rgba(255,255,255,0.88);text-wrap:pretty;">{{ h.kurz }}</p>
+        <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);border-radius:14px;background:rgba(255,255,255,0.07);">
+          <div style="padding:10px 12px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,0.1);"><span style="font-size:11px;color:rgba(255,255,255,0.65);">Kurspotenzial</span><span style="font-size:15px;font-weight:800;color:#FFF765;white-space:nowrap;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .3s;">{{ h.pot }}</span></div>
+          <div style="padding:10px 12px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,0.1);"><span style="font-size:11px;color:rgba(255,255,255,0.65);">Chance</span><span style="display:flex;align-items:center;gap:5px;font-size:15px;font-weight:800;"><span style="width:10px;height:11px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#33DA00;flex:none;"></span>{{ h.cScore }}</span></div>
+          <div style="padding:10px 12px;display:flex;flex-direction:column;gap:2px;"><span style="font-size:11px;color:rgba(255,255,255,0.65);">Risiko</span><span style="display:flex;align-items:center;gap:5px;font-size:15px;font-weight:800;"><span style="width:10px;height:11px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FF6608;flex:none;"></span>{{ h.rScore }}</span></div>
         </div>
-        <div style="display:flex;align-items:baseline;gap:10px;margin-top:16px;"><span style="font-size:30px;font-weight:800;letter-spacing:-0.5px;">{{ h.kurs }}</span><span style="font-size:13px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">{{ h.chg }}</span></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;min-height:56px;padding:10px 16px;border-radius:16px;background:#FFF765;">
-          <span style="font-size:14px;font-weight:800;">Kurspotenzial</span>
-          <span style="font-size:22px;font-weight:800;letter-spacing:-0.3px;white-space:nowrap;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .3s;">{{ h.pot }}</span>
-        </div>
-        <div style="font-size:12px;color:#62665F;margin-top:8px;">Szenario im Beispiel · keine Prognose</div>
-        <div style="display:grid;grid-template-columns:54px minmax(0,1fr) 34px;gap:12px 10px;align-items:center;margin-top:18px;">
-          <span style="font-size:13px;font-weight:700;">Chance</span>
-          <div style="display:flex;gap:3px;"><sc-for list="{{ h.chanceFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
-          <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.cScore }}</span>
-          <span style="font-size:13px;font-weight:700;">Risiko</span>
-          <div style="display:flex;gap:3px;"><sc-for list="{{ h.riskFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
-          <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.rScore }}</span>
-        </div>
-        <div style="margin-top:18px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;">
-          <div style="padding:12px 14px;border-right:1px solid #E2E2DD;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#33DA00;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.ziel }}</div></div>
-          <div style="padding:12px 14px;border-bottom:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Stopp</div><div style="font-size:15px;font-weight:800;color:#FF6608;margin-top:2px;filter:{{ kpiBlur }};user-select:{{ kpiSelect }};transition:filter .4s;">{{ h.stopp }}</div></div>
-          <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Marktkap.</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.mcap }}</div></div>
-          <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Dividende</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.div }}</div></div>
-        </div>
+        <button onClick="{{ openPod }}" style="border:0;border-top:1px solid rgba(255,255,255,0.1);background:transparent;padding:14px 0 0;display:flex;align-items:center;gap:12px;cursor:pointer;color:#fff;text-align:left;">
+          <span style="width:36px;height:36px;border-radius:50%;background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;font-variation-settings:'FILL' 1;">play_arrow</span></span>
+          <span style="flex:1;min-width:0;font-size:14px;font-weight:800;">Honey anhören <span style="font-weight:600;color:rgba(255,255,255,0.65);">· Podcast, 6 Min.</span></span>
+          <span style="display:flex;align-items:center;gap:2px;height:20px;flex:none;"><sc-for list="{{ podMini }}" as="m" hint-placeholder-count="7"><span style="width:3px;height:{{ m }};border-radius:2px;background:#FFF765;opacity:0.8;"></span></sc-for></span>
+        </button>
       </div>
 
       <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}">
@@ -687,10 +668,63 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
       <sc-if value="{{ unlocked }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;animation:mh-rise .5s cubic-bezier(0.2,0,0,1) both;">
-        <h2 style="margin:32px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Kursverlauf</h2>
-        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;">
+        <h2 style="margin:32px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Der Hintergrund</h2>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+          <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was ist passiert?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s1 }}</p></div>
+          <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Warum ist das interessant?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s2 }}</p></div>
+          <div style="padding:18px 0;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was könnte das für dich bedeuten?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s3 }}</p></div>
+        </div>
+
+        <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Deep Dive</h2>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:0 8px;display:flex;flex-direction:column;">
+          <sc-for list="{{ focusOpts }}" as="f" hint-placeholder-count="3">
+            <div style="border-bottom:{{ f.divider }};">
+              <button onClick="{{ f.pick }}" style="width:100%;min-height:60px;border:0;background:transparent;padding:10px 12px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
+                <span style="width:36px;height:36px;border-radius:50%;background:{{ f.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;transition:background .25s;"><span class="material-symbols-outlined" style="font-size:20px;color:{{ f.iconColor }};transition:color .25s;">{{ f.icon }}</span></span>
+                <span style="flex:1;font-size:15px;font-weight:800;">{{ f.label }}</span>
+                <span class="material-symbols-outlined" style="font-size:24px;color:#62665F;transform:rotate({{ f.rot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
+              </button>
+              <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
+                <div style="overflow:hidden;">
+                  <p style="margin:0;padding:0 12px 18px 62px;font-size:15px;line-height:1.6;color:#3B3F39;">{{ f.text }}</p>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Basiswert</h2>
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:18px 20px 6px;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <span style="font-size:18px;font-weight:800;">{{ h.basis }}</span>
+            <button onClick="{{ copyHoneyWkn }}" style="border:0;background:#F2F2EF;border-radius:999px;height:32px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ h.wkn }}<span class="material-symbols-outlined" style="font-size:15px;">content_copy</span></button>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-top:8px;"><span style="font-size:28px;font-weight:800;letter-spacing:-0.5px;">{{ h.kurs }}</span><span style="font-size:13px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">{{ h.chg }}</span></div>
+          <div style="margin-top:14px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;">
+            <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#1F9E00;margin-top:2px;">{{ h.ziel }}</div></div>
+            <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Stopp</div><div style="font-size:15px;font-weight:800;color:#FF6608;margin-top:2px;">{{ h.stopp }}</div></div>
+          </div>
+          <div style="display:grid;grid-template-rows:{{ basisRows }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
+            <div style="overflow:hidden;min-height:0;">
+              <div style="margin-top:8px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;">
+                <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Marktkap.</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.mcap }}</div></div>
+                <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Dividende</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.div }}</div></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;min-height:54px;padding:10px 16px;border-radius:16px;background:#FFF765;">
+                <span style="font-size:14px;font-weight:800;">Kurspotenzial</span>
+                <span style="font-size:21px;font-weight:800;letter-spacing:-0.3px;white-space:nowrap;">{{ h.pot }}</span>
+              </div>
+              <div style="font-size:12px;color:#62665F;margin-top:8px;">Szenario im Beispiel · keine Prognose</div>
+              <div style="display:grid;grid-template-columns:54px minmax(0,1fr) 34px;gap:12px 10px;align-items:center;margin-top:16px;">
+                <span style="font-size:13px;font-weight:700;">Chance</span>
+                <div style="display:flex;gap:3px;"><sc-for list="{{ h.chanceFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
+                <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.cScore }}</span>
+                <span style="font-size:13px;font-weight:700;">Risiko</span>
+                <div style="display:flex;gap:3px;"><sc-for list="{{ h.riskFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
+                <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.rScore }}</span>
+              </div>
+              <div style="margin-top:22px;padding-top:18px;border-top:1px solid #ECECE8;display:flex;flex-direction:column;">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;">
-            <span style="font-size:15px;font-weight:800;">{{ h.basis }}</span>
+            <span style="font-size:15px;font-weight:800;">Kursverlauf</span>
             <span style="font-size:12px;color:#62665F;">{{ cdl.note }}</span>
           </div>
           <div style="position:relative;height:180px;margin-top:14px;">
@@ -717,30 +751,11 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
             </sc-for>
           </div>
         </div>
-
-        <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Der Hintergrund</h2>
-        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
-          <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was ist passiert?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s1 }}</p></div>
-          <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Warum ist das interessant?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s2 }}</p></div>
-          <div style="padding:18px 0;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was könnte das für dich bedeuten?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s3 }}</p></div>
-        </div>
-
-        <h2 style="margin:32px 4px 0;font-size:20px;font-weight:800;">Du willst mehr Infos?</h2>
-        <div style="margin-top:12px;background:#fff;border-radius:24px;padding:0 8px;display:flex;flex-direction:column;">
-          <sc-for list="{{ focusOpts }}" as="f" hint-placeholder-count="3">
-            <div style="border-bottom:{{ f.divider }};">
-              <button onClick="{{ f.pick }}" style="width:100%;min-height:64px;border:0;background:transparent;padding:10px 12px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
-                <span style="width:40px;height:40px;border-radius:12px;background:{{ f.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;transition:background .25s;"><span class="material-symbols-outlined" style="font-size:22px;color:{{ f.iconColor }};transition:color .25s;">{{ f.icon }}</span></span>
-                <span style="flex:1;font-size:16px;font-weight:800;">{{ f.label }}</span>
-                <span class="material-symbols-outlined" style="font-size:24px;color:#62665F;transform:rotate({{ f.rot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
-              </button>
-              <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
-                <div style="overflow:hidden;">
-                  <p style="margin:0;padding:0 12px 18px 66px;font-size:15px;line-height:1.6;color:#3B3F39;">{{ f.text }}</p>
-                </div>
-              </div>
             </div>
-          </sc-for>
+          </div>
+          <button onClick="{{ toggleBasis }}" aria-expanded="{{ basisOpen }}" style="height:44px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:#62665F;font-size:13px;font-weight:700;">
+            <span>{{ basisLabel }}</span><span class="material-symbols-outlined" style="font-size:20px;transform:rotate({{ basisRot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
+          </button>
         </div>
 
         <h2 style="margin:32px 4px 0;font-size:20px;font-weight:800;">Wie willst du traden?</h2>
@@ -751,19 +766,27 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           </sc-for>
         </div>
         <div style="position:relative;margin-top:16px;">
-          <div style="position:absolute;top:-7px;left:calc(5px + (100% - 18px) / 6 + {{ modeIdx }} * ((100% - 18px) / 3 + 4px));width:16px;height:16px;margin-left:-8px;background:#fff;border-radius:3px;transform:rotate(45deg);transition:left .35s cubic-bezier(0.2,0,0,1);"></div>
-          <div style="position:relative;background:#fff;border-radius:24px;padding:4px 20px;">
-            <div key="{{ modeKey }}" style="display:flex;flex-direction:column;animation:mh-fade .3s both;">
-              <div style="padding:16px 0;border-bottom:1px solid #ECECE8;"><div style="font-size:16px;font-weight:800;">Wie funktioniert das?</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:6px;">{{ mode.how }}</div></div>
-              <div style="padding:16px 0;border-bottom:1px solid #ECECE8;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span></span><div><div style="font-size:16px;font-weight:800;">Die Chancen</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;">{{ mode.chancen }}</div></div></div>
-              <div style="padding:16px 0;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#E4E4DF;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_downward</span></span><div><div style="font-size:16px;font-weight:800;">Die Risiken</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;">{{ mode.risiken }}</div></div></div>
+          <div style="position:absolute;top:-7px;left:calc(5px + (100% - 18px) / 6 + {{ modeIdx }} * ((100% - 18px) / 3 + 4px));width:16px;height:16px;margin-left:-8px;background:#262626;border-radius:3px;transform:rotate(45deg);transition:left .35s cubic-bezier(0.2,0,0,1);"></div>
+          <div style="position:relative;background:#262626;color:#fff;border-radius:24px;padding:6px 20px 20px;display:flex;flex-direction:column;">
+            <button onClick="{{ toggleTradeInfo }}" aria-expanded="{{ tradeOpen }}" style="height:52px;border:0;border-bottom:1px solid rgba(255,255,255,0.12);background:transparent;padding:0;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#fff;font-size:15px;font-weight:800;text-align:left;">
+              <span>Erklär Funktion und Chancen</span><span class="material-symbols-outlined" style="font-size:24px;color:#FFF765;transform:rotate({{ tradeRot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
+            </button>
+            <div style="display:grid;grid-template-rows:{{ tradeRows }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
+              <div style="overflow:hidden;min-height:0;">
+                <div key="{{ modeKey }}" style="display:flex;flex-direction:column;animation:mh-fade .3s both;">
+                  <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.1);"><div style="font-size:14px;font-weight:800;color:#FFF765;">Wie funktioniert das?</div><div style="font-size:14px;line-height:1.55;color:rgba(255,255,255,0.85);margin-top:6px;">{{ mode.how }}</div></div>
+                  <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#33DA00;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;color:#0B0B0B;">arrow_upward</span></span><div><div style="font-size:14px;font-weight:800;">Die Chancen</div><div style="font-size:14px;line-height:1.55;color:rgba(255,255,255,0.85);margin-top:4px;">{{ mode.chancen }}</div></div></div>
+                  <div style="padding:16px 0;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#FF6608;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;color:#0B0B0B;">arrow_downward</span></span><div><div style="font-size:14px;font-weight:800;">Die Risiken</div><div style="font-size:14px;line-height:1.55;color:rgba(255,255,255,0.85);margin-top:4px;">{{ mode.risiken }}</div></div></div>
+                </div>
+              </div>
             </div>
+            <button onClick="{{ openOptions }}" style="margin-top:18px;height:54px;border:0;border-radius:14px;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:800;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
+              <span>{{ ctaLabel }}</span><span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+            </button>
           </div>
         </div>
-        <button onClick="{{ openOptions }}" style="margin-top:12px;height:56px;border:0;border-radius:14px;background:#262626;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
-          <span>{{ ctaLabel }}</span><span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;">arrow_forward</span>
-        </button>
-        <p style="margin:16px 4px 0;font-size:12px;line-height:1.5;color:#62665F;">Alle Kurse und Produkte sind illustrative Beispieldaten. Keine individuelle Anlageberatung. Keine Aufforderung zum Kauf oder Verkauf von Finanzinstrumenten.</p>
+
+        <p style="margin:20px 4px 0;font-size:12px;line-height:1.5;color:#62665F;">Alle Kurse und Produkte sind illustrative Beispieldaten. Keine individuelle Anlageberatung. Keine Aufforderung zum Kauf oder Verkauf von Finanzinstrumenten.</p>
         </div>
       </sc-if>
     </div>
@@ -1141,12 +1164,12 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 const PERF = { nvidia:{ pcts:{ '1W':3, '1M':9, '3M':18, '1J':31 }, seed:7 }, siemens:{ pcts:{ '1W':-1, '1M':3, '3M':5, '1J':8 }, seed:3 }, gold:{ pcts:{ '1W':1, '1M':-2, '3M':1, '1J':3 }, seed:11 } };
 const DASH_PRODUCTS = [{ id:'turbo-dax', name:'Turbo Long DAX · Hebel 5', by:'Monhey', pcts:{ '1W':-4, '1M':-9, '3M':6, '1J':-6 }, seed:5, honey:'dax' }];
 const QUOTES = { nvidia:{ name:'NVIDIA Aktie', exch:'NDQ', wkn:'918422', kurs:182.64, abs:4.12, cur:'$', time:'22:00:00' },
-  siemens:{ name:'Siemens Aktie', exch:'XETRA', wkn:'723610', kurs:238.45, abs:-1.85, cur:'€', time:'17:35:04' },
+  siemens:{ name:'Amazon Aktie', exch:'XETRA', wkn:'Q3ZWGF', kurs:227.38, abs:5.11, cur:'€', time:'17:35:04' },
   gold:{ name:'Xetra-Gold', exch:'XETRA', wkn:'A0S9GB', kurs:112.30, abs:0.64, cur:'€', time:'17:35:12' },
   dax:{ name:'DAX Index', exch:'XETRA', wkn:'846900', kurs:24180.12, abs:-96.40, cur:'Pkt.', time:'17:45:00' },
   sp500:{ name:'S&P 500 Index', exch:'INDEX', wkn:'A0AET0', kurs:6712.40, abs:38.20, cur:'Pkt.', time:'22:15:00' },
   amd:{ name:'AMD Aktie', exch:'NDQ', wkn:'863186', kurs:164.21, abs:-3.02, cur:'$', time:'21:59:48' } };
-const LOGOS = { nvidia:['NV','#76B900','#FFFFFF'], siemens:['S','#009999','#FFFFFF'], gold:['Au','#D4A72C','#0B0B0B'], dax:['DAX','#262626','#FFF765'], sp500:['S&P','#1E3A8A','#FFFFFF'], amd:['AMD','#0B0B0B','#FFFFFF'], sap:['SAP','#0A6ED1','#FFFFFF'] };
+const LOGOS = { nvidia:['NV','#76B900','#FFFFFF'], siemens:['AMZ','#FF9900','#0B0B0B'], gold:['Au','#D4A72C','#0B0B0B'], dax:['DAX','#262626','#FFF765'], sp500:['S&P','#1E3A8A','#FFFFFF'], amd:['AMD','#0B0B0B','#FFFFFF'], sap:['SAP','#0A6ED1','#FFFFFF'] };
 const logoFor = (id, name) => { const L = LOGOS[id]; if (L) return { logo:L[0], logoBg:L[1], logoFg:L[2] }; const t = (name || '?').replace(/^Turbo Long /, '').trim(); return { logo:t.slice(0, 2).toUpperCase(), logoBg:'#ECECE8', logoFg:'#0B0B0B' }; };
 const SEARCH_PRODS = [{ id:'sp500', name:'S&P 500 Index', by:'', pcts:{ '1W':1, '1M':3, '3M':7, '1J':16 }, seed:9, honey:null },
   { id:'amd', name:'AMD Aktie', by:'', pcts:{ '1W':-3, '1M':-8, '3M':4, '1J':21 }, seed:13, honey:null }];
@@ -1167,15 +1190,15 @@ const perfSeries = (pct, seed) => { let r = seed * 997; const rnd = () => { r = 
   out[n - 1] = pct; return out; };
 const hexD = (n, on, off) => Array.from({ length:5 }, (_, i) => ({ fill: i < Math.round(n/2) ? on : off }));
 const HONEYS = [
-  { id:'siemens', authorType:'REDAKTION', author:'Monhey', tag:'AKTIEN', meta:'Beispiel-Honey · 4 Min. Lesezeit', byline:'Ein Honey aus der Monhey Redaktion',
-    title:'Bei Siemens kommt der Turnaround', teaser:'Bei Siemens kommt gerade richtig Bewegung rein. In diesem Honey zeigen wir dir, was hinter der Neuausrichtung steckt und auf welche Signale es jetzt ankommt.', chance:'Neue Perspektiven früh einordnen.',
-    kurz:'Was den Turnaround im Beispiel antreibt und welche Erwartungen zu prüfen sind.', image:'assets/hero-siemens-wind.jpg',
-    basis:'Siemens Aktie', wkn:'Q3ZWGF', kurs:'227,38 €', chg:'+2,3 %', ziel:'255,00 €', stopp:'210,00 €', mcap:'500 Mrd. €', div:'0,0 %', pot:'+8 % bis +14 %',
+  { id:'siemens', authorType:'REDAKTION', author:'Monhey', tag:'KI', meta:'Beispiel-Honey · 4 Min. Lesezeit', byline:'Ein Honey aus der Monhey Redaktion',
+    title:'Amazon kauft KI Startup Decart für 7 Milliarden Euro', teaser:'Mit der Übernahme von Decart greift Amazon im Geschäft mit KI-Chips an. Was dahinter steckt und was das für die Aktie heißen kann.', chance:'Vom Wettbewerb um KI-Chips profitieren.',
+    kurz:'Amazons Akquisition könnte es KI-Anbietern einfacher machen, von NVIDIA Chips auf günstigere umzusteigen – auch die von Amazon. Decart entwickelt Software, mit der KI-Modelle auf unterschiedlicher Hardware laufen. Für Amazons Cloud-Sparte AWS könnte das ein Argument gegenüber der Konkurrenz werden.', image:'assets/hero-siemens-wind.jpg',
+    basis:'Amazon Aktie', wkn:'Q3ZWGF', kurs:'227,38 €', chg:'+2,3 %', ziel:'255,00 €', stopp:'210,00 €', mcap:'500 Mrd. €', div:'0,0 %', pot:'+8 % bis +14 %',
     cl:3, rl:2, c10:7, r10:5, chanceTxt:'höher', riskTxt:'mittel',
-    s1:'Im Beispiel stabilisiert sich das Geschäft. Aufträge und bessere Margen liefern neue Impulse. Ob sich die Entwicklung fortsetzt, zeigen die nächsten Unternehmenszahlen.',
-    s2:'Ein Turnaround kann Erwartungen verändern. Entscheidend ist, ob die Erholung nachhaltig ist und wie viel davon bereits im Kurs steckt. Die Bewertung gehört deshalb zum Gesamtbild.',
-    s3:'Ordne die Idee in deinen Zeithorizont ein. Prüfe, wie der Titel zu deinem Portfolio passt, und welches Risiko du tragen könntest. Ein Szenario ist eine Möglichkeit, keine Zusage.',
-    deep:{ technik:'Der Kurs hat im Beispiel eine Seitwärtsphase nach oben verlassen. Die Marke um 220 € dient jetzt als Unterstützung, das Volumen ist beim Ausbruch gestiegen.', hinter:'Der Konzern bündelt sein Geschäft stärker auf Automatisierung und Infrastruktur. Weniger Randbereiche bedeuten mehr Fokus und im Idealfall stabilere Margen.', analyse:'Umsatzwachstum und Auftragseingang liegen im Beispiel über den Erwartungen. Das Kurs-Gewinn-Verhältnis bewegt sich im Branchenschnitt, die Verschuldung ist moderat.' } },
+    s1:'Amazon übernimmt im Beispiel das KI-Startup Decart für rund 7 Milliarden Euro. Decart entwickelt Software, mit der KI-Modelle schneller und günstiger auf unterschiedlichen Chips laufen.',
+    s2:'Bisher setzen viele KI-Anbieter auf Chips von NVIDIA. Lässt sich KI-Software leichter auf andere Hardware übertragen, werden Amazons eigene Chips attraktiver. Das könnte das Cloud-Geschäft von AWS stärken. Entscheidend ist, wie viel davon bereits im Kurs steckt.',
+    s3:'Ordne die Idee in deinen Zeithorizont ein. Ob sich die Übernahme auszahlt, zeigt sich erst über die nächsten Quartale. Prüfe, wie der Titel zu deinem Portfolio passt, und welches Risiko du tragen könntest. Ein Szenario ist eine Möglichkeit, keine Zusage.',
+    deep:{ technik:'Der Kurs hat im Beispiel nach der Meldung eine Seitwärtsphase nach oben verlassen. Die Marke um 215 € dient jetzt als Unterstützung, das Volumen ist beim Ausbruch deutlich gestiegen.', hinter:'Rechenleistung für KI ist knapp und teuer. Cloud-Anbieter wie Amazon entwickeln deshalb eigene Chips. Mit Decart kommt die Software dazu, die den Wechsel von NVIDIA-Hardware erleichtern soll.', analyse:'AWS liefert im Beispiel den größten Teil von Amazons Gewinn. Wächst die KI-Nachfrage in der Cloud weiter, profitiert vor allem diese Sparte. Der Kaufpreis ist für Amazon gut verkraftbar.' } },
   { id:'nvidia', authorType:'COACH', author:'Marcus Veit', tag:'AKTIEN', meta:'Beispiel-Honey · 3 Min. Lesezeit', byline:'Ein Honey von Coach Marcus Veit',
     title:'IT-Werte schwingen sich zu neuen Höhenflügen', teaser:'Warum die Nachfrage nach KI-Chips weiter wächst und was das für Nvidia heißt.', chance:'Vom anhaltenden KI-Ausbau profitieren.',
     kurz:'Wie stark die Nachfrage nach Rechenzentren im Beispiel wächst und wo die Bewertung bereits viel vorwegnimmt.', image:'assets/hero-nvidia.jpg',
@@ -1295,7 +1318,7 @@ class Component extends DCLogic {
   componentDidMount() { this.syncBar(); }
   componentDidUpdate() { this.syncBar(); }
   state = { screen:'home', hist:[], car:0, honeyId:'siemens', mode:'hebel', unlocked:[], member:false, sheet:null, closing:false, payPlan:'single',
-    focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'1J', perfOpen:false, perfHover:null, watchSearch:['sp500','amd'], swipe:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
+    focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'1J', perfOpen:false, perfHover:null, basisOpen:false, tradeOpen:false, watchSearch:['sp500','amd'], swipe:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
     following:['veit'], rec:false, cdlRange:'1M', lev:5, coachId:'veit', liveReg:false, regEmail:'stefan.k@beispiel.de', reminder:'15', askText:'', chat:[], typing:false, begleitet:[], pushPerm:'unknown', begPending:null, sysAlert:false };
   scrollRef = React.createRef();
   carRef = React.createRef();
@@ -1532,6 +1555,12 @@ class Component extends DCLogic {
       scrollRef:this.scrollRef, carRef:this.carRef,
       isHome:s.screen==='home', isHoneys:s.screen==='honeys', isWatchlist:s.screen==='watchlist', isCoaches:s.screen==='coaches',
       isCoachProfile:s.screen==='coach', isLive:s.screen==='live', isAssistant:s.screen==='assistant', isDetail:s.screen==='detail',
+      sumHexC:Array.from({ length:10 }, (_, i) => i < h0.c10 ? '#33DA00' : '#FFFFFF'),
+      sumHexR:Array.from({ length:10 }, (_, i) => i < h0.r10 ? '#FF6608' : '#FFFFFF'),
+      basisOpen:s.basisOpen, basisRows: s.basisOpen ? '1fr' : '0fr', basisRot: s.basisOpen ? '180deg' : '0deg', basisLabel: s.basisOpen ? 'Weniger anzeigen' : 'Kennzahlen, Szenario und Chart',
+      toggleBasis:() => this.setState(st => ({ basisOpen:!st.basisOpen })),
+      tradeOpen:s.tradeOpen, tradeRows: s.tradeOpen ? '1fr' : '0fr', tradeRot: s.tradeOpen ? '180deg' : '0deg',
+      toggleTradeInfo:() => this.setState(st => ({ tradeOpen:!st.tradeOpen })),
       showNav:true,
       podOpen:s.podOpen, podAnim: s.podPlay ? 'running' : 'paused',
       podMini:['8px','16px','11px','22px','14px','19px','9px'],
