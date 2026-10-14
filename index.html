@@ -308,63 +308,74 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     </sc-if>
 
     <sc-if value="{{ isWatchlist }}" hint-placeholder-val="{{ false }}">
-    <div data-screen-label="Watchlist" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
-      <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
-      <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Watchlist</h1>
+    <div data-screen-label="Watchlist" style="position:relative;padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:760px;background:url(assets/hex-header.svg) top right / 402px 760px no-repeat;pointer-events:none;"></div>
+      <div style="position:relative;height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <h1 style="position:relative;margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Watchlist</h1>
+      <p style="position:relative;margin:6px 4px 0;font-size:13px;color:#62665F;">Zum Entfernen nach links wischen.</p>
       <sc-if value="{{ watchAllEmpty }}" hint-placeholder-val="{{ false }}">
         <div style="margin-top:20px;background:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
           <span style="font-size:15px;line-height:1.5;color:#62665F;">Tippe auf das Lesezeichen an einem Honey oder Produkt, um es hier zu speichern.</span>
           <button onClick="{{ goHoneys }}" style="height:42px;border:0;border-radius:12px;background:#262626;color:#fff;padding:0 18px;font-size:14px;font-weight:700;cursor:pointer;">Honeys entdecken</button>
         </div>
       </sc-if>
-      <sc-if value="{{ hasWatchHoneys }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;">
-          <sc-for list="{{ watchHoneys }}" as="w" hint-placeholder-count="0">
-            <div style="display:flex;flex-direction:column;background:#fff;border-radius:20px;padding:16px 20px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
-                <button onClick="{{ w.detail }}" style="border:0;background:transparent;text-align:left;cursor:pointer;padding:0;color:#0B0B0B;display:flex;flex-direction:column;gap:3px;">
-                  <span style="display:flex;align-items:center;gap:2px;font-size:16px;line-height:1.3;font-weight:800;">{{ w.basis }}<span class="material-symbols-outlined" style="font-size:18px;color:#62665F;">chevron_right</span></span>
-                  <span style="display:flex;align-items:baseline;gap:8px;font-size:14px;"><b style="color:#0B0B0B;">{{ w.kurs }}</b><span style="font-size:12px;font-weight:800;padding:2px 7px;border-radius:999px;background:{{ w.chgBg }};color:{{ w.chgColor }};">{{ w.chg }}</span></span>
-                </button>
-                <button onClick="{{ w.open }}" style="align-self:flex-start;border:0;background:transparent;padding:2px 0;cursor:pointer;display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#62665F;text-align:left;min-width:0;max-width:100%;">
-                  <span class="material-symbols-outlined" style="font-size:15px;">link</span><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Honey: {{ w.title }}</span>
-                </button>
+      <sc-if value="{{ hasWlHoney }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;display:flex;align-items:baseline;justify-content:space-between;margin:24px 4px 0;"><h2 style="margin:0;font-size:13px;font-weight:700;color:#62665F;">Aus Honeys</h2><span style="font-size:12px;color:#8A8E86;">{{ wlHoneyCount }}</span></div>
+        <div style="position:relative;margin-top:10px;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;gap:6px;">
+          <sc-for list="{{ wlHoney }}" as="r" hint-placeholder-count="0">
+            <div style="position:relative;overflow:hidden;border-bottom:{{ r.divider }};">
+              <div style="position:absolute;inset:0;background:#FF5A4E;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding-right:20px;color:#fff;font-size:13px;font-weight:800;opacity:{{ r.bgOp }};transition:opacity .15s;"><span class="material-symbols-outlined" style="font-size:20px;">delete</span><span>Entfernen</span></div>
+              <div onPointerDown="{{ r.down }}" onPointerMove="{{ r.move }}" onPointerUp="{{ r.up }}" onPointerCancel="{{ r.up }}" style="position:relative;background:{{ r.rowBg }};padding:16px 18px;display:flex;flex-direction:column;gap:12px;transform:translateX({{ r.dx }});transition:{{ r.tr }};touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                <span style="width:38px;height:38px;border-radius:12px;flex:none;background:{{ r.logoBg }};color:{{ r.logoFg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:-0.2px;">{{ r.logo }}</span>
+                <div style="flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;row-gap:3px;align-items:baseline;">
+                  <button onClick="{{ r.detail }}" style="min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</button>
+                  <span style="font-size:15px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.kurs }}</span>
+                  <span style="font-size:15px;font-weight:800;text-align:right;white-space:nowrap;min-width:54px;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.pct }}</span>
+                  <span style="min-width:0;display:flex;align-items:center;gap:4px;font-size:12px;color:#8A8E86;white-space:nowrap;overflow:hidden;"><span style="overflow:hidden;text-overflow:ellipsis;">{{ r.exch }} · {{ r.wkn }}</span><button onClick="{{ r.copyWkn }}" aria-label="WKN kopieren" style="flex:none;border:0;background:transparent;padding:2px;margin:-2px 0;cursor:pointer;color:#62665F;display:flex;"><span class="material-symbols-outlined" style="font-size:14px;">content_copy</span></button></span>
+                  <span style="font-size:12px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.abs }}</span>
+                  <span style="font-size:12px;color:#8A8E86;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;">{{ r.time }}</span>
+                </div>
+                </div>
+                <div style="margin-left:50px;border-radius:14px;background:{{ r.unitBg }};border:1px solid {{ r.unitBorder }};display:flex;flex-direction:column;overflow:hidden;transition:background .2s,border-color .2s;">
+                  <button onClick="{{ r.openHoney }}" style="border:0;background:transparent;height:36px;padding:0 10px;display:flex;align-items:center;gap:7px;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:12px;font-weight:700;text-align:left;min-width:0;">
+                    <span style="width:20px;height:22px;flex:none;background:#262626;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:12px;color:#FFF765;">hive</span></span>
+                    <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tipp aus Honey: {{ r.honeyTitle }}</span><span class="material-symbols-outlined" style="font-size:16px;color:#62665F;flex:none;">chevron_right</span>
+                  </button>
+                  <button onClick="{{ r.begToggle }}" aria-pressed="{{ r.begOn }}" style="border:0;border-top:1px solid {{ r.unitBorder }};background:transparent;height:40px;padding:0 10px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#0B0B0B;font-family:inherit;text-align:left;">
+                    <span class="material-symbols-outlined" style="font-size:18px;flex:none;font-variation-settings:'FILL' {{ r.begFill }};">{{ r.begIcon }}</span>
+                    <span style="flex:1;min-width:0;display:flex;align-items:baseline;gap:6px;white-space:nowrap;overflow:hidden;"><span style="font-size:12px;font-weight:800;">{{ r.begLabel }}</span><span style="font-size:11px;color:#62665F;overflow:hidden;text-overflow:ellipsis;">{{ r.begSub }}</span></span>
+                    <span style="width:40px;height:24px;border-radius:12px;background:{{ r.begTrack }};position:relative;flex:none;transition:background 200ms;"><span style="position:absolute;top:3px;left:{{ r.begKnob }};width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(11,11,11,0.25);transition:left 200ms cubic-bezier(0.2,0,0,1);"></span></span>
+                  </button>
+                </div>
               </div>
-              <button onClick="{{ w.remove }}" aria-label="Entfernen" style="width:36px;height:36px;border-radius:50%;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' 1;">bookmark</span></button>
-            </div>
-            <button onClick="{{ w.begToggle }}" aria-pressed="{{ w.begOn }}" style="margin-top:10px;width:100%;border:0;background:#F7F7F4;border-radius:12px;padding:8px 10px 8px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;color:#0B0B0B;text-align:left;">
-              <span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' {{ w.begFill }};">{{ w.begIcon }}</span>
-              <span style="flex:1;min-width:0;display:flex;flex-direction:column;"><span style="font-size:13px;font-weight:700;">{{ w.begLabel }}</span><span style="font-size:12px;color:#62665F;">{{ w.begSub }}</span></span>
-              <span style="width:40px;height:24px;border-radius:12px;background:{{ w.begTrack }};position:relative;flex:none;transition:background 200ms;"><span style="position:absolute;top:3px;left:{{ w.begKnob }};width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(11,11,11,0.25);transition:left 200ms cubic-bezier(0.2,0,0,1);"></span></span>
-            </button>
             </div>
           </sc-for>
         </div>
       </sc-if>
-
-      <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
-        <sc-for list="{{ watchProducts }}" as="p" hint-placeholder-count="0">
-          <div style="background:#fff;border-radius:20px;padding:16px 20px;display:flex;flex-direction:column;gap:12px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
-            <div style="display:flex;justify-content:space-between;gap:10px;">
-              <button onClick="{{ p.detail }}" style="flex:1;min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;display:flex;flex-direction:column;gap:3px;">
-                <span style="display:flex;align-items:center;gap:2px;font-size:15px;font-weight:700;">{{ p.name }}<span class="material-symbols-outlined" style="font-size:18px;color:#62665F;">chevron_right</span></span>
-                <span style="font-size:13px;color:#62665F;">{{ p.issuer }} · {{ p.honeyTitle }} · WKN <b style="color:#0B0B0B;">{{ p.wkn }}</b></span>
-              </button>
-              <button onClick="{{ p.copy }}" aria-label="WKN kopieren" style="border:0;background:transparent;cursor:pointer;padding:4px;display:flex;align-self:flex-start;"><span class="material-symbols-outlined" style="font-size:20px;">content_copy</span></button>
+      <sc-if value="{{ hasWlSearch }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;display:flex;align-items:baseline;justify-content:space-between;margin:24px 4px 0;"><h2 style="margin:0;font-size:13px;font-weight:700;color:#62665F;">Aus der Suche</h2><span style="font-size:12px;color:#8A8E86;">{{ wlSearchCount }}</span></div>
+        <div style="position:relative;margin-top:10px;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;gap:6px;">
+          <sc-for list="{{ wlSearch }}" as="r" hint-placeholder-count="0">
+            <div style="position:relative;overflow:hidden;border-bottom:{{ r.divider }};">
+              <div style="position:absolute;inset:0;background:#FF5A4E;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding-right:20px;color:#fff;font-size:13px;font-weight:800;opacity:{{ r.bgOp }};transition:opacity .15s;"><span class="material-symbols-outlined" style="font-size:20px;">delete</span><span>Entfernen</span></div>
+              <div onPointerDown="{{ r.down }}" onPointerMove="{{ r.move }}" onPointerUp="{{ r.up }}" onPointerCancel="{{ r.up }}" style="position:relative;background:{{ r.rowBg }};padding:16px 18px;display:flex;flex-direction:column;gap:12px;transform:translateX({{ r.dx }});transition:{{ r.tr }};touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                <span style="width:38px;height:38px;border-radius:12px;flex:none;background:{{ r.logoBg }};color:{{ r.logoFg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:-0.2px;">{{ r.logo }}</span>
+                <div style="flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;row-gap:3px;align-items:baseline;">
+                  <button onClick="{{ r.detail }}" style="min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</button>
+                  <span style="font-size:15px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.kurs }}</span>
+                  <span style="font-size:15px;font-weight:800;text-align:right;white-space:nowrap;min-width:54px;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.pct }}</span>
+                  <span style="min-width:0;display:flex;align-items:center;gap:4px;font-size:12px;color:#8A8E86;white-space:nowrap;overflow:hidden;"><span style="overflow:hidden;text-overflow:ellipsis;">{{ r.exch }} · {{ r.wkn }}</span><button onClick="{{ r.copyWkn }}" aria-label="WKN kopieren" style="flex:none;border:0;background:transparent;padding:2px;margin:-2px 0;cursor:pointer;color:#62665F;display:flex;"><span class="material-symbols-outlined" style="font-size:14px;">content_copy</span></button></span>
+                  <span style="font-size:12px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.abs }}</span>
+                  <span style="font-size:12px;color:#8A8E86;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;">{{ r.time }}</span>
+                </div>
+                </div>
+              </div>
             </div>
-            <button onClick="{{ p.begToggle }}" aria-pressed="{{ p.begOn }}" style="width:100%;border:0;background:#F7F7F4;border-radius:12px;padding:8px 10px 8px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;color:#0B0B0B;text-align:left;">
-              <span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' {{ p.begFill }};">{{ p.begIcon }}</span>
-              <span style="flex:1;min-width:0;display:flex;flex-direction:column;"><span style="font-size:13px;font-weight:700;">{{ p.begLabel }}</span><span style="font-size:12px;color:#62665F;">{{ p.begSub }}</span></span>
-              <span style="width:40px;height:24px;border-radius:12px;background:{{ p.begTrack }};position:relative;flex:none;transition:background 200ms;"><span style="position:absolute;top:3px;left:{{ p.begKnob }};width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(11,11,11,0.25);transition:left 200ms cubic-bezier(0.2,0,0,1);"></span></span>
-            </button>
-            <div style="display:flex;gap:8px;">
-              <button onClick="{{ p.broker }}" style="flex:1;height:42px;border:0;border-radius:12px;background:#262626;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">Zum Broker</button>
-              <button onClick="{{ p.remove }}" style="height:42px;border:0;border-radius:12px;background:#F2F2EF;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;color:#0B0B0B;">Entfernen</button>
-            </div>
-          </div>
-        </sc-for>
-      </div>
+          </sc-for>
+        </div>
+      </sc-if>
     </div>
     </sc-if>
 
@@ -586,12 +597,14 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         </sc-for>
       </div>
 
+      <sc-if value="{{ prodPage.hasHoney }}" hint-placeholder-val="{{ true }}">
       <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Gemerkt aus dem Honey</h2>
       <button onClick="{{ prodPage.openHoney }}" style="margin-top:10px;border:0;background:#fff;border-radius:24px;padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
         <span style="width:56px;height:56px;border-radius:16px;flex:none;background:#262626 url({{ prodPage.honeyImg }}) center / cover no-repeat;"></span>
         <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;"><span style="font-size:15px;font-weight:800;line-height:1.25;text-wrap:pretty;">{{ prodPage.honeyTitle }}</span><span style="font-size:12px;color:#62665F;">Honey von {{ prodPage.by }}</span></span>
         <span class="material-symbols-outlined" style="font-size:22px;color:#62665F;">chevron_right</span>
       </button>
+      </sc-if>
 
       <button onClick="{{ prodPage.trade }}" style="margin-top:20px;height:56px;border:0;border-radius:14px;background:#262626;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
         <span>Beim Broker handeln</span><span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;">arrow_outward</span>
@@ -1127,7 +1140,24 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 <script type="text/x-dc" data-dc-script>
 const PERF = { nvidia:{ pcts:{ '1W':3, '1M':9, '3M':18, '1J':31 }, seed:7 }, siemens:{ pcts:{ '1W':-1, '1M':3, '3M':5, '1J':8 }, seed:3 }, gold:{ pcts:{ '1W':1, '1M':-2, '3M':1, '1J':3 }, seed:11 } };
 const DASH_PRODUCTS = [{ id:'turbo-dax', name:'Turbo Long DAX · Hebel 5', by:'Monhey', pcts:{ '1W':-4, '1M':-9, '3M':6, '1J':-6 }, seed:5, honey:'dax' }];
-const PROD_META = { gold:{ name:'Xetra-Gold', type:'ETC' }, 'turbo-dax':{ name:'Turbo Long DAX', type:'Hebelprodukt', wkn:'MH5DAX', kurs:'18,42 €', chg:'−2,1 %',
+const QUOTES = { nvidia:{ name:'NVIDIA Aktie', exch:'NDQ', wkn:'918422', kurs:182.64, abs:4.12, cur:'$', time:'22:00:00' },
+  siemens:{ name:'Siemens Aktie', exch:'XETRA', wkn:'723610', kurs:238.45, abs:-1.85, cur:'€', time:'17:35:04' },
+  gold:{ name:'Xetra-Gold', exch:'XETRA', wkn:'A0S9GB', kurs:112.30, abs:0.64, cur:'€', time:'17:35:12' },
+  dax:{ name:'DAX Index', exch:'XETRA', wkn:'846900', kurs:24180.12, abs:-96.40, cur:'Pkt.', time:'17:45:00' },
+  sp500:{ name:'S&P 500 Index', exch:'INDEX', wkn:'A0AET0', kurs:6712.40, abs:38.20, cur:'Pkt.', time:'22:15:00' },
+  amd:{ name:'AMD Aktie', exch:'NDQ', wkn:'863186', kurs:164.21, abs:-3.02, cur:'$', time:'21:59:48' } };
+const LOGOS = { nvidia:['NV','#76B900','#FFFFFF'], siemens:['S','#009999','#FFFFFF'], gold:['Au','#D4A72C','#0B0B0B'], dax:['DAX','#262626','#FFF765'], sp500:['S&P','#1E3A8A','#FFFFFF'], amd:['AMD','#0B0B0B','#FFFFFF'], sap:['SAP','#0A6ED1','#FFFFFF'] };
+const logoFor = (id, name) => { const L = LOGOS[id]; if (L) return { logo:L[0], logoBg:L[1], logoFg:L[2] }; const t = (name || '?').replace(/^Turbo Long /, '').trim(); return { logo:t.slice(0, 2).toUpperCase(), logoBg:'#ECECE8', logoFg:'#0B0B0B' }; };
+const SEARCH_PRODS = [{ id:'sp500', name:'S&P 500 Index', by:'', pcts:{ '1W':1, '1M':3, '3M':7, '1J':16 }, seed:9, honey:null },
+  { id:'amd', name:'AMD Aktie', by:'', pcts:{ '1W':-3, '1M':-8, '3M':4, '1J':21 }, seed:13, honey:null }];
+const HONEY_ROW_BG = 'rgba(255,255,255,0.8)';
+const fmtN = v => v.toLocaleString('de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 });
+const quoteRow = q => { const up = q.abs >= 0, sg = up ? '+' : '−', pct = q.abs / (q.kurs - q.abs) * 100, unit = q.cur === 'Pkt.' ? '' : ' ' + q.cur;
+  return { name:q.name, exch:q.exch, wkn:q.wkn, kurs:fmtN(q.kurs) + unit, abs:sg + fmtN(Math.abs(q.abs)) + (q.cur === 'Pkt.' ? '' : ' ' + q.cur), pct:sg + fmtN(Math.abs(pct)) + ' %', time:q.time.slice(0, 5), color: up ? '#1F9E00' : '#D63A2F' }; };
+const PROD_META = {
+  sp500:{ name:'S&P 500 Index', type:'Index', wkn:'A0AET0', kurs:'6.712,40 Pkt.', chg:'+0,57 %', facts:[['Werte','500'],['Region','USA'],['Hoch 52W','6.790 Pkt.'],['Tief 52W','4.980 Pkt.']] },
+  amd:{ name:'AMD Aktie', type:'Aktie', wkn:'863186', kurs:'164,21 $', chg:'−1,81 %', facts:[['Marktkap.','266 Mrd. $'],['KGV','38,4'],['Dividende','–'],['Börse','Nasdaq']] },
+  gold:{ name:'Xetra-Gold', type:'ETC' }, 'turbo-dax':{ name:'Turbo Long DAX', type:'Hebelprodukt', wkn:'MH5DAX', kurs:'18,42 €', chg:'−2,1 %',
   facts:[['Hebel','5,0'],['Knock-out','20.180 Pkt.'],['Basiswert','DAX Index'],['Abstand KO','16,5 %'],['Emittent','Beispielbank'],['Laufzeit','Open End']] } };
 const PERF_RANGES = [['1W','1 Woche'],['1M','1 Monat'],['3M','3 Monate'],['1J','1 Jahr']];
 const fmtPct = v => (v >= 0 ? '+' : '−') + Math.abs(v) + ' %';
@@ -1265,7 +1295,7 @@ class Component extends DCLogic {
   componentDidMount() { this.syncBar(); }
   componentDidUpdate() { this.syncBar(); }
   state = { screen:'home', hist:[], car:0, honeyId:'siemens', mode:'hebel', unlocked:[], member:false, sheet:null, closing:false, payPlan:'single',
-    focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'1J', perfOpen:false, perfHover:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
+    focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'1J', perfOpen:false, perfHover:null, watchSearch:['sp500','amd'], swipe:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
     following:['veit'], rec:false, cdlRange:'1M', lev:5, coachId:'veit', liveReg:false, regEmail:'stefan.k@beispiel.de', reminder:'15', askText:'', chat:[], typing:false, begleitet:[], pushPerm:'unknown', begPending:null, sysAlert:false };
   scrollRef = React.createRef();
   carRef = React.createRef();
@@ -1395,6 +1425,19 @@ class Component extends DCLogic {
     return { intro:'Aktiviere Mitteilungen, damit Monhey sich meldet, wenn bei deinen begleiteten Einträgen etwas Wichtiges passiert. Du entscheidest pro Eintrag.',
       triggers:keys.map((k, i) => ({ icon:T[k][0], title:T[k][1], sub:T[k][2], border: i === keys.length - 1 ? '0' : '1px solid #ECECE8' })) };
   }
+  swipeVals(key, onRemove) {
+    const sw = this.state.swipe, on = sw && sw.key === key, dx = on ? sw.dx : 0;
+    return { ...(on ? { rowBg:'#FFFFFF' } : {}), dx: dx + 'px', tr: on && sw.drag ? 'none' : 'transform .28s cubic-bezier(0.2,0,0,1)', bgOp: dx < -4 ? 1 : 0,
+      down: e => { this._sw = { key, x:e.clientX, y:e.clientY, moved:false, lock:null }; },
+      move: e => { const d = this._sw; if (!d || d.key !== key) return; const mx = e.clientX - d.x, my = e.clientY - d.y;
+        if (!d.lock) { if (Math.abs(mx) > 8 && Math.abs(mx) > Math.abs(my)) { d.lock = 'x'; try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} } else if (Math.abs(my) > 8) d.lock = 'y'; }
+        if (d.lock === 'x') { d.moved = true; this.setState({ swipe:{ key, dx:Math.min(0, mx), drag:true } }); } },
+      up: () => { const d = this._sw; this._sw = null; if (!d || d.key !== key || !d.moved) return; this._swBlock = Date.now();
+        const cur = this.state.swipe ? this.state.swipe.dx : 0;
+        if (cur < -100) { this.setState({ swipe:{ key, dx:-460, drag:false } }); setTimeout(() => { this.setState({ swipe:null }); onRemove(); }, 260); }
+        else this.setState({ swipe:null }); } };
+  }
+  tapOk() { return Date.now() - (this._swBlock || 0) > 350; }
   begVals(key, kind, small) {
     const on = this.state.begleitet.includes(key);
     const sub = { honey:'Stop, Ziel, ±5 %', aktie:'Stop, Ziel, ±5 %', hebel:'Stop, Knock-out, ±10 %' }[kind];
@@ -1531,7 +1574,7 @@ class Component extends DCLogic {
       addCalendar:() => this.showToast('Termin im Kalender gespeichert'),
       news:NEWS.slice(0,3).map((n,i) => ({ ...coachVals(COACHES[n.c]), title:n.title, text:n.text, open:() => n.body ? this.go('article', { articleIdx:i }) : n.honey ? this.openHoney(n.honey) : this.openCoach(COACHES[n.c].id) })),
       isProduct:s.screen==='product',
-      prodPage:(() => { const all = [...['nvidia','siemens','gold'].map(id => { const x = ALL_HONEYS.find(y => y.id === id); return { id, name:x.basis, by:x.author, honey:id, ...PERF[id] }; }), ...DASH_PRODUCTS];
+      prodPage:(() => { const all = [...['nvidia','siemens','gold'].map(id => { const x = ALL_HONEYS.find(y => y.id === id); return { id, name:x.basis, by:x.author, honey:id, ...PERF[id] }; }), ...DASH_PRODUCTS, ...SEARCH_PRODS];
         const p = all.find(x => x.id === s.productId) || all[0]; const hy = ALL_HONEYS.find(y => y.id === p.honey) || {}; const M = PROD_META[p.id] || {};
         const rIdx = Math.max(0, PERF_RANGES.findIndex(r => r[0] === s.perfRange)); const v = p.pcts[PERF_RANGES[rIdx][0]];
         const ser = perfSeries(v, p.seed + rIdx * 13); const mn = Math.min(...ser), mx = Math.max(...ser), pad = (mx - mn) * 0.1 || 1;
@@ -1544,7 +1587,7 @@ class Component extends DCLogic {
           line, area: line + ' L320 120 L0 120 Z', endTop:(pts[pts.length-1][1] / 120 * 100).toFixed(1) + '%',
           ranges:PERF_RANGES.map(([k]) => ({ label:k, bg: s.perfRange===k ? '#262626' : 'transparent', color: s.perfRange===k ? '#FFFFFF' : '#0B0B0B', pick:() => this.setState({ perfRange:k }) })),
           facts:facts.map(([k, val], i) => ({ k, v:val || '–', br: i % 2 ? '0' : '1px solid #ECECE8', bb: i < facts.length - 2 ? '1px solid #ECECE8' : '0' })),
-          honeyTitle:hy.title, honeyImg:hy.image || 'assets/monhey-bee.png', by:p.by, openHoney:() => this.openHoney(p.honey),
+          hasHoney:!!hy.id, honeyTitle:hy.title, honeyImg:hy.image || 'assets/monhey-bee.png', by:p.by, openHoney:() => this.openHoney(p.honey),
           copyWkn:() => this.copy(M.wkn || hy.wkn), trade:() => this.showToast('Weiterleitung zum Broker ist im Prototyp nicht verfügbar') }; })(),
       isArticle:s.screen==='article',
       art:(() => { const n = NEWS[s.articleIdx || 0]; const c = COACHES[n.c]; const hy = n.honey && ALL_HONEYS.find(x => x.id === n.honey);
@@ -1569,7 +1612,26 @@ class Component extends DCLogic {
       honeyList:HONEYS.map((x,i) => ({ ...x, delay:(i*60)+'ms', status: (s.member || s.unlocked.includes(x.id)) ? 'GEÖFFNET' : '1,99 €',
         saveFill:saveFill(x.id), saveAnim:saveAnim(x.id), toggleSave:() => this.toggleSave(x.id), open:() => this.openHoney(x.id) })),
       watchHoneys:ALL_HONEYS.filter(x => saved(x.id)).map(x => { const neg = String(x.chg).includes('−') || String(x.chg).includes('–'); return { ...x, ...this.begVals('h:' + x.id, 'honey'), basis:(PROD_META[x.id] && PROD_META[x.id].name) || x.basis, chgBg: neg ? 'rgba(255,90,78,0.14)' : 'rgba(51,218,0,0.16)', chgColor: neg ? '#D63A2F' : '#1F7A00', open:() => this.openHoney(x.id), detail:() => PERF[x.id] ? this.go('product', { productId:x.id }) : this.openHoney(x.id), remove:() => this.toggleSave(x.id) }; }),
-      watchHoneysEmpty:s.watchHoneys.length === 0, watchAllEmpty: s.watchHoneys.length === 0 && s.watchProducts.length === 0, hasWatchHoneys:s.watchHoneys.length > 0,
+      ...(() => {
+        const hRows = [...ALL_HONEYS.filter(x => saved(x.id)).map(x => { const q = QUOTES[x.id];
+            const base = q ? quoteRow(q) : { name:x.basis, exch:'XETRA', wkn:x.wkn, kurs:x.kurs, abs:'', pct:x.chg, time:'', color: /[−–-]/.test(x.chg) ? '#D63A2F' : '#1F9E00' };
+            const bo = s.begleitet.includes('h:' + x.id); return { ...base, ...logoFor(x.id, base.name), ...this.begVals('h:' + x.id, 'honey'), key:'h:' + x.id, honeyTitle:x.title, rowBg:HONEY_ROW_BG, unitBg: bo ? 'rgba(255,247,101,0.55)' : 'rgba(255,255,255,0.85)', unitBorder: bo ? '#E6DC3C' : '#E4E4DF', copyWkn:() => this.copy(base.wkn),
+              openHoney:() => this.tapOk() && this.openHoney(x.id), detail:() => this.tapOk() && (PERF[x.id] ? this.go('product', { productId:x.id }) : this.openHoney(x.id)),
+              ...this.swipeVals('h:' + x.id, () => this.toggleSave(x.id)) }; }),
+          ...s.watchProducts.map(p => { let hs = 0; for (const c of p.wkn) hs = (hs * 31 + c.charCodeAt(0)) % 9973;
+            const kurs = 4 + (hs % 2600) / 100, abs = ((hs % 61) - 30) / 100 * kurs / 6; const hy = ALL_HONEYS.find(x => x.id === p.honeyId) || {};
+            return { ...quoteRow({ name:p.name, exch:p.issuer, wkn:p.wkn, kurs, abs, cur:'€', time:'17:30:00' }), ...this.begVals('p:' + p.key, /Turbo/.test(p.name) ? 'hebel' : 'aktie'),
+              ...logoFor(null, p.name), key:'p:' + p.key, honeyTitle:hy.title, rowBg:HONEY_ROW_BG, unitBg: s.begleitet.includes('p:' + p.key) ? 'rgba(255,247,101,0.55)' : 'rgba(255,255,255,0.85)', unitBorder: s.begleitet.includes('p:' + p.key) ? '#E6DC3C' : '#E4E4DF', copyWkn:() => this.copy(p.wkn), openHoney:() => this.tapOk() && this.openHoney(p.honeyId),
+              detail:() => this.tapOk() && this.openSheet('product', { pdProduct:p, pdFrom:'watchlist', pdRange:'1M' }),
+              ...this.swipeVals('p:' + p.key, () => { this.setState(st => ({ watchProducts:st.watchProducts.filter(x => x.key !== p.key), begleitet:st.begleitet.filter(k => k !== 'p:' + p.key) })); this.showToast('Von Watchlist entfernt'); }) }; })];
+        const sRows = s.watchSearch.map(id => ({ ...quoteRow(QUOTES[id]), ...logoFor(id), rowBg:'rgba(255,255,255,0.8)', copyWkn:() => this.copy(QUOTES[id].wkn), key:'s:' + id, detail:() => this.tapOk() && this.go('product', { productId:id }),
+          ...this.swipeVals('s:' + id, () => { this.setState(st => ({ watchSearch:st.watchSearch.filter(k => k !== id) })); this.showToast('Von Watchlist entfernt'); }) }));
+        const div = (a) => a.map((r, i) => ({ ...r, divider: '0', radius:'0' }));
+        return { wlHoney:div(hRows), wlSearch:div(sRows), hasWlHoney:hRows.length > 0, hasWlSearch:sRows.length > 0,
+          wlHoneyCount: hRows.length === 1 ? '1 Wert' : hRows.length + ' Werte', wlSearchCount: sRows.length === 1 ? '1 Wert' : sRows.length + ' Werte',
+          watchAllEmpty: hRows.length + sRows.length === 0 };
+      })(),
+      watchHoneysEmpty:s.watchHoneys.length === 0, hasWatchHoneys:s.watchHoneys.length > 0,
       watchProducts:s.watchProducts.map(p => ({ ...p, ...this.begVals('p:' + p.key, /Turbo/.test(p.name) ? 'hebel' : 'aktie'), honeyTitle:ALL_HONEYS.find(x => x.id===p.honeyId).basis,
         copy:() => this.copy(p.wkn),
         broker:() => this.openSheet('broker', { product:p, honeyId:p.honeyId }),
