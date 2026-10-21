@@ -192,14 +192,11 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
               <div style="border-radius:18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden;">
                 <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.65);">Kurspotenzial</span><span style="font-size:17px;font-weight:800;color:#33DA00;white-space:nowrap;">{{ car.pot }}</span></div>
                 <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.65);">Kursziel</span><span style="font-size:17px;font-weight:800;white-space:nowrap;">{{ car.ziel }}</span></div>
-                <div style="display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-right:1px solid rgba(255,255,255,0.08);">
-                  <div style="display:flex;align-items:baseline;gap:6px;font-size:13px;"><span style="font-weight:800;">Chance</span><span style="color:#33DA00;font-weight:600;">{{ car.chanceTxt }}</span></div>
-                  <div style="display:flex;gap:3px;"><sc-for list="{{ car.chanceHexD }}" as="x" hint-placeholder-count="5"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};flex:none;"></span></sc-for></div>
-                </div>
-                
-                <div style="display:flex;flex-direction:column;gap:8px;padding:12px 14px;">
-                  <div style="display:flex;align-items:baseline;gap:6px;font-size:13px;"><span style="font-weight:800;">Risiko</span><span style="color:#FF5A4E;font-weight:600;">{{ car.riskTxt }}</span></div>
-                  <div style="display:flex;gap:3px;"><sc-for list="{{ car.riskHexD }}" as="x" hint-placeholder-count="5"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};flex:none;"></span></sc-for></div>
+                <div style="grid-column:1 / -1;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;row-gap:8px;align-items:center;padding:12px 14px;">
+                <span style="font-size:12px;font-weight:800;">Chance</span>
+                  <div style="min-width:0;height:5px;border-radius:3px;background:rgba(255,255,255,0.12);overflow:hidden;"><div style="width:{{ car.chanceW }};height:100%;border-radius:3px;background:#33DA00;"></div></div>
+                <span style="font-size:12px;font-weight:800;">Risiko</span>
+                  <div style="min-width:0;height:5px;border-radius:3px;background:rgba(255,255,255,0.12);overflow:hidden;"><div style="width:{{ car.riskW }};height:100%;border-radius:3px;background:#FF5A4E;"></div></div>
                 </div>
               
               </div>
@@ -326,26 +323,25 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           <sc-for list="{{ wlHoney }}" as="r" hint-placeholder-count="0">
             <div style="position:relative;overflow:hidden;border-bottom:{{ r.divider }};">
               <div style="position:absolute;inset:0;background:#FF5A4E;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding-right:20px;color:#fff;font-size:13px;font-weight:800;opacity:{{ r.bgOp }};transition:opacity .15s;"><span class="material-symbols-outlined" style="font-size:20px;">delete</span><span>Entfernen</span></div>
-              <div onPointerDown="{{ r.down }}" onPointerMove="{{ r.move }}" onPointerUp="{{ r.up }}" onPointerCancel="{{ r.up }}" style="position:relative;background:{{ r.rowBg }};padding:16px 18px;display:flex;flex-direction:column;gap:12px;transform:translateX({{ r.dx }});transition:{{ r.tr }};touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;">
+              <div onPointerDown="{{ r.down }}" onPointerMove="{{ r.move }}" onPointerUp="{{ r.up }}" onPointerCancel="{{ r.up }}" style="position:relative;background:{{ r.rowBg }};padding:13px 16px;display:flex;flex-direction:column;gap:9px;transform:translateX({{ r.dx }});transition:{{ r.tr }};touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;">
                 <div style="display:flex;align-items:center;gap:12px;">
                 <span style="width:38px;height:38px;border-radius:12px;flex:none;background:{{ r.logoBg }};color:{{ r.logoFg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:-0.2px;">{{ r.logo }}</span>
                 <div style="flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;row-gap:3px;align-items:baseline;">
                   <button onClick="{{ r.detail }}" style="min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</button>
-                  <span style="font-size:15px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.kurs }}</span>
-                  <span style="font-size:15px;font-weight:800;text-align:right;white-space:nowrap;min-width:54px;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.pct }}</span>
+                  <span style="font-size:15px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:#0B0B0B;">{{ r.kurs }}</span>
+                  <span style="justify-self:end;font-size:14px;font-weight:800;text-align:right;white-space:nowrap;min-width:54px;padding:3px 7px;border-radius:7px;background:{{ r.pctBg }};font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.pct }}</span>
                   <span style="min-width:0;display:flex;align-items:center;gap:4px;font-size:12px;color:#8A8E86;white-space:nowrap;overflow:hidden;"><span style="overflow:hidden;text-overflow:ellipsis;">{{ r.exch }} · {{ r.wkn }}</span><button onClick="{{ r.copyWkn }}" aria-label="WKN kopieren" style="flex:none;border:0;background:transparent;padding:2px;margin:-2px 0;cursor:pointer;color:#62665F;display:flex;"><span class="material-symbols-outlined" style="font-size:14px;">content_copy</span></button></span>
-                  <span style="font-size:12px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.abs }}</span>
+                  <span></span>
                   <span style="font-size:12px;color:#8A8E86;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;">{{ r.time }}</span>
                 </div>
                 </div>
-                <div style="margin-left:50px;border-radius:14px;background:{{ r.unitBg }};border:1px solid {{ r.unitBorder }};display:flex;flex-direction:column;overflow:hidden;transition:background .2s,border-color .2s;">
-                  <button onClick="{{ r.openHoney }}" style="border:0;background:transparent;height:36px;padding:0 10px;display:flex;align-items:center;gap:7px;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:12px;font-weight:700;text-align:left;min-width:0;">
-                    <span style="width:20px;height:22px;flex:none;background:#262626;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:12px;color:#FFF765;">hive</span></span>
-                    <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tipp aus Honey: {{ r.honeyTitle }}</span><span class="material-symbols-outlined" style="font-size:16px;color:#62665F;flex:none;">chevron_right</span>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:32px;">
+                  <button onClick="{{ r.openHoney }}" style="flex:none;border:0;background:#F2F2EF;border-radius:999px;height:32px;padding:0 12px 0 4px;display:flex;align-items:center;gap:7px;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:13px;font-weight:700;">
+                    <span style="width:24px;height:26px;flex:none;background:#262626;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:14px;color:#FFF765;">hive</span></span>
+                    <span>Zum Honey</span><span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span>
                   </button>
-                  <button onClick="{{ r.begToggle }}" aria-pressed="{{ r.begOn }}" style="border:0;border-top:1px solid {{ r.unitBorder }};background:transparent;height:40px;padding:0 10px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#0B0B0B;font-family:inherit;text-align:left;">
-                    <span class="material-symbols-outlined" style="font-size:18px;flex:none;font-variation-settings:'FILL' {{ r.begFill }};">{{ r.begIcon }}</span>
-                    <span style="flex:1;min-width:0;display:flex;align-items:baseline;gap:6px;white-space:nowrap;overflow:hidden;"><span style="font-size:12px;font-weight:800;">{{ r.begLabel }}</span><span style="font-size:11px;color:#62665F;overflow:hidden;text-overflow:ellipsis;">{{ r.begSub }}</span></span>
+                  <button onClick="{{ r.begToggle }}" aria-pressed="{{ r.begOn }}" style="flex:none;border:0;background:transparent;padding:0;height:32px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:13px;font-weight:700;">
+                    <span>Begleiten</span>
                     <span style="width:40px;height:24px;border-radius:12px;background:{{ r.begTrack }};position:relative;flex:none;transition:background 200ms;"><span style="position:absolute;top:3px;left:{{ r.begKnob }};width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(11,11,11,0.25);transition:left 200ms cubic-bezier(0.2,0,0,1);"></span></span>
                   </button>
                 </div>
@@ -360,15 +356,15 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           <sc-for list="{{ wlSearch }}" as="r" hint-placeholder-count="0">
             <div style="position:relative;overflow:hidden;border-bottom:{{ r.divider }};">
               <div style="position:absolute;inset:0;background:#FF5A4E;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding-right:20px;color:#fff;font-size:13px;font-weight:800;opacity:{{ r.bgOp }};transition:opacity .15s;"><span class="material-symbols-outlined" style="font-size:20px;">delete</span><span>Entfernen</span></div>
-              <div onPointerDown="{{ r.down }}" onPointerMove="{{ r.move }}" onPointerUp="{{ r.up }}" onPointerCancel="{{ r.up }}" style="position:relative;background:{{ r.rowBg }};padding:16px 18px;display:flex;flex-direction:column;gap:12px;transform:translateX({{ r.dx }});transition:{{ r.tr }};touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;">
+              <div onPointerDown="{{ r.down }}" onPointerMove="{{ r.move }}" onPointerUp="{{ r.up }}" onPointerCancel="{{ r.up }}" style="position:relative;background:{{ r.rowBg }};padding:13px 16px;display:flex;flex-direction:column;gap:9px;transform:translateX({{ r.dx }});transition:{{ r.tr }};touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;">
                 <div style="display:flex;align-items:center;gap:12px;">
                 <span style="width:38px;height:38px;border-radius:12px;flex:none;background:{{ r.logoBg }};color:{{ r.logoFg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:-0.2px;">{{ r.logo }}</span>
                 <div style="flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;row-gap:3px;align-items:baseline;">
                   <button onClick="{{ r.detail }}" style="min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;font-family:inherit;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</button>
-                  <span style="font-size:15px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.kurs }}</span>
-                  <span style="font-size:15px;font-weight:800;text-align:right;white-space:nowrap;min-width:54px;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.pct }}</span>
+                  <span style="font-size:15px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:#0B0B0B;">{{ r.kurs }}</span>
+                  <span style="justify-self:end;font-size:14px;font-weight:800;text-align:right;white-space:nowrap;min-width:54px;padding:3px 7px;border-radius:7px;background:{{ r.pctBg }};font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.pct }}</span>
                   <span style="min-width:0;display:flex;align-items:center;gap:4px;font-size:12px;color:#8A8E86;white-space:nowrap;overflow:hidden;"><span style="overflow:hidden;text-overflow:ellipsis;">{{ r.exch }} · {{ r.wkn }}</span><button onClick="{{ r.copyWkn }}" aria-label="WKN kopieren" style="flex:none;border:0;background:transparent;padding:2px;margin:-2px 0;cursor:pointer;color:#62665F;display:flex;"><span class="material-symbols-outlined" style="font-size:14px;">content_copy</span></button></span>
-                  <span style="font-size:12px;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:{{ r.color }};">{{ r.abs }}</span>
+                  <span></span>
                   <span style="font-size:12px;color:#8A8E86;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;">{{ r.time }}</span>
                 </div>
                 </div>
@@ -636,7 +632,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
       <div style="margin:18px 4px 0;display:flex;"><span style="background:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ h.author }}</span></div>
       <h1 style="margin:8px 4px 0;font-size:28px;line-height:1.18;font-weight:800;letter-spacing:-0.3px;text-wrap:pretty;">{{ h.title }}</h1>
 
-      <div style="margin-top:16px;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px;color:#fff;background:radial-gradient(90% 80% at 100% 0%,rgba(255,247,101,0.12) 0%,rgba(255,247,101,0) 60%),#262626;">
+      <div style="position:relative;z-index:1;margin-top:16px;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px;color:#fff;background:radial-gradient(90% 80% at 100% 0%,rgba(255,247,101,0.12) 0%,rgba(255,247,101,0) 60%),#262626;">
         <span style="font-size:13px;font-weight:800;color:#FFF765;">What’s in it?</span>
         <p style="margin:-8px 0 0;font-size:15px;line-height:1.55;color:rgba(255,255,255,0.88);text-wrap:pretty;">{{ h.kurz }}</p>
         <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);border-radius:14px;background:rgba(255,255,255,0.07);">
@@ -668,15 +664,18 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
       <sc-if value="{{ unlocked }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;animation:mh-rise .5s cubic-bezier(0.2,0,0,1) both;">
-        <h2 style="margin:32px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Der Hintergrund</h2>
-        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+        <div style="position:relative;margin:{{ rd.wrapM }};padding:{{ rd.wrapPad }};background:{{ rd.bg }};border-radius:{{ rd.radius }};display:flex;flex-direction:column;">
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:{{ rd.edgeH }};background:{{ rd.edge }};pointer-events:none;"></div>
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:{{ rd.edgeH }};background:{{ rd.edge }};transform:scaleY(-1);pointer-events:none;"></div>
+        <h2 style="position:relative;margin:0 4px 0;font-size:13px;font-weight:700;color:#62665F;">Der Hintergrund</h2>
+        <div style="position:relative;margin-top:10px;background:{{ rd.cardBg }};border-radius:{{ rd.cardR }};padding:{{ rd.cardPad }};display:flex;flex-direction:column;">
           <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was ist passiert?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s1 }}</p></div>
           <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Warum ist das interessant?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s2 }}</p></div>
           <div style="padding:18px 0;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was könnte das für dich bedeuten?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s3 }}</p></div>
         </div>
 
-        <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Deep Dive</h2>
-        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:0 8px;display:flex;flex-direction:column;">
+        <h2 style="position:relative;margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Deep Dive</h2>
+        <div style="position:relative;margin-top:10px;background:{{ rd.cardBg }};border-radius:{{ rd.cardR }};padding:{{ rd.ddPad }};display:flex;flex-direction:column;">
           <sc-for list="{{ focusOpts }}" as="f" hint-placeholder-count="3">
             <div style="border-bottom:{{ f.divider }};">
               <button onClick="{{ f.pick }}" style="width:100%;min-height:60px;border:0;background:transparent;padding:10px 12px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;color:#0B0B0B;">
@@ -692,69 +691,53 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
             </div>
           </sc-for>
         </div>
+        </div>
         <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Basiswert</h2>
-        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:18px 20px 6px;display:flex;flex-direction:column;">
+        <div style="margin-top:10px;background:#fff;border-radius:24px;padding:18px 20px 20px;display:flex;flex-direction:column;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
             <span style="font-size:18px;font-weight:800;">{{ h.basis }}</span>
             <button onClick="{{ copyHoneyWkn }}" style="border:0;background:#F2F2EF;border-radius:999px;height:32px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ h.wkn }}<span class="material-symbols-outlined" style="font-size:15px;">content_copy</span></button>
           </div>
           <div style="display:flex;align-items:baseline;gap:10px;margin-top:8px;"><span style="font-size:28px;font-weight:800;letter-spacing:-0.5px;">{{ h.kurs }}</span><span style="font-size:13px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">{{ h.chg }}</span></div>
-          <div style="margin-top:14px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;">
-            <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#1F9E00;margin-top:2px;">{{ h.ziel }}</div></div>
-            <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Stopp</div><div style="font-size:15px;font-weight:800;color:#FF6608;margin-top:2px;">{{ h.stopp }}</div></div>
+          <div style="margin-top:14px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);">
+            <div style="padding:12px 14px;background:#FFF765;border-radius:16px 0 0 16px;"><div style="font-size:12px;color:#0B0B0B;">Kurspotenzial</div><div style="font-size:14px;font-weight:800;margin-top:2px;white-space:nowrap;">{{ h.pot }}</div></div>
+            <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#1F9E00;margin-top:2px;white-space:nowrap;">{{ h.ziel }}</div></div>
+            <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Stopp</div><div style="font-size:15px;font-weight:800;color:#FF6608;margin-top:2px;white-space:nowrap;">{{ h.stopp }}</div></div>
           </div>
-          <div style="display:grid;grid-template-rows:{{ basisRows }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
-            <div style="overflow:hidden;min-height:0;">
-              <div style="margin-top:8px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:1fr 1fr;">
-                <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Marktkap.</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.mcap }}</div></div>
-                <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Dividende</div><div style="font-size:15px;font-weight:800;margin-top:2px;">{{ h.div }}</div></div>
-              </div>
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;min-height:54px;padding:10px 16px;border-radius:16px;background:#FFF765;">
-                <span style="font-size:14px;font-weight:800;">Kurspotenzial</span>
-                <span style="font-size:21px;font-weight:800;letter-spacing:-0.3px;white-space:nowrap;">{{ h.pot }}</span>
-              </div>
-              <div style="font-size:12px;color:#62665F;margin-top:8px;">Szenario im Beispiel · keine Prognose</div>
-              <div style="display:grid;grid-template-columns:54px minmax(0,1fr) 34px;gap:12px 10px;align-items:center;margin-top:16px;">
-                <span style="font-size:13px;font-weight:700;">Chance</span>
-                <div style="display:flex;gap:3px;"><sc-for list="{{ h.chanceFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
-                <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.cScore }}</span>
-                <span style="font-size:13px;font-weight:700;">Risiko</span>
-                <div style="display:flex;gap:3px;"><sc-for list="{{ h.riskFine }}" as="x" hint-placeholder-count="10"><span style="width:15px;height:17px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.edge }};display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:12px;height:14px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:{{ x.fill }};"></span></span></sc-for></div>
-                <span style="font-size:12px;font-weight:700;text-align:right;">{{ h.rScore }}</span>
-              </div>
-              <div style="margin-top:22px;padding-top:18px;border-top:1px solid #ECECE8;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;">
+          <div style="margin-top:8px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);">
+            <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Marktkap.</div><div style="font-size:15px;font-weight:800;margin-top:2px;white-space:nowrap;">{{ h.mcap }}</div></div>
+            <div style="padding:12px 14px;"><div style="font-size:12px;color:#62665F;">Dividende</div><div style="font-size:15px;font-weight:800;margin-top:2px;white-space:nowrap;">{{ h.div }}</div></div>
+          </div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:22px;">
             <span style="font-size:15px;font-weight:800;">Kursverlauf</span>
             <span style="font-size:12px;color:#62665F;">{{ cdl.note }}</span>
           </div>
           <div style="position:relative;height:180px;margin-top:14px;">
-            <div style="position:absolute;left:0;right:46px;top:{{ cdl.zielTop }};transition:top .6s cubic-bezier(0.2,0,0,1);border-top:1px dashed #262626;opacity:.35;"></div>
-            <span style="position:absolute;right:0;top:{{ cdl.zielTop }};transition:top .6s cubic-bezier(0.2,0,0,1);transform:translateY(-50%);font-size:10px;font-weight:800;background:#FFF765;padding:2px 5px;border-radius:4px;">Ziel</span>
-            <div style="position:absolute;left:0;right:46px;top:{{ cdl.stopTop }};transition:top .6s cubic-bezier(0.2,0,0,1);border-top:1px dashed #262626;opacity:.35;"></div>
-            <span style="position:absolute;right:0;top:{{ cdl.stopTop }};transition:top .6s cubic-bezier(0.2,0,0,1);transform:translateY(-50%);font-size:10px;font-weight:800;background:#E4E4DF;padding:2px 5px;border-radius:4px;">Stopp</span>
-            <div style="position:absolute;left:0;right:46px;top:0;bottom:0;display:flex;gap:3px;">
-              <sc-for list="{{ cdl.candles }}" as="c" hint-placeholder-count="24">
-                <div style="position:relative;flex:1;min-width:0;">
-                  <div style="position:absolute;left:50%;width:1.5px;margin-left:-0.75px;top:{{ c.wTop }};height:{{ c.wH }};background:{{ c.fill }};transition:top .6s cubic-bezier(0.2,0,0,1),height .6s cubic-bezier(0.2,0,0,1);transition-delay:{{ c.delay }};"></div>
-                  <div style="position:absolute;left:0;right:0;top:{{ c.bTop }};height:{{ c.bH }};min-height:2px;border-radius:2px;background:{{ c.fill }};transition:top .6s cubic-bezier(0.2,0,0,1),height .6s cubic-bezier(0.2,0,0,1),background .3s;transition-delay:{{ c.delay }};"></div>
-                </div>
+              <div style="position:absolute;left:0;right:46px;top:{{ cdl.zielTop }};transition:top .6s cubic-bezier(0.2,0,0,1);border-top:1px dashed #262626;opacity:.35;"></div>
+              <span style="position:absolute;right:0;top:{{ cdl.zielTop }};transition:top .6s cubic-bezier(0.2,0,0,1);transform:translateY(-50%);font-size:10px;font-weight:800;background:#FFF765;padding:2px 5px;border-radius:4px;">Ziel</span>
+              <div style="position:absolute;left:0;right:46px;top:{{ cdl.stopTop }};transition:top .6s cubic-bezier(0.2,0,0,1);border-top:1px dashed #262626;opacity:.35;"></div>
+              <span style="position:absolute;right:0;top:{{ cdl.stopTop }};transition:top .6s cubic-bezier(0.2,0,0,1);transform:translateY(-50%);font-size:10px;font-weight:800;background:#E4E4DF;padding:2px 5px;border-radius:4px;">Stopp</span>
+              <div style="position:absolute;left:0;right:46px;top:0;bottom:0;display:flex;gap:3px;">
+                <sc-for list="{{ cdl.candles }}" as="c" hint-placeholder-count="24">
+                  <div style="position:relative;flex:1;min-width:0;">
+                    <div style="position:absolute;left:50%;width:1.5px;margin-left:-0.75px;top:{{ c.wTop }};height:{{ c.wH }};background:{{ c.fill }};transition:top .6s cubic-bezier(0.2,0,0,1),height .6s cubic-bezier(0.2,0,0,1);transition-delay:{{ c.delay }};"></div>
+                    <div style="position:absolute;left:0;right:0;top:{{ c.bTop }};height:{{ c.bH }};min-height:2px;border-radius:2px;background:{{ c.fill }};transition:top .6s cubic-bezier(0.2,0,0,1),height .6s cubic-bezier(0.2,0,0,1),background .3s;transition-delay:{{ c.delay }};"></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;margin-top:12px;font-size:12px;color:#62665F;">
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#33DA00;"></span>Steigend</span>
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#FF5A4E;"></span>Fallend</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:14px;background:#F2F2EF;border-radius:999px;padding:4px;">
+              <sc-for list="{{ cdl.ranges }}" as="r" hint-placeholder-count="4">
+                <button onClick="{{ r.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ r.bg }};color:{{ r.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ r.label }}</button>
               </sc-for>
-            </div>
+
           </div>
-          <div style="display:flex;gap:14px;margin-top:12px;font-size:12px;color:#62665F;">
-            <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#33DA00;"></span>Steigend</span>
-            <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#FF5A4E;"></span>Fallend</span>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:14px;background:#F2F2EF;border-radius:999px;padding:4px;">
-            <sc-for list="{{ cdl.ranges }}" as="r" hint-placeholder-count="4">
-              <button onClick="{{ r.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ r.bg }};color:{{ r.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ r.label }}</button>
-            </sc-for>
-          </div>
-        </div>
-            </div>
-          </div>
-          <button onClick="{{ toggleBasis }}" aria-expanded="{{ basisOpen }}" style="height:44px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:#62665F;font-size:13px;font-weight:700;">
-            <span>{{ basisLabel }}</span><span class="material-symbols-outlined" style="font-size:20px;transform:rotate({{ basisRot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
+          <button onClick="{{ openBasisDetail }}" style="margin-top:16px;height:44px;border:0;border-top:1px solid #ECECE8;background:transparent;color:#0B0B0B;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;">
+            <span>Alles zur {{ h.basis }}</span><span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">arrow_forward</span>
           </button>
         </div>
 
@@ -768,7 +751,10 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         <div style="position:relative;margin-top:16px;">
           <div style="position:absolute;top:-7px;left:calc(5px + (100% - 18px) / 6 + {{ modeIdx }} * ((100% - 18px) / 3 + 4px));width:16px;height:16px;margin-left:-8px;background:#262626;border-radius:3px;transform:rotate(45deg);transition:left .35s cubic-bezier(0.2,0,0,1);"></div>
           <div style="position:relative;background:#262626;color:#fff;border-radius:24px;padding:6px 20px 20px;display:flex;flex-direction:column;">
-            <button onClick="{{ toggleTradeInfo }}" aria-expanded="{{ tradeOpen }}" style="height:52px;border:0;border-bottom:1px solid rgba(255,255,255,0.12);background:transparent;padding:0;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#fff;font-size:15px;font-weight:800;text-align:left;">
+            <button onClick="{{ openOptions }}" style="margin-top:14px;height:54px;border:0;border-radius:14px;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:800;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
+              <span>{{ ctaLabel }}</span><span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+            </button>
+            <button onClick="{{ toggleTradeInfo }}" aria-expanded="{{ tradeOpen }}" style="height:52px;border:0;border-top:1px solid rgba(255,255,255,0.12);background:transparent;margin-top:18px;padding:0;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#fff;font-size:15px;font-weight:800;text-align:left;">
               <span>Erklär Funktion und Chancen</span><span class="material-symbols-outlined" style="font-size:24px;color:#FFF765;transform:rotate({{ tradeRot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
             </button>
             <div style="display:grid;grid-template-rows:{{ tradeRows }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
@@ -780,9 +766,6 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
                 </div>
               </div>
             </div>
-            <button onClick="{{ openOptions }}" style="margin-top:18px;height:54px;border:0;border-radius:14px;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:800;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
-              <span>{{ ctaLabel }}</span><span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
-            </button>
           </div>
         </div>
 
@@ -1169,14 +1152,14 @@ const QUOTES = { nvidia:{ name:'NVIDIA Aktie', exch:'NDQ', wkn:'918422', kurs:18
   dax:{ name:'DAX Index', exch:'XETRA', wkn:'846900', kurs:24180.12, abs:-96.40, cur:'Pkt.', time:'17:45:00' },
   sp500:{ name:'S&P 500 Index', exch:'INDEX', wkn:'A0AET0', kurs:6712.40, abs:38.20, cur:'Pkt.', time:'22:15:00' },
   amd:{ name:'AMD Aktie', exch:'NDQ', wkn:'863186', kurs:164.21, abs:-3.02, cur:'$', time:'21:59:48' } };
-const LOGOS = { nvidia:['NV','#76B900','#FFFFFF'], siemens:['AMZ','#FF9900','#0B0B0B'], gold:['Au','#D4A72C','#0B0B0B'], dax:['DAX','#262626','#FFF765'], sp500:['S&P','#1E3A8A','#FFFFFF'], amd:['AMD','#0B0B0B','#FFFFFF'], sap:['SAP','#0A6ED1','#FFFFFF'] };
-const logoFor = (id, name) => { const L = LOGOS[id]; if (L) return { logo:L[0], logoBg:L[1], logoFg:L[2] }; const t = (name || '?').replace(/^Turbo Long /, '').trim(); return { logo:t.slice(0, 2).toUpperCase(), logoBg:'#ECECE8', logoFg:'#0B0B0B' }; };
+const LOGOS = { nvidia:['NV','#FFF765','#0B0B0B'], siemens:['AMZ','#FFF765','#0B0B0B'], gold:['Au','#FFF765','#0B0B0B'], dax:['DAX','#FFF765','#0B0B0B'], sp500:['S&P','#FFF765','#0B0B0B'], amd:['AMD','#FFF765','#0B0B0B'], sap:['SAP','#FFF765','#0B0B0B'] };
+const logoFor = (id, name) => { const L = LOGOS[id]; if (L) return { logo:L[0], logoBg:L[1], logoFg:L[2] }; const t = (name || '?').replace(/^Turbo Long /, '').trim(); return { logo:t.slice(0, 2).toUpperCase(), logoBg:'#FFF765', logoFg:'#0B0B0B' }; };
 const SEARCH_PRODS = [{ id:'sp500', name:'S&P 500 Index', by:'', pcts:{ '1W':1, '1M':3, '3M':7, '1J':16 }, seed:9, honey:null },
   { id:'amd', name:'AMD Aktie', by:'', pcts:{ '1W':-3, '1M':-8, '3M':4, '1J':21 }, seed:13, honey:null }];
 const HONEY_ROW_BG = 'rgba(255,255,255,0.8)';
 const fmtN = v => v.toLocaleString('de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 });
 const quoteRow = q => { const up = q.abs >= 0, sg = up ? '+' : '−', pct = q.abs / (q.kurs - q.abs) * 100, unit = q.cur === 'Pkt.' ? '' : ' ' + q.cur;
-  return { name:q.name, exch:q.exch, wkn:q.wkn, kurs:fmtN(q.kurs) + unit, abs:sg + fmtN(Math.abs(q.abs)) + (q.cur === 'Pkt.' ? '' : ' ' + q.cur), pct:sg + fmtN(Math.abs(pct)) + ' %', time:q.time.slice(0, 5), color: up ? '#1F9E00' : '#D63A2F' }; };
+  return { name:q.name, exch:q.exch, wkn:q.wkn, kurs:fmtN(q.kurs) + unit, abs:sg + fmtN(Math.abs(q.abs)) + (q.cur === 'Pkt.' ? '' : ' ' + q.cur), pct:sg + fmtN(Math.abs(pct)) + ' %', time:q.time.slice(0, 5), pctBg: up ? 'rgba(51,218,0,0.14)' : 'rgba(255,90,78,0.12)', color: up ? '#1F9E00' : '#D63A2F' }; };
 const PROD_META = {
   sp500:{ name:'S&P 500 Index', type:'Index', wkn:'A0AET0', kurs:'6.712,40 Pkt.', chg:'+0,57 %', facts:[['Werte','500'],['Region','USA'],['Hoch 52W','6.790 Pkt.'],['Tief 52W','4.980 Pkt.']] },
   amd:{ name:'AMD Aktie', type:'Aktie', wkn:'863186', kurs:'164,21 $', chg:'−1,81 %', facts:[['Marktkap.','266 Mrd. $'],['KGV','38,4'],['Dividende','–'],['Börse','Nasdaq']] },
@@ -1195,10 +1178,13 @@ const HONEYS = [
     kurz:'Amazons Akquisition könnte es KI-Anbietern einfacher machen, von NVIDIA Chips auf günstigere umzusteigen – auch die von Amazon. Decart entwickelt Software, mit der KI-Modelle auf unterschiedlicher Hardware laufen. Für Amazons Cloud-Sparte AWS könnte das ein Argument gegenüber der Konkurrenz werden.', image:'assets/hero-siemens-wind.jpg',
     basis:'Amazon Aktie', wkn:'Q3ZWGF', kurs:'227,38 €', chg:'+2,3 %', ziel:'255,00 €', stopp:'210,00 €', mcap:'500 Mrd. €', div:'0,0 %', pot:'+8 % bis +14 %',
     cl:3, rl:2, c10:7, r10:5, chanceTxt:'höher', riskTxt:'mittel',
-    s1:'Amazon übernimmt im Beispiel das KI-Startup Decart für rund 7 Milliarden Euro. Decart entwickelt Software, mit der KI-Modelle schneller und günstiger auf unterschiedlichen Chips laufen.',
-    s2:'Bisher setzen viele KI-Anbieter auf Chips von NVIDIA. Lässt sich KI-Software leichter auf andere Hardware übertragen, werden Amazons eigene Chips attraktiver. Das könnte das Cloud-Geschäft von AWS stärken. Entscheidend ist, wie viel davon bereits im Kurs steckt.',
-    s3:'Ordne die Idee in deinen Zeithorizont ein. Ob sich die Übernahme auszahlt, zeigt sich erst über die nächsten Quartale. Prüfe, wie der Titel zu deinem Portfolio passt, und welches Risiko du tragen könntest. Ein Szenario ist eine Möglichkeit, keine Zusage.',
-    deep:{ technik:'Der Kurs hat im Beispiel nach der Meldung eine Seitwärtsphase nach oben verlassen. Die Marke um 215 € dient jetzt als Unterstützung, das Volumen ist beim Ausbruch deutlich gestiegen.', hinter:'Rechenleistung für KI ist knapp und teuer. Cloud-Anbieter wie Amazon entwickeln deshalb eigene Chips. Mit Decart kommt die Software dazu, die den Wechsel von NVIDIA-Hardware erleichtern soll.', analyse:'AWS liefert im Beispiel den größten Teil von Amazons Gewinn. Wächst die KI-Nachfrage in der Cloud weiter, profitiert vor allem diese Sparte. Der Kaufpreis ist für Amazon gut verkraftbar.' } },
+    s1:'Amazon übernimmt im Beispiel das KI-Startup Decart für rund 7 Milliarden Euro. Decart entwickelt Software, mit der KI-Modelle schneller und günstiger auf unterschiedlichen Chips laufen. Das Unternehmen wurde erst vor wenigen Jahren gegründet und gilt als einer der Spezialisten für die Optimierung von KI-Anwendungen. Für Amazon ist es eine der größten Übernahmen der Firmengeschichte. Die Aktie reagierte im Beispiel mit einem deutlichen Kurssprung.',
+    s2:'Bisher setzen viele KI-Anbieter auf Chips von NVIDIA. Die sind leistungsstark, aber teuer und oft knapp. Amazon entwickelt mit Trainium und Inferentia seit Jahren eigene KI-Chips, die bisher aber weniger genutzt werden. Lässt sich KI-Software dank Decart leichter auf andere Hardware übertragen, werden diese Chips attraktiver. Das könnte das Cloud-Geschäft von AWS stärken, das schon heute den größten Teil von Amazons Gewinn liefert. Entscheidend ist, wie viel davon bereits im Kurs steckt.',
+    s3:'Am direktesten setzt du mit der Amazon Aktie auf die Entwicklung. Wenn AWS durch eigene KI-Chips Marktanteile in der Cloud gewinnt, kann das langfristig Umsatz und Margen steigern. Wer kurzfristig auf eine Fortsetzung der Kursbewegung setzen möchte, kann einen Hebel nutzen. Dabei steigen Chancen und Risiken gleichermaßen. Breiter aufgestellt bist du mit einem ETF auf Cloud- oder KI-Unternehmen. Damit profitierst du vom Gesamttrend, ohne alles auf einen Wert zu setzen.',
+    deep:{
+      technik:'Über mehrere Wochen ist die Aktie im Beispiel zwischen rund 205 € und 222 € seitwärts gelaufen. Die Käufer haben sich bei jedem Rücksetzer an der Unterseite gezeigt, nach oben fehlte aber der Anlass. Mit der Decart-Meldung hat der Kurs diese Spanne mit einer großen grünen Kerze verlassen und bei deutlich erhöhtem Handelsvolumen geschlossen. Das gilt als Zeichen, dass größere Anleger mitziehen. Die frühere Obergrenze um 215 € bis 222 € wird nun zur Unterstützung. Läuft der Kurs noch einmal dorthin zurück und hält, bestätigt das den Ausbruch. Das nächste Ziel liegt am Hoch bei etwa 255 €. Fällt der Kurs dagegen unter 210 €, wäre der Ausbruch gescheitert. Dort liegt deshalb der Stopp.',
+      hinter:'Amazon ist mit AWS der größte Cloud-Anbieter der Welt, vor Microsoft und Google. Die Sparte liefert im Beispiel gut die Hälfte des operativen Gewinns, obwohl sie nur einen kleinen Teil des Umsatzes ausmacht. Der Wettbewerb dreht sich derzeit vor allem um KI-Rechenleistung. Viele Kunden sind dabei an NVIDIA-Chips gebunden, die teuer und knapp sind. Amazon baut mit Trainium und Inferentia seit Jahren eigene Chips, die günstiger sind, aber bisher wenig genutzt werden. Decart liefert die Software, mit der sich KI-Modelle ohne großen Aufwand auf diese Chips übertragen lassen. Analysten sehen die Übernahme im Beispiel überwiegend positiv. Kritisch gesehen werden der hohe Preis und mögliche Prüfungen durch Kartellbehörden.',
+      analyse:'Chart und Nachrichtenlage zeigen im Beispiel in dieselbe Richtung. Der Ausbruch aus der Seitwärtsphase hat mit der Decart-Übernahme einen klaren Auslöser, und das hohe Volumen spricht dafür, dass der Markt die Meldung ernst nimmt. Fundamental ist der Hebel groß: Schon kleine Marktanteilsgewinne von AWS im KI-Geschäft wirken sich spürbar auf Amazons Gewinn aus. Daraus ergibt sich das Szenario des Honeys mit einem Ziel um 255 €. Das Risiko liegt darin, dass viel Zuversicht schon im Kurs steckt. Bleiben die Erfolge bei den eigenen Chips aus oder stoppen Behörden den Deal, könnte der Kurs zurück in die alte Spanne fallen. Der Stopp bei 210 € begrenzt diesen Fall.' } },
   { id:'nvidia', authorType:'COACH', author:'Marcus Veit', tag:'AKTIEN', meta:'Beispiel-Honey · 3 Min. Lesezeit', byline:'Ein Honey von Coach Marcus Veit',
     title:'IT-Werte schwingen sich zu neuen Höhenflügen', teaser:'Warum die Nachfrage nach KI-Chips weiter wächst und was das für Nvidia heißt.', chance:'Vom anhaltenden KI-Ausbau profitieren.',
     kurz:'Wie stark die Nachfrage nach Rechenzentren im Beispiel wächst und wo die Bewertung bereits viel vorwegnimmt.', image:'assets/hero-nvidia.jpg',
@@ -1559,8 +1545,19 @@ class Component extends DCLogic {
       sumHexR:Array.from({ length:10 }, (_, i) => i < h0.r10 ? '#FF6608' : '#FFFFFF'),
       basisOpen:s.basisOpen, basisRows: s.basisOpen ? '1fr' : '0fr', basisRot: s.basisOpen ? '180deg' : '0deg', basisLabel: s.basisOpen ? 'Weniger anzeigen' : 'Kennzahlen, Szenario und Chart',
       toggleBasis:() => this.setState(st => ({ basisOpen:!st.basisOpen })),
+      openBasisDetail:() => PERF[h0.id] ? this.go('product', { productId:h0.id }) : this.showToast('Detailseite zum Basiswert folgt'),
       tradeOpen:s.tradeOpen, tradeRows: s.tradeOpen ? '1fr' : '0fr', tradeRot: s.tradeOpen ? '180deg' : '0deg',
       toggleTradeInfo:() => this.setState(st => ({ tradeOpen:!st.tradeOpen })),
+      rd:(() => { const m = this.props.lesebereich || 'Waben-Auflösung schräg';
+        const none = { edge:'none', edgeH:'0' };
+        const edged = (src, eh = 110) => ({ wrapM:'0 -20px 0', wrapPad:(eh + 14) + 'px 24px ' + (eh + 14) + 'px', bg:'linear-gradient(180deg,transparent 0,transparent ' + (eh - 2) + 'px,#FFFFFF ' + (eh - 2) + 'px,#FFFFFF calc(100% - ' + (eh - 2) + 'px),transparent calc(100% - ' + (eh - 2) + 'px))', radius:'0', cardBg:'transparent', cardR:'0', cardPad:'0 4px', ddPad:'0', edge:'url(' + src + ') left top / auto ' + eh + 'px repeat-x', edgeH:eh + 'px' });
+        if (m === 'Waben-Auflösung') return { ...edged('assets/edge-aufloesung.svg?v=3', 220), wrapM:'-70px -20px 0', wrapPad:'190px 24px 96px' };
+        if (m === 'Waben-Auflösung schräg') { const e = edged('assets/edge-aufloesung-schraeg.svg', 220); return { ...e, edge:'url(assets/edge-aufloesung-schraeg.svg) center top / 440px 220px no-repeat', wrapM:'-70px -20px 0', wrapPad:'190px 24px 96px' }; }
+        if (m === 'Waben-Linien') return edged('assets/edge-linien.svg');
+        if (m === 'Große Waben') return edged('assets/edge-waben.svg');
+        if (m === 'Karten') return { ...none, wrapM:'32px 0 0', wrapPad:'0', bg:'transparent', radius:'0', cardBg:'#FFFFFF', cardR:'24px', cardPad:'4px 20px', ddPad:'0 8px' };
+        if (m === 'Verlauf') return { ...none, wrapM:'8px -20px 0', wrapPad:'72px 24px 72px', bg:'linear-gradient(180deg,#F2F2EF 0,#FFFFFF 64px,#FFFFFF calc(100% - 64px),#F2F2EF 100%)', radius:'0', cardBg:'transparent', cardR:'0', cardPad:'0 4px', ddPad:'0' };
+        return { ...none, wrapM:'32px -20px 0', wrapPad:'28px 24px 32px', bg:'#FFFFFF', radius:'32px', cardBg:'transparent', cardR:'0', cardPad:'0 4px', ddPad:'0' }; })(),
       showNav:true,
       podOpen:s.podOpen, podAnim: s.podPlay ? 'running' : 'paused',
       podMini:['8px','16px','11px','22px','14px','19px','9px'],
@@ -1578,7 +1575,7 @@ class Component extends DCLogic {
       notify:() => this.showToast('Keine neuen Benachrichtigungen'),
       carLabel:(s.car+1)+' / '+HONEYS.length,
       carNext:() => this.carTo((s.car+1)%HONEYS.length),
-      carCards:HONEYS.map(x => ({ ...decorate(x), chanceHexD:hexD(x.c10,'#33DA00','#5A5A5A'), riskHexD:hexD(x.r10,'#FF5A4E','#FFFFFF'), chanceHex:hexes(x.c10,'#FFF765'), riskHex:hexes(x.r10,'#262626'), hasImage:!!x.image, noImage:!x.image, slotId:'honey-img-' + x.id, saveFill:saveFill(x.id), saveAnim:saveAnim(x.id),
+      carCards:HONEYS.map(x => ({ ...decorate(x), chanceW:(x.c10 * 10) + '%', riskW:(x.r10 * 10) + '%', chanceHex:hexes(x.c10,'#FFF765'), riskHex:hexes(x.r10,'#262626'), hasImage:!!x.image, noImage:!x.image, slotId:'honey-img-' + x.id, saveFill:saveFill(x.id), saveAnim:saveAnim(x.id),
         toggleSave:e => { e.stopPropagation(); this.toggleSave(x.id); },
         open:() => { if (!this.drag || !this.drag.moved) this.openHoney(x.id); } })),
       onCarScroll:() => { const i = this.carIndexFromScroll(); if (i !== this.state.car) this.setState({ car:i }); },
