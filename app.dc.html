@@ -46,7 +46,7 @@ a{-webkit-tap-highlight-color:transparent}
 @keyframes mh-breathe{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.05);opacity:.9}}
 @keyframes mh-blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
 @media (max-width: 600px){
-html,body{background:#F2F2EF!important;height:100%;overscroll-behavior:none}
+html,body{height:100%;overscroll-behavior:none}
 [data-mh="stage"]{padding:0!important;min-height:0!important;height:100dvh!important;display:block!important}
 [data-mh="app"]{width:100vw!important;height:100dvh!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}
 [data-mh="statusbar"],[data-mh="homebar"]{display:none!important}
@@ -1924,6 +1924,12 @@ class Component extends DCLogic {
       cta: plan === 'member' ? 'Mitglied werden' : 'Analyse für 2,99 € kaufen',
       confirm:() => this.closeSheet(() => { if (plan === 'member') this.setState({ member:true }); else this.setState(st2 => ({ reports:[...(st2.reports || []), id] })); this.showToast('Analyse freigeschaltet'); }) };
   }
+  syncChrome(c) {
+    if (this._chrome === c || typeof document === 'undefined') return;
+    this._chrome = c; const de = document.documentElement;
+    de.style.backgroundColor = c; if (document.body) document.body.style.backgroundColor = window.innerWidth <= 600 ? c : '';
+    let m = document.querySelector('meta[name="theme-color"]'); if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); } m.content = c;
+  }
   openSheet(sheet, extra) { clearTimeout(this._c); this.setState({ sheet, closing:false, ...(extra||{}) }); }
   closeSheet(then) { if (!this.state.sheet) return; this.setState({ closing:true });
     clearTimeout(this._c); this._c = setTimeout(() => { this.setState({ sheet:null, closing:false }); then && then(); }, 240); }
@@ -2252,6 +2258,7 @@ class Component extends DCLogic {
     return {
       ...brandVals,
       scrollTopPx: s.screen === 'detail' ? '0px' : '48px', onMainScroll: e => { const t = e.currentTarget.scrollTop < 400; if (t !== (this.state.heroTop !== false)) this.setState({ heroTop: t }); },
+      _chrome: this.syncChrome(s.podOpen ? '#141414' : s.screen === 'detail' ? '#262626' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF'),
       sbBg: s.podOpen ? '#141414' : (s.screen === 'detail' && h0.image && s.heroTop !== false) ? 'transparent' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF', sbColor: s.podOpen || s.screen === 'home' || (s.screen === 'detail' && h0.image && s.heroTop !== false) ? '#FFFFFF' : '#0B0B0B',
       hasPerf: dashList.length > 0, noPerf: dashList.length === 0, perf, perfRows, perfAvg: '', perfOpen: s.perfOpen, perfRot: s.perfOpen ? '180deg' : '0deg', perfRows2: s.perfOpen ? '1fr' : '0fr', perfMove: e => { const r = e.currentTarget.getBoundingClientRect(); const i = Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35); if (i !== this.state.perfHover) this.setState({ perfHover:i }); },
       perfDown: e => { e.preventDefault(); try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} const sel = window.getSelection && window.getSelection(); if (sel) sel.removeAllRanges(); const r = e.currentTarget.getBoundingClientRect(); this.setState({ perfHover: Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35) }); },
