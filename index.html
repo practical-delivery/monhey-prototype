@@ -43,6 +43,7 @@ button{font-family:inherit}
 @keyframes mh-orb{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.12)}66%{transform:translate(-25px,25px) scale(0.92)}}
 @keyframes mh-breathe{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.05);opacity:.9}}
 @keyframes mh-blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms!important;transition-duration:1ms!important}}
 @media (max-width: 600px){
 html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 [data-mh="stage"]{padding:0!important;min-height:0!important;height:100dvh!important;display:block!important}
@@ -53,11 +54,10 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 [data-screen-label="Podcast Player"]{padding-top:env(safe-area-inset-top)!important}
 }
 @media (max-width: 600px) and (display-mode: standalone){[data-mh="app"]::before{background:#2B2B2B!important}}
-@media (prefers-reduced-motion: reduce){*{animation-duration:1ms!important;transition-duration:1ms!important}}
 </style>
 </helmet>
 <div data-mh="stage" style="min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:22px 12px;">
-<div data-mh="app" data-screen-label="Monhey App" style="--mh-sb:{{ sbBg }};position:relative;width:402px;height:874px;max-width:100%;background:#F2F2EF;border-radius:44px;overflow:hidden;box-shadow:0 20px 60px rgba(11,11,11,0.18);font-family:Manrope,-apple-system,sans-serif;">
+<div data-mh="app" data-screen-label="Monhey App" style="--mh-sb:{{ sbBg }};position:relative;width:402px;height:874px;max-width:100%;background:#F2F2EF;border-radius:44px;overflow:hidden;box-shadow:0 20px 60px rgba(11,11,11,0.18);font-family:Manrope,-apple-system,sans-serif;">{{ radiusCss }}
 
   <div data-mh="statusbar" style="position:absolute;top:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:30;background:{{ sbBg }};color:{{ sbColor }};transition:background .3s,color .3s;">
     <span style="font-size:14px;font-weight:700;">9:41</span>
@@ -68,13 +68,13 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     </div>
   </div>
 
-  <div data-mh="scroll" ref="{{ scrollRef }}" class="mh-scroll" style="position:absolute;top:48px;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;">
+  <div data-mh="scroll" ref="{{ scrollRef }}" onScroll="{{ onMainScroll }}" class="mh-scroll" style="position:absolute;top:{{ scrollTopPx }};left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;">
 
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div data-screen-label="Start" style="padding:0 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div style="margin:0 -20px;padding:4px 24px 28px;border-radius:0 0 36px 36px;background:radial-gradient(90% 55% at 100% 42%, rgba(255,247,101,0.13) 0%, rgba(255,247,101,0) 70%), radial-gradient(70% 40% at 0% 100%, rgba(255,247,101,0.07) 0%, rgba(255,247,101,0) 70%), url(assets/hex-pattern.svg) top center / 700px 1100px no-repeat, linear-gradient(180deg,#2B2B2B 0%,#262626 50%,#1F1F1F 100%);color:#fff;display:flex;flex-direction:column;">
-        <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
-          <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;filter:brightness(0) invert(1);">
+        <div style="display:flex;align-items:center;justify-content:space-between;height:52px;margin:0 -4px;">
+          <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;filter:brightness(0) invert(1);"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;color:#FFFFFF;">{{ beeLogoWhiteEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
           <div style="display:flex;gap:8px;align-items:center;">
             <button onClick="{{ notify }}" aria-label="Benachrichtigungen" style="position:relative;width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#0B0B0B;">
               <span class="material-symbols-outlined" style="font-size:21px;">notifications</span>
@@ -83,7 +83,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
             <div style="width:40px;height:40px;border-radius:50%;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">SK</div>
           </div>
         </div>
-        <h1 style="margin:26px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, Stefan.</h1>
+        <h1 style="margin:26px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, Stefan.</h1><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><img src="assets/bee-v4/detail-underline-yellow.svg" alt="" style="display:block;width:150px;height:15px;margin:2px 0 -17px 0;"></sc-if>
         <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:30px;">
           <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:14px 16px;min-height:92px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Honeys</span>
@@ -158,7 +158,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 4px 0;">
-        <h2 style="margin:0;font-size:20px;font-weight:800;">Deine Honeys</h2>
+        <h2 style="margin:0;font-size:20px;font-weight:800;">Neue Honeys</h2>
         <div style="display:flex;align-items:center;gap:10px;">
           <span style="font-size:13px;font-weight:700;color:#62665F;">{{ carLabel }}</span>
           <button onClick="{{ carNext }}" aria-label="Nächster Honey" style="width:36px;height:36px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
@@ -187,10 +187,10 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
               </div>
             </div>
             <div style="padding:26px 24px 26px;display:flex;flex-direction:column;gap:24px;flex:none;">
-              <h3 style="margin:0;font-size:28px;line-height:1.12;font-weight:800;letter-spacing:-0.4px;text-wrap:pretty;color:#FFF765;">{{ car.title }}</h3>
-              <p style="margin:0;font-size:15px;line-height:1.45;color:#FFF765;opacity:0.9;text-wrap:pretty;min-height:66px;">{{ car.teaser }}</p>
+              <h3 style="margin: 0; font-size: 28px; line-height: 1.12; font-weight: 800; letter-spacing: -0.4px; text-wrap: pretty; color: #F2F2EF">{{ car.title }}</h3>
+              <p style="margin: 0; font-size: 15px; line-height: 1.45; color: #F2F2EF; opacity: 0.9; text-wrap: pretty; min-height: 66px">{{ car.teaser }}</p>
               <div style="border-radius:18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden;">
-                <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.65);">Kurspotenzial</span><span style="font-size:17px;font-weight:800;color:#33DA00;white-space:nowrap;">{{ car.pot }}</span></div>
+                <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.65);">Kurspotenzial</span><span style="position:relative;align-self:flex-start;font-size:17px;font-weight:800;color:#33DA00;white-space:nowrap;">{{ car.pot }}</span></div>
                 <div style="padding:12px 14px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-size:12px;color:rgba(255,255,255,0.65);">Kursziel</span><span style="font-size:17px;font-weight:800;white-space:nowrap;">{{ car.ziel }}</span></div>
                 <div style="grid-column:1 / -1;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;row-gap:8px;align-items:center;padding:12px 14px;">
                 <span style="font-size:12px;font-weight:800;">Chance</span>
@@ -213,9 +213,10 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         </sc-for>
       </div>
 
-      <div style="margin-top:24px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+      <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:relative;height:0;margin-top:30px;"><div style="position:absolute;right:30px;top:-26px;width:78px;height:78px;">{{ peekKi }}</div><div style="position:absolute;z-index:2;right:30px;top:-26px;width:78px;height:78px;pointer-events:none;">{{ peekKiFront }}</div></div></sc-if>
+      <div style="position:relative;z-index:1;margin-top:24px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
         <div style="display:flex;align-items:center;gap:12px;">
-          <span style="width:40px;height:40px;border-radius:12px;background:#262626;display:flex;align-items:center;justify-content:center;flex:none;"><span aria-hidden="true" style="color:#FFF765;width:24px;height:24px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></span>
+          <span style="width:40px;height:40px;border-radius:12px;background:#262626;display:flex;align-items:center;justify-content:center;flex:none;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:24px;height:24px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:28px;height:28px;display:block;flex:none;">{{ beeGlyph }}</span></sc-if></span>
           <h2 style="margin:0;font-size:20px;font-weight:800;">Monhey KI</h2>
         </div>
         <p style="margin:0;font-size:15px;line-height:1.5;color:#62665F;">Suche Produkte oder frag, was Dich beschäftigt</p>
@@ -234,7 +235,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           </div>
         </sc-if>
         <button onClick="{{ toggleRec }}" aria-label="{{ micLabel }}" style="width:44px;height:44px;border-radius:50%;border:0;background:{{ micBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;animation:{{ micAnim }};transition:background .2s;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;font-variation-settings:'FILL' {{ micFill }};">{{ micIcon }}</span></button>
-        <button onClick="{{ sendAsk }}" aria-label="Monhey KI fragen" style="width:44px;height:44px;border-radius:50%;border:0;background:#262626;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span aria-hidden="true" style="color:#FFF765;width:24px;height:24px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></button>
+        <button onClick="{{ sendAsk }}" aria-label="Monhey KI fragen" style="width:44px;height:44px;border-radius:50%;border:0;background:#262626;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;">arrow_upward</span></button>
       </div>
         <div style="display:grid;grid-template-rows:{{ flyRows }};opacity:{{ flyOp }};margin-top:{{ flyMt }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1),opacity .25s,margin-top .35s cubic-bezier(0.2,0,0,1);">
         <div style="overflow:hidden;min-height:0;">
@@ -282,7 +283,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
     <sc-if value="{{ isHoneys }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Honeys" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
-      <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <div style="height:52px;display:flex;align-items:center;"><sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if></div>
       <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Honeys</h1>
       <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Marktideen der Redaktion und deiner Coaches.</p>
       <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;">
@@ -308,7 +309,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <sc-if value="{{ isWatchlist }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Watchlist" style="position:relative;padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:760px;background:url(assets/hex-header.svg) top right / 402px 760px no-repeat;pointer-events:none;"></div>
-      <div style="position:relative;height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <div style="position:relative;height:52px;display:flex;align-items:center;"><sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if></div>
       <h1 style="position:relative;margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Watchlist</h1>
       <p style="position:relative;margin:6px 4px 0;font-size:13px;color:#62665F;">Zum Entfernen nach links wischen.</p>
       <sc-if value="{{ watchAllEmpty }}" hint-placeholder-val="{{ false }}">
@@ -378,7 +379,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 
     <sc-if value="{{ isCoaches }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Coaches" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
-      <div style="height:52px;display:flex;align-items:center;"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></div>
+      <div style="height:52px;display:flex;align-items:center;"><sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if></div>
       <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Coaches</h1>
       <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Lerne Trading-Coaches kennen und folge ihren Ideen.</p>
       <button onClick="{{ openLive }}" style="margin-top:20px;text-align:left;border:0;background:#262626;color:#fff;border-radius:20px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;">
@@ -421,8 +422,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Beitrag" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
         <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
-        <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
       </div>
       <div style="margin-top:12px;background:#fff;border-radius:24px;padding:24px 22px;display:flex;flex-direction:column;gap:18px;">
         <button onClick="{{ art.openCoach }}" style="border:0;background:transparent;padding:0;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;color:#0B0B0B;">
@@ -453,8 +454,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <sc-if value="{{ isCoachProfile }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Coach-Profil" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
         <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
-        <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
       </div>
       <div style="margin-top:12px;background:#fff;border-radius:24px;padding:24px 20px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;">
         <div role="img" style="width:84px;height:84px;border-radius:50%;background:#E4E4DF url({{ cp.img }}) center / cover no-repeat;"></div>
@@ -513,8 +514,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <sc-if value="{{ isLive }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Live-Webinar" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
         <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
-        <img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;">
       </div>
       <div style="margin-top:12px;position:relative;height:200px;border-radius:24px;overflow:hidden;background:#262626;">
         <img src="assets/coach-1.jpg" alt="" style="position:absolute;right:0;top:0;height:100%;width:62%;object-fit:cover;">
@@ -560,8 +561,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Produkt Detail" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
       <div style="display:flex;align-items:center;justify-content:space-between;height:52px;">
-        <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
-        <button onClick="{{ prodPage.copyWkn }}" style="border:0;background:#fff;border-radius:999px;height:36px;padding:0 14px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ prodPage.wkn }}<span class="material-symbols-outlined" style="font-size:16px;">content_copy</span></button>
+        <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
+        <div style="display:flex;gap:8px;align-items:center;"><button onClick="{{ prodPage.copyWkn }}" style="border:0;background:#fff;border-radius:999px;height:36px;padding:0 14px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ prodPage.wkn }}<span class="material-symbols-outlined" style="font-size:16px;">content_copy</span></button><button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button></div>
       </div>
       <div style="margin:14px 4px 0;display:flex;gap:6px;"><span style="background:#262626;color:#FFF765;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ prodPage.type }}</span></div>
       <h1 style="margin:10px 4px 0;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-0.4px;text-wrap:pretty;">{{ prodPage.name }}</h1>
@@ -611,26 +612,41 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     </sc-if>
 
     <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
-    <div data-screen-label="Honey Detail" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+    <div data-screen-label="Honey Detail" style="padding:0 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <sc-if value="{{ hasImage }}" hint-placeholder-val="{{ true }}">
+      <div style="position:relative;margin:{{ heroM }};height:{{ heroH }};overflow:hidden;background:#262626 url({{ h.image }}) center / cover no-repeat;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px 26px;">
+        <div aria-hidden="true" style="position:absolute;inset:0;background:{{ heroGrad }};pointer-events:none;"></div><sc-if value="{{ heroHex }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:-1px;height:240px;background:url(assets/edge-hero.svg) center bottom / 480px 240px no-repeat;pointer-events:none;"></div></sc-if>
+        <div style="position:absolute;top:52px;left:20px;right:20px;display:flex;align-items:center;justify-content:space-between;height:52px;">
+          <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;filter:brightness(0) invert(1);"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;color:#FFFFFF;">{{ beeLogoWhiteEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
+          <div style="display:flex;gap:8px;"><button onClick="{{ share }}" aria-label="Teilen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;">ios_share</span></button>
+          <button onClick="{{ toggleSaveDetail }}" aria-label="Merken" style="width:40px;height:40px;border-radius:50%;border:0;background:{{ detailSaveBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;"><span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ detailSaveFill }};animation:{{ detailSaveAnim }};">bookmark</span></button>
+          <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
+        </div>
+        </div>
+        <sc-if value="{{ heroDark }}" hint-placeholder-val="{{ true }}"><div style="position:relative;display:flex;"><span style="background:#FFF765;color:#0B0B0B;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ h.author }}</span></div>
+        <h1 style="position:relative;margin:12px 0 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;text-wrap:pretty;color:#FFFFFF;">{{ h.title }}</h1></sc-if>
+      </div>
+      <sc-if value="{{ heroHex }}" hint-placeholder-val="{{ false }}"><div style="position:relative;margin:-76px 4px 0;display:flex;"><span style="background:#FFF765;color:#0B0B0B;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ h.author }}</span></div><h1 style="position:relative;margin:10px 4px 28px;font-size:30px;line-height:1.14;font-weight:800;letter-spacing:-0.5px;text-wrap:pretty;">{{ h.title }}</h1></sc-if>
+      </sc-if>
+      <sc-if value="{{ noImage }}" hint-placeholder-val="{{ false }}">
+      <div style="height:48px;"></div>
       <div style="position:relative;display:flex;align-items:center;justify-content:space-between;height:52px;">
-        <img src="assets/monhey-logo.png" alt="monhey!" style="position:absolute;left:50%;top:7px;transform:translateX(-50%);height:38px;width:117px;display:block;pointer-events:none;">
-        <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
+        <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
+
         <div style="display:flex;gap:8px;">
           <button onClick="{{ share }}" aria-label="Teilen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;">ios_share</span></button>
           <button onClick="{{ toggleSaveDetail }}" aria-label="Merken" style="width:40px;height:40px;border-radius:50%;border:0;background:{{ detailSaveBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;"><span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ detailSaveFill }};animation:{{ detailSaveAnim }};">bookmark</span></button>
+          <button onClick="{{ back }}" aria-label="Zurück" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:21px;">arrow_back</span></button>
         </div>
       </div>
-
-      <sc-if value="{{ hasImage }}" hint-placeholder-val="{{ true }}">
-        <div style="margin-top:12px;height:180px;border-radius:24px;overflow:hidden;background:#262626 url({{ h.image }}) center / cover no-repeat;"></div>
-      </sc-if>
-      <sc-if value="{{ noImage }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ noImage }}" hint-placeholder-val="{{ false }}">
         <div style="margin-top:12px;height:180px;border-radius:24px;overflow:hidden;background:#E4E4DF;">
           <image-slot id="{{ slotId }}" shape="rect" radius="0" placeholder="{{ slotHint }}" style="width:100%;height:100%;display:block;"></image-slot>
         </div>
       </sc-if>
       <div style="margin:18px 4px 0;display:flex;"><span style="background:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ h.author }}</span></div>
       <h1 style="margin:8px 4px 0;font-size:28px;line-height:1.18;font-weight:800;letter-spacing:-0.3px;text-wrap:pretty;">{{ h.title }}</h1>
+      </sc-if>
 
       <div style="position:relative;z-index:1;margin-top:16px;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px;color:#fff;background:radial-gradient(90% 80% at 100% 0%,rgba(255,247,101,0.12) 0%,rgba(255,247,101,0) 60%),#262626;">
         <span style="font-size:13px;font-weight:800;color:#FFF765;">What’s in it?</span>
@@ -667,7 +683,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         <div style="position:relative;margin:{{ rd.wrapM }};padding:{{ rd.wrapPad }};background:{{ rd.bg }};border-radius:{{ rd.radius }};display:flex;flex-direction:column;">
         <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:{{ rd.edgeH }};background:{{ rd.edge }};pointer-events:none;"></div>
         <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:{{ rd.edgeH }};background:{{ rd.edge }};transform:scaleY(-1);pointer-events:none;"></div>
-        <h2 style="position:relative;margin:0 4px 0;font-size:13px;font-weight:700;color:#62665F;">Der Hintergrund</h2>
+        <h2 style="position:relative;margin:8px 4px 8px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;font-size:50px;line-height:1.08;font-weight:800;letter-spacing:-1.8px;"><span style="position:relative;z-index:1;color:#0B0B0B;">Der Insight.</span><span style="position:relative;z-index:0;color:#0B0B0B;padding:4px 12px 8px;margin-left:-12px;background:url(assets/marker-yellow.svg) center / 100% 100% no-repeat;">Dein Move.</span></h2>
         <div style="position:relative;margin-top:10px;background:{{ rd.cardBg }};border-radius:{{ rd.cardR }};padding:{{ rd.cardPad }};display:flex;flex-direction:column;">
           <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Was ist passiert?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s1 }}</p></div>
           <div style="padding:18px 0;border-bottom:1px solid #ECECE8;"><h3 style="margin:0;font-size:18px;font-weight:800;">Warum ist das interessant?</h3><p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#3B3F39;">{{ h.s2 }}</p></div>
@@ -698,7 +714,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
             <span style="font-size:18px;font-weight:800;">{{ h.basis }}</span>
             <button onClick="{{ copyHoneyWkn }}" style="border:0;background:#F2F2EF;border-radius:999px;height:32px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;font-weight:700;color:#0B0B0B;">{{ h.wkn }}<span class="material-symbols-outlined" style="font-size:15px;">content_copy</span></button>
           </div>
-          <div style="display:flex;align-items:baseline;gap:10px;margin-top:8px;"><span style="font-size:28px;font-weight:800;letter-spacing:-0.5px;">{{ h.kurs }}</span><span style="font-size:13px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">{{ h.chg }}</span></div>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-top:8px;"><span style="font-size:28px;font-weight:800;letter-spacing:-0.5px;">{{ h.kurs }}</span><span style="position:relative;font-size:13px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">{{ h.chg }}</span></div>
           <div style="margin-top:14px;background:#F2F2EF;border-radius:16px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);">
             <div style="padding:12px 14px;background:#FFF765;border-radius:16px 0 0 16px;"><div style="font-size:12px;color:#0B0B0B;">Kurspotenzial</div><div style="font-size:14px;font-weight:800;margin-top:2px;white-space:nowrap;">{{ h.pot }}</div></div>
             <div style="padding:12px 14px;border-right:1px solid #E2E2DD;"><div style="font-size:12px;color:#62665F;">Ziel</div><div style="font-size:15px;font-weight:800;color:#1F9E00;margin-top:2px;white-space:nowrap;">{{ h.ziel }}</div></div>
@@ -741,8 +757,9 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           </button>
         </div>
 
-        <h2 style="margin:32px 4px 0;font-size:20px;font-weight:800;">Wie willst du traden?</h2>
-        <div style="position:relative;margin-top:12px;background:#fff;border-radius:999px;padding:5px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;">
+        <h2 style="margin:56px 4px 0;font-size:20px;font-weight:800;">Wie willst du traden?</h2>
+        <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:relative;height:0;"><div style="position:absolute;right:26px;bottom:-38px;width:78px;height:78px;">{{ peekTrade }}</div><div style="position:absolute;z-index:2;right:26px;bottom:-38px;width:78px;height:78px;pointer-events:none;">{{ peekTradeFront }}</div></div></sc-if>
+        <div style="position:relative;z-index:1;margin-top:12px;background:#fff;border-radius:999px;padding:5px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;">
           <div style="position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 18px) / 3);border-radius:999px;background:#262626;transform:translateX({{ modeX }});transition:transform .35s cubic-bezier(0.2,0,0,1);"></div>
           <sc-for list="{{ modes }}" as="m" hint-placeholder-count="3">
             <button onClick="{{ m.pick }}" style="position:relative;height:42px;border:0;border-radius:999px;background:transparent;font-size:13px;font-weight:700;cursor:pointer;color:{{ m.color }};transition:color .3s;">{{ m.label }}</button>
@@ -780,8 +797,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
     <div style="position:absolute;left:20px;right:20px;bottom:26px;z-index:25;display:flex;justify-content:space-between;gap:4px;background:linear-gradient(180deg,rgba(52,52,52,0.88) 0%,rgba(30,30,30,0.92) 100%);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-radius:999px;padding:6px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.18),0 12px 30px rgba(0,0,0,0.35),0 0 0 1px rgba(0,0,0,0.25);animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
       <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
         <button onClick="{{ n.go }}" aria-label="{{ n.label }}" title="{{ n.label }}" style="position:relative;flex:1;min-width:0;height:52px;border-radius:999px;border:0;background:{{ n.bg }};color:{{ n.color }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .25s,color .25s;">
-          <sc-if value="{{ n.notBee }}" hint-placeholder-val="{{ true }}"><span class="material-symbols-outlined" style="font-size:24px;font-variation-settings:'FILL' {{ n.fill }};">{{ n.icon }}</span></sc-if>
-          <sc-if value="{{ n.isBee }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width:26px;height:26px;display:block;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></sc-if>
+          <sc-if value="{{ n.notBee }}" hint-placeholder-val="{{ true }}"><span class="material-symbols-outlined" style="font-size:24px;font-variation-settings:'FILL' {{ n.fill }};">{{ n.icon }}</span></sc-if><sc-if value="{{ n.isHex }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width:26px;height:26px;display:block;">{{ n.hexEl }}</span></sc-if>
+          <sc-if value="{{ n.isBee }}" hint-placeholder-val="{{ false }}"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width:26px;height:26px;display:block;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width:28px;height:28px;display:block;">{{ beeGlyph }}</span></sc-if></sc-if>
           <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}">
             <span style="position:absolute;top:5px;right:5px;min-width:16px;height:16px;border-radius:8px;background:#FFF765;color:#0B0B0B;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;box-shadow:0 0 0 2px #262626;animation:mh-pop .4s;">{{ n.badge }}</span>
           </sc-if>
@@ -799,7 +816,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
         <div style="display:flex;flex-direction:column;min-height:calc(100% - 4px);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
             <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
-              <span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><span aria-hidden="true" style="color:#FFF765;width:23px;height:23px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span></span>
+              <span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:23px;height:23px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyph }}</span></sc-if></span>
               <div><div style="font-size:20px;font-weight:800;">Monhey KI</div><div style="font-size:13px;color:#62665F;">Erklärt dir Märkte und Begriffe.</div></div>
             </div>
             <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
@@ -934,7 +951,8 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           </div>
         </sc-if>
         <div key="{{ prodKey }}" style="display:flex;flex-direction:column;animation:mh-fade .3s both;">
-          <div style="margin-top:12px;background:#262626;color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;">
+          <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:relative;height:0;margin-top:44px;"><div style="position:absolute;right:28px;top:-43px;width:84px;height:84px;">{{ peekTada }}</div><div style="position:absolute;z-index:2;right:28px;top:-43px;width:84px;height:84px;pointer-events:none;">{{ peekTadaFront }}</div></div></sc-if>
+          <div style="position:relative;z-index:1;margin-top:12px;background:#262626;color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
               <span style="display:flex;align-items:center;gap:4px;background:#FFF765;color:#0B0B0B;font-size:12px;font-weight:800;padding:5px 11px 5px 9px;border-radius:999px;"><span class="material-symbols-outlined" style="font-size:15px;font-variation-settings:'FILL' 1;">star</span>Monhey Empfehlung</span>
               <button onClick="{{ topProd.copy }}" style="border:0;background:rgba(255,255,255,0.12);border-radius:999px;height:32px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;font-weight:700;color:#fff;">{{ topProd.wkn }}<span class="material-symbols-outlined" style="font-size:15px;">content_copy</span></button>
@@ -1128,7 +1146,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
           <button onClick="{{ podFwd }}" aria-label="10 Sekunden vor" style="width:52px;height:52px;border-radius:50%;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:32px;">forward_10</span></button>
           <button onClick="{{ podAsk }}" aria-label="Frage stellen" style="width:52px;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;">record_voice_over</span></button>
         </div>
-        <button onClick="{{ podAsk }}" style="align-self:center;border:0;border-radius:999px;background:rgba(255,255,255,0.1);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;cursor:pointer;"><span aria-hidden="true" style="color:#FFF765;width:22px;height:22px;display:block;flex:none;background:currentColor;-webkit-mask:url(assets/robo-bee.svg) center / contain no-repeat;mask:url(assets/robo-bee.svg) center / contain no-repeat;"></span>Mitreden: Frage ans Gespräch stellen</button>
+        <button onClick="{{ podAsk }}" style="align-self:center;border:0;border-radius:999px;background:rgba(255,255,255,0.1);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;cursor:pointer;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:22px;height:22px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:26px;height:26px;display:block;flex:none;">{{ beeGlyph }}</span></sc-if>Mitreden: Frage ans Gespräch stellen</button>
       </div>
     </div>
   </sc-if>
@@ -1143,7 +1161,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lesebereich&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Karten&quot;,&quot;Weißes Band&quot;,&quot;Verlauf&quot;,&quot;Waben-Auflösung&quot;,&quot;Waben-Auflösung schräg&quot;,&quot;Waben-Linien&quot;,&quot;Große Waben&quot;],&quot;default&quot;:&quot;Waben-Auflösung schräg&quot;,&quot;tsType&quot;:&quot;'Karten' | 'Weißes Band' | 'Verlauf' | 'Waben-Auflösung' | 'Waben-Auflösung schräg' | 'Waben-Linien' | 'Große Waben'&quot;,&quot;section&quot;:&quot;Honey Detail&quot;},&quot;branding&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Aktuell&quot;,&quot;Handmade v2&quot;,&quot;Handmade v3&quot;,&quot;Handmade v4&quot;],&quot;default&quot;:&quot;Handmade v4&quot;,&quot;tsType&quot;:&quot;'Aktuell' | 'Handmade v2' | 'Handmade v3' | 'Handmade v4'&quot;,&quot;section&quot;:&quot;Branding&quot;},&quot;radien&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Standard&quot;,&quot;12 px&quot;],&quot;default&quot;:&quot;Standard&quot;,&quot;tsType&quot;:&quot;'Standard' | '12 px'&quot;},&quot;headerbild&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Verlauf dunkel&quot;,&quot;Waben-Auflösung&quot;],&quot;default&quot;:&quot;Waben-Auflösung&quot;,&quot;tsType&quot;:&quot;'Verlauf dunkel' | 'Waben-Auflösung'&quot;}}">
 const PERF = { nvidia:{ pcts:{ '1W':3, '1M':9, '3M':18, '1J':31 }, seed:7 }, siemens:{ pcts:{ '1W':-1, '1M':3, '3M':5, '1J':8 }, seed:3 }, gold:{ pcts:{ '1W':1, '1M':-2, '3M':1, '1J':3 }, seed:11 } };
 const DASH_PRODUCTS = [{ id:'turbo-dax', name:'Turbo Long DAX · Hebel 5', by:'Monhey', pcts:{ '1W':-4, '1M':-9, '3M':6, '1J':-6 }, seed:5, honey:'dax' }];
 const QUOTES = { nvidia:{ name:'NVIDIA Aktie', exch:'NDQ', wkn:'918422', kurs:182.64, abs:4.12, cur:'$', time:'22:00:00' },
@@ -1174,15 +1192,15 @@ const perfSeries = (pct, seed) => { let r = seed * 997; const rnd = () => { r = 
 const hexD = (n, on, off) => Array.from({ length:5 }, (_, i) => ({ fill: i < Math.round(n/2) ? on : off }));
 const HONEYS = [
   { id:'siemens', authorType:'REDAKTION', author:'Monhey', tag:'KI', meta:'Beispiel-Honey · 4 Min. Lesezeit', byline:'Ein Honey aus der Monhey Redaktion',
-    title:'Amazon kauft KI Startup Decart für 7 Milliarden Euro', teaser:'Mit der Übernahme von Decart greift Amazon im Geschäft mit KI-Chips an. Was dahinter steckt und was das für die Aktie heißen kann.', chance:'Vom Wettbewerb um KI-Chips profitieren.',
-    kurz:'Amazons Akquisition könnte es KI-Anbietern einfacher machen, von NVIDIA Chips auf günstigere umzusteigen – auch die von Amazon. Decart entwickelt Software, mit der KI-Modelle auf unterschiedlicher Hardware laufen. Für Amazons Cloud-Sparte AWS könnte das ein Argument gegenüber der Konkurrenz werden.', image:'assets/hero-siemens-wind.jpg',
+    image:'assets/hero-amazon.png', title:'Amazon kauft KI Startup Decart für 7 Milliarden Euro', teaser:'Mit der Übernahme von Decart greift Amazon im Geschäft mit KI-Chips an. Was dahinter steckt und was das für die Aktie heißen kann.', chance:'Vom Wettbewerb um KI-Chips profitieren.',
+    kurz:'Amazons Akquisition könnte es KI-Anbietern einfacher machen, von NVIDIA Chips auf günstigere umzusteigen – auch die von Amazon. Decart entwickelt Software, mit der KI-Modelle auf unterschiedlicher Hardware laufen. Für Amazons Cloud-Sparte AWS könnte das ein Argument gegenüber der Konkurrenz werden.',
     basis:'Amazon Aktie', wkn:'Q3ZWGF', kurs:'227,38 €', chg:'+2,3 %', ziel:'255,00 €', stopp:'210,00 €', mcap:'500 Mrd. €', div:'0,0 %', pot:'+8 % bis +14 %',
     cl:3, rl:2, c10:7, r10:5, chanceTxt:'höher', riskTxt:'mittel',
-    s1:'Amazon übernimmt im Beispiel das KI-Startup Decart für rund 7 Milliarden Euro. Decart entwickelt Software, mit der KI-Modelle schneller und günstiger auf unterschiedlichen Chips laufen. Das Unternehmen wurde erst vor wenigen Jahren gegründet und gilt als einer der Spezialisten für die Optimierung von KI-Anwendungen. Für Amazon ist es eine der größten Übernahmen der Firmengeschichte. Die Aktie reagierte im Beispiel mit einem deutlichen Kurssprung.',
+    s1:'Amazon übernimmt das KI-Startup Decart für rund 7 Milliarden Euro. Decart entwickelt Software, mit der KI-Modelle schneller und günstiger auf unterschiedlichen Chips laufen. Das Unternehmen wurde erst vor wenigen Jahren gegründet und gilt als einer der Spezialisten für die Optimierung von KI-Anwendungen. Für Amazon ist es eine der größten Übernahmen der Firmengeschichte. Die Aktie reagierte mit einem deutlichen Kurssprung.',
     s2:'Bisher setzen viele KI-Anbieter auf Chips von NVIDIA. Die sind leistungsstark, aber teuer und oft knapp. Amazon entwickelt mit Trainium und Inferentia seit Jahren eigene KI-Chips, die bisher aber weniger genutzt werden. Lässt sich KI-Software dank Decart leichter auf andere Hardware übertragen, werden diese Chips attraktiver. Das könnte das Cloud-Geschäft von AWS stärken, das schon heute den größten Teil von Amazons Gewinn liefert. Entscheidend ist, wie viel davon bereits im Kurs steckt.',
     s3:'Am direktesten setzt du mit der Amazon Aktie auf die Entwicklung. Wenn AWS durch eigene KI-Chips Marktanteile in der Cloud gewinnt, kann das langfristig Umsatz und Margen steigern. Wer kurzfristig auf eine Fortsetzung der Kursbewegung setzen möchte, kann einen Hebel nutzen. Dabei steigen Chancen und Risiken gleichermaßen. Breiter aufgestellt bist du mit einem ETF auf Cloud- oder KI-Unternehmen. Damit profitierst du vom Gesamttrend, ohne alles auf einen Wert zu setzen.',
     deep:{
-      technik:'Über mehrere Wochen ist die Aktie im Beispiel zwischen rund 205 € und 222 € seitwärts gelaufen. Die Käufer haben sich bei jedem Rücksetzer an der Unterseite gezeigt, nach oben fehlte aber der Anlass. Mit der Decart-Meldung hat der Kurs diese Spanne mit einer großen grünen Kerze verlassen und bei deutlich erhöhtem Handelsvolumen geschlossen. Das gilt als Zeichen, dass größere Anleger mitziehen. Die frühere Obergrenze um 215 € bis 222 € wird nun zur Unterstützung. Läuft der Kurs noch einmal dorthin zurück und hält, bestätigt das den Ausbruch. Das nächste Ziel liegt am Hoch bei etwa 255 €. Fällt der Kurs dagegen unter 210 €, wäre der Ausbruch gescheitert. Dort liegt deshalb der Stopp.',
+      technik:'Über mehrere Wochen ist die Aktie zwischen rund 205 € und 222 € seitwärts gelaufen. Die Käufer haben sich bei jedem Rücksetzer an der Unterseite gezeigt, nach oben fehlte aber der Anlass. Mit der Decart-Meldung hat der Kurs diese Spanne mit einer großen grünen Kerze verlassen und bei deutlich erhöhtem Handelsvolumen geschlossen. Das gilt als Zeichen, dass größere Anleger mitziehen. Die frühere Obergrenze um 215 € bis 222 € wird nun zur Unterstützung. Läuft der Kurs noch einmal dorthin zurück und hält, bestätigt das den Ausbruch. Das nächste Ziel liegt am Hoch bei etwa 255 €. Fällt der Kurs dagegen unter 210 €, wäre der Ausbruch gescheitert. Dort liegt deshalb der Stopp.',
       hinter:'Amazon ist mit AWS der größte Cloud-Anbieter der Welt, vor Microsoft und Google. Die Sparte liefert im Beispiel gut die Hälfte des operativen Gewinns, obwohl sie nur einen kleinen Teil des Umsatzes ausmacht. Der Wettbewerb dreht sich derzeit vor allem um KI-Rechenleistung. Viele Kunden sind dabei an NVIDIA-Chips gebunden, die teuer und knapp sind. Amazon baut mit Trainium und Inferentia seit Jahren eigene Chips, die günstiger sind, aber bisher wenig genutzt werden. Decart liefert die Software, mit der sich KI-Modelle ohne großen Aufwand auf diese Chips übertragen lassen. Analysten sehen die Übernahme im Beispiel überwiegend positiv. Kritisch gesehen werden der hohe Preis und mögliche Prüfungen durch Kartellbehörden.',
       analyse:'Chart und Nachrichtenlage zeigen im Beispiel in dieselbe Richtung. Der Ausbruch aus der Seitwärtsphase hat mit der Decart-Übernahme einen klaren Auslöser, und das hohe Volumen spricht dafür, dass der Markt die Meldung ernst nimmt. Fundamental ist der Hebel groß: Schon kleine Marktanteilsgewinne von AWS im KI-Geschäft wirken sich spürbar auf Amazons Gewinn aus. Daraus ergibt sich das Szenario des Honeys mit einem Ziel um 255 €. Das Risiko liegt darin, dass viel Zuversicht schon im Kurs steckt. Bleiben die Erfolge bei den eigenen Chips aus oder stoppen Behörden den Deal, könnte der Kurs zurück in die alte Spanne fallen. Der Stopp bei 210 € begrenzt diesen Fall.' } },
   { id:'nvidia', authorType:'COACH', author:'Marcus Veit', tag:'AKTIEN', meta:'Beispiel-Honey · 3 Min. Lesezeit', byline:'Ein Honey von Coach Marcus Veit',
@@ -1301,8 +1319,7 @@ class Component extends DCLogic {
     if (this._bar === c) return; this._bar = c;
     const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = c;
     if (window.matchMedia('(max-width: 600px)').matches) { document.documentElement.style.setProperty('background', c, 'important'); document.body.style.setProperty('background', c, 'important'); } }
-  componentDidMount() { this.syncBar(); }
-  componentDidUpdate() { this.syncBar(); }
+  componentDidUpdate() { if (!this.props.preset) this.syncBar(); }
   state = { screen:'home', hist:[], car:0, honeyId:'siemens', mode:'hebel', unlocked:[], member:false, sheet:null, closing:false, payPlan:'single',
     focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'1J', perfOpen:false, perfHover:null, basisOpen:false, tradeOpen:false, watchSearch:['sp500','amd'], swipe:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
     following:['veit'], rec:false, cdlRange:'1M', lev:5, coachId:'veit', liveReg:false, regEmail:'stefan.k@beispiel.de', reminder:'15', askText:'', chat:[], typing:false, begleitet:[], pushPerm:'unknown', begPending:null, sysAlert:false };
@@ -1467,7 +1484,117 @@ class Component extends DCLogic {
   carIndexFromScroll() { const el = this.carRef.current; if (!el) return 0; const w = el.clientWidth - 48 + 12; return Math.max(0, Math.min(HONEYS.length-1, Math.round(el.scrollLeft / w))); }
   carTo(i) { const el = this.carRef.current; if (!el) return; const w = el.clientWidth - 48 + 12; el.scrollTo({ left:i*w, behavior:'smooth' }); this.setState({ car:i }); }
 
+  beeLive(ex, hop) {
+    const g = this.g4, h = React.createElement, v = { ...g.V.g, w:g.V.g.v5w, dot:g.V.g.v5dot }, T = '.55s cubic-bezier(.2,0,0,1)';
+    const sd = (pts, wf) => g.stroke(pts, wf).match(/d="([^"]+)"/)[1];
+    const P = (d, st, k) => h('path', { key:k, d, style:{ d:"path('" + d + "')", transition:'d ' + T + ',opacity ' + T, ...st } });
+    const ws = g.WINGS5[ex.wings || 'ruhe'], wu = g.rell(ws.wu[0], ws.wu[1], 17, 8.6, ws.wu[2], 0, 2 * Math.PI, 90), wl = g.rell(ws.wl[0], ws.wl[1], 15, 8, ws.wl[2], 0, 2 * Math.PI, 90);
+    const A = g.ANT5[ex.ant || 'normal'], L = g.bz(A.l), R = A.r ? g.bz(A.r) : g.mir(L);
+    const dot = (p, k) => h('circle', { key:k, r:v.dot, cx:p[0], cy:p[1], style:{ cx:p[0] + 'px', cy:p[1] + 'px', transition:'cx ' + T + ',cy ' + T } });
+    const op = on => ({ opacity:on ? 1 : 0, transition:'opacity ' + T });
+    const lens = (d, k, on) => h('g', { key:k, style:op(on) }, [0, 31].map(x => h('path', { key:x, d, transform:'translate(' + x + ' 0)', fill:'none', stroke:'#fff', strokeWidth:1.7, strokeLinecap:'round', strokeLinejoin:'round' })));
+    const css = '#pk-trade .ant-l{transform-origin:55px 39px;animation:al 3.6s ease-in-out infinite}#pk-trade .ant-r{transform-origin:73px 39px;animation:ar 3.6s ease-in-out infinite .1s}@keyframes al{0%,60%,100%{transform:rotate(0)}15%{transform:rotate(-10deg)}30%{transform:rotate(6deg)}}@keyframes ar{0%,60%,100%{transform:rotate(0)}15%{transform:rotate(10deg)}30%{transform:rotate(-6deg)}}@keyframes hopA{0%,100%{transform:translateY(0)}35%{transform:translateY(-6px)}}@keyframes hopB{0%,100%{transform:translateY(0)}35%{transform:translateY(-6px)}}';
+    return h('svg', { id:'pk-trade', viewBox:'0 0 120 120', width:'100%', height:'100%', fill:'#0B0B0B', style:{ overflow:'visible' } },
+      h('style', null, css),
+      h('g', { style:{ animation:(hop % 2 ? 'hopA' : 'hopB') + ' .5s cubic-bezier(.2,0,0,1)' } },
+        h('clipPath', { id:'hm-live' }, h('path', { clipRule:'evenodd', d:'M0 0H120V120H0ZM64 37A31 31 0 1 0 64.01 37Z' })),
+        h('g', { clipPath:'url(#hm-live)' },
+          P(sd(g.arc(26, 64, 24, Math.PI * .8, Math.PI * 1.2, 24), g.W.taper(2.6, .4, .4, .15)), op(ws.whirr), 'w1'),
+          P(sd(g.arc(26, 64, 30, Math.PI * .86, Math.PI * 1.14, 24), g.W.taper(2.4, .4, .4, .15)), op(ws.whirr), 'w2'),
+          P(sd(wu, v.w.wing), null, 'wu'), P(sd(wl, v.w.wing), null, 'wl')),
+        h('path', { d:sd(g.P.head(v.head[0], v.head[1]), v.w.head) }),
+        h('g', { className:'ant-l' }, P(sd(L, v.w.ant), null, 'a'), dot(L[L.length - 1], 'd')),
+        h('g', { className:'ant-r' }, P(sd(R, v.w.ant), null, 'a'), dot(R[R.length - 1], 'd')),
+        h('g', { style:op(ex.eyes) }, h('ellipse', { cx:51.5, cy:56.5, rx:2.6, ry:3.4 }), h('ellipse', { cx:82.5, cy:56.5, rx:2.6, ry:3.4 })),
+        h('g', { style:{ transform:'translateY(' + (ex.gdy || 0) + 'px)', transition:'transform ' + T } },
+          h('g', { transform:'translate(67 64) scale(1.16) translate(-67 -64)' },
+            h('path', { d:'M39 61.5H64V63.5A12.5 12.5 0 0 1 39 63.5Z' }), h('path', { d:'M70 61.5H95V63.5A12.5 12.5 0 0 1 70 63.5Z' }),
+            h('rect', { x:37.6, y:59.85, width:62.4, height:3.3, rx:1.65 }),
+            lens('M55.5 66.5L59.5 66.5', 'gl', !ex.lens),
+            lens('M43 73L47 69L50.5 71L57 65M53.5 65H57V68.5', 'bu', ex.lens === 'bull'),
+            lens('M43 65L47 69L50.5 67L57 73M53.5 73H57V69.5', 'be', ex.lens === 'bear')))));
+  }
+
+  tadaEls(mode) {
+    const g = this.g4; if (!g) return {};
+    this._tada = this._tada || {};
+    if (!this._tada[mode]) {
+      const ex = ({ direkt:{ ru:'sip' }, hebel:{ ant:'alert', lens:'bull', wings:'schwirren', ru:'sip' }, puffer:{ ant:'tilt', gdy:6, eyes:'open', wings:'winken' } })[mode] || {};
+      const id = 'pk-tada-' + mode;
+      const css = '#'+id+' .body{animation:td-pop .8s cubic-bezier(.3,1.6,.5,1) .25s both}@keyframes td-pop{0%{transform:translateY(58px)}100%{transform:translateY(0)}}'
+        + '#'+id+' .sp{opacity:0;transform-origin:64px 62px;animation:td-sp 4s ease-out .85s infinite}@keyframes td-sp{0%{opacity:0;transform:scale(.7)}8%{opacity:1}26%{opacity:0;transform:scale(1.18)}100%{opacity:0}}';
+      const sp = [-165, -140, -40, -15].map(a => { const t = a * Math.PI / 180; return g.stroke(g.seg([64 + 44 * Math.cos(t), 64 + 44 * Math.sin(t)], [64 + 55 * Math.cos(t), 64 + 55 * Math.sin(t)]), g.W.taper(3.6, .5, .5, .35)); }).join('');
+      let t = g.bee5(ex, {}).replace(/id="hm"/, 'id="hm-' + id + '"').replace(/url\(#hm\)/, 'url(#hm-' + id + ')').replace('width="120" height="120"', 'id="' + id + '" width="100%" height="100%" style="overflow:visible"');
+      t = t.replace('<g class="body">', '<style>' + css + '</style><g class="sp">' + sp + '</g><g class="body">');
+      const fing = (cx, y) => [-5.2, 0, 5.2].map(d => '<rect x="' + (cx + d - 2.3) + '" y="' + (y - 3) + '" width="4.6" height="9" rx="2.3" fill="#FFFFFF" stroke="#0B0B0B" stroke-width="2.3"/>').join('');
+      const fid = id + '-f';
+      const fcss = '#'+fid+' .f{opacity:0;animation:td-f .25s ease-out .8s both}@keyframes td-f{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}'
+        + '#'+fid+' .hand{transform-origin:92px 84px;animation:td-hand 4s cubic-bezier(.2,0,0,1) 1.4s infinite}'
+        + '@keyframes td-hand{0%,48%,100%{transform:none}58%{transform:translate(9px,-15px) rotate(-28deg)}66%{transform:translate(9px,-15px) rotate(-12deg)}74%{transform:translate(9px,-15px) rotate(-28deg)}86%{transform:none}}';
+      const tf = '<svg xmlns="http://www.w3.org/2000/svg" id="' + fid + '" viewBox="0 0 120 120" width="100%" height="100%" fill="#0B0B0B" style="overflow:visible"><style>' + fcss + '</style><g class="f">' + fing(36, 80) + '<g class="hand">' + fing(92, 80) + '</g></g></svg>';
+      this._tada[mode] = { t, tf };
+    }
+    const h = React.createElement, o = this._tada[mode];
+    const el = html => h('span', { key:'td-' + mode, style:{ display:'block', width:'100%', height:'100%' }, dangerouslySetInnerHTML:{ __html:html } });
+    return { peekTada:el(o.t), peekTadaFront:el(o.tf) };
+  }
+
+  componentDidMount() {
+    if (!this.props.preset) this.syncBar();
+    Promise.all(['_gen4.js','_gen5.js','_gen6.js'].map(f => fetch('assets/bee-v4/' + f).then(x => x.text()))).then(([a, b, c6]) => {
+      const g = new Function(a + '\n' + b + '\n' + c6 + ';return {bee5,AN5,stroke,seg,arc,W,bz,rell,P,V,ANT5,WINGS5,mir,robo,RB_CSS};')(), Y = '#FFF765';
+      this.g4 = g;
+      const fingers = (cx, y) => [-5.2, 0, 5.2].map(d => '<rect x="' + (cx + d - 2.3) + '" y="' + (y - 3) + '" width="4.6" height="9" rx="2.3" fill="#FFFFFF" stroke="#0B0B0B" stroke-width="2.3"/>').join('');
+      const svgF = (id, body, css) => '<svg xmlns="http://www.w3.org/2000/svg" id="' + id + '" viewBox="0 0 120 120" width="100%" height="100%" fill="#0B0B0B" style="overflow:visible">' + (css ? '<style>' + css + '</style>' : '') + body + '</svg>';
+      const ruP = g.seg([64, 79], [64, 95], 24).concat(g.arc(69.5, 95, 5.5, Math.PI, Math.PI * 0.35, 20).slice(1));
+      const ruF = g.stroke(ruP, g.W.taper(4.3, .05, .5, .3));
+      const scope = (css, id) => css.replace(/(^|\})([^@{}][^{}]*)\{/g, (m, p, sel) => p + sel.split(',').map(x => '#' + id + ' ' + x.trim()).join(',') + '{');
+      const mk = (id, ex, o, css) => g.bee5(ex, { ...o, css: css ? scope(css, id) : '' }).replace(/id="hm"/, 'id="hm-' + id + '"').replace(/url\(#hm\)/, 'url(#hm-' + id + ')').replace('width="120" height="120"', 'id="' + id + '" width="100%" height="100%"');
+      const slow = g.AN5.fuehler.replace(/1\.8s/g, '3.6s');
+      this.setState({ b4: {
+        trade: mk('pk-trade', {}, { color:Y }, slow),
+        tradeF: svgF('pk-trade-f', '<g class="hl">' + fingers(36, 80) + '</g><g class="hr">' + fingers(92, 80) + '</g>', '#pk-trade-f .hl,#pk-trade-f .hr{animation:tap 3.6s ease-in-out infinite}#pk-trade-f .hr{animation-delay:.25s}@keyframes tap{0%,70%,100%{transform:translateY(0)}78%{transform:translateY(-1.5px)}86%{transform:translateY(0)}}'),
+        tada: (() => {
+          const css = '#pk-tada .body{animation:td-pop .8s cubic-bezier(.3,1.6,.5,1) .25s both}@keyframes td-pop{0%{transform:translateY(58px)}100%{transform:translateY(0)}}'
+            + '#pk-tada .wing-u{transform-origin:38.8px 62.3px;animation:td-fu 3s linear .9s infinite}#pk-tada .wing-l{transform-origin:37.9px 68.9px;animation:td-fd 3s linear .9s infinite}'
+            + '@keyframes td-fu{0%,40%,100%{transform:rotate(0)}6%,18%,30%{transform:rotate(16deg)}12%,24%{transform:rotate(-4deg)}}@keyframes td-fd{0%,40%,100%{transform:rotate(0)}6%,18%,30%{transform:rotate(-16deg)}12%,24%{transform:rotate(4deg)}}'
+            + '#pk-tada .sp{opacity:0;transform-origin:64px 62px;animation:td-sp 3s ease-out .85s infinite}@keyframes td-sp{0%{opacity:0;transform:scale(.7)}8%{opacity:1}30%{opacity:0;transform:scale(1.18)}100%{opacity:0}}';
+          const sp = [-165, -140, -40, -15].map(a => { const t = a * Math.PI / 180; return g.stroke(g.seg([64 + 44 * Math.cos(t), 64 + 44 * Math.sin(t)], [64 + 55 * Math.cos(t), 64 + 55 * Math.sin(t)]), g.W.taper(3.6, .5, .5, .35)); }).join('');
+          let t = mk('pk-tada', { ant:'alert', ru:'sip', wings:'offen' }, {}, '');
+          return t.replace('<g class="body">', '<style>' + css + '</style><g class="sp">' + sp + '</g><g class="body">').replace('<svg ', '<svg style="overflow:visible" ');
+        })(),
+        tadaF: svgF('pk-tada-f', '<g class="f">' + fingers(36, 80) + fingers(92, 80) + '</g>', '#pk-tada-f .f{opacity:0;animation:td-f .25s ease-out .8s both}@keyframes td-f{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}'),
+        kiF: svgF('pk-ki-f', fingers(36, 77) + fingers(92, 77), ''),
+        ki: g.robo({ eye:'#FFFFFF', id:'rbk', domId:'pk-ki', css:g.RB_CSS('pk-ki'), size:'100%' }),
+        glyph: g.robo({ mono:true, ink:'currentColor', id:'rbg', domId:'pk-glyph', vb:'2 4 112 112', size:'100%' })
+      } });
+    });
+  }
+
   renderVals() {
+    const bdir = ({ 'Handmade v2':'assets/bee-v2/', 'Handmade v3':'assets/bee-v3/', 'Handmade v4':'assets/bee-v4/' })[(this.props.branding ?? 'Handmade v4')]; const v2 = !!bdir;
+    const v4 = (this.props.branding ?? 'Handmade v4')==='Handmade v4', B4 = this.state.b4 || {}, el4 = k => B4[k] ? React.createElement('span', { style:{ display:'block', width:'100%', height:'100%' }, dangerouslySetInnerHTML:{ __html:B4[k] } }) : null;
+    const logoEl = src => React.createElement('img', { src, alt:'', style:{ width: v4 ? 58 : 40, height: v4 ? 58 : 40, margin: v4 ? '-10px -6px -10px -10px' : 0, display:'block', flex:'none' } });
+    const hdrBee = white => {
+      const g = this.g4; if (!g) return logoEl(bdir + (white ? 'bee-white.svg' : 'bee-cool.svg'));
+      const id = 'hdr-bee', T = '1.9s cubic-bezier(.2,0,0,1) .35s both';
+      const css = '#'+id+' .glasses{transform-origin:67px 62px;animation:hb-g '+T+'}#'+id+' .eo{animation:hb-o '+T+'}#'+id+' .ew{opacity:0;animation:hb-w '+T+'}#'+id+' .ant-l{transform-origin:55px 39px;animation:hb-al '+T+'}#'+id+' .ant-r{transform-origin:73px 39px;animation:hb-ar '+T+'}'
+        + '@keyframes hb-g{0%{transform:translateY(0)}18%,78%{transform:translateY(-11px) rotate(-5deg)}100%{transform:translateY(0)}}'
+        + '@keyframes hb-o{0%,42%,58%,100%{opacity:1}46%,54%{opacity:0}}@keyframes hb-w{0%,42%,58%,100%{opacity:0}46%,54%{opacity:1}}'
+        + '@keyframes hb-al{0%,100%{transform:rotate(0)}20%,75%{transform:rotate(-7deg)}}@keyframes hb-ar{0%,100%{transform:rotate(0)}20%,75%{transform:rotate(7deg)}}';
+      let t = g.bee5({}, white ? { ink:'#FFFFFF', css } : { css });
+      if (white) t = t.replace(/stroke="#fff"/g, 'stroke="#0B0B0B"');
+      const ink = white ? '#FFFFFF' : '#0B0B0B';
+      const eyes = '<g class="eyes"><ellipse cx="51.5" cy="67" rx="2.8" ry="3.6"/><ellipse class="eo" cx="82.5" cy="67" rx="2.8" ry="3.6"/><path class="ew" d="M78.5 66.5Q82.5 70.5 86.5 66.5" fill="none" stroke="' + ink + '" stroke-width="2.6" stroke-linecap="round"/></g>';
+      t = t.replace('<g class="glasses"', eyes + '<g class="glasses"').replace(/id="hm"/, 'id="hm-hdr"').replace(/url\(#hm\)/, 'url(#hm-hdr)').replace('width="120" height="120"', 'id="' + id + '" width="58" height="58"');
+      return React.createElement('span', { key:'hb-' + this.state.screen, style:{ display:'block', width:58, height:58, margin:'-10px -6px -10px -10px', flex:'none' }, dangerouslySetInnerHTML:{ __html:t } });
+    };
+    const R = '[data-screen-label="Monhey App"] ', rcss = (this.props.radien ?? 'Standard') === '12 px' ? [16,18,20,22,24,28,32,36].map(v => R + '[style*="border-radius: ' + v + 'px"]').join(',') + '{border-radius:12px !important}'
+      + R + '[style*="border-radius: 0px 0px 36px 36px"],' + R + '[style*="border-radius: 0px 0px 32px 32px"]{border-radius:0 0 12px 12px !important}'
+      + R + '[style*="border-radius: 28px 28px 0px 0px"]{border-radius:12px 12px 0 0 !important}' + R + '[style*="border-radius: 16px 0px 0px 16px"]{border-radius:12px 0 0 12px !important}' : '';
+    const hx = ((this.props.headerbild ?? 'Waben-Auflösung')) === 'Waben-Auflösung';
+    const heroVals = { heroHex:hx, heroDark:!hx, heroH: hx ? '480px' : '432px', heroM: hx ? '0 -20px 0' : '0 -20px 28px', heroGrad: hx ? 'linear-gradient(180deg,rgba(11,11,11,0.55) 0%,rgba(11,11,11,0) 26%)' : 'linear-gradient(180deg,rgba(11,11,11,0.55) 0%,rgba(11,11,11,0) 26%,rgba(11,11,11,0) 42%,rgba(11,11,11,0.82) 100%)' };
+    const brandVals = { ...heroVals, radiusCss: rcss ? React.createElement('style', null, rcss) : null, beeLogoEl: v4 ? hdrBee(false) : v2 ? logoEl(bdir + 'bee-cool.svg') : null, beeLogoWhiteEl: v4 ? hdrBee(true) : v2 ? logoEl(bdir + 'bee-white.svg') : null, brandV4:v4, notV4:!v4, beeSz: v4 ? '58px' : '40px', beeMg: v4 ? '-10px -6px -10px -10px' : '0', peekTrade:(v4 && this.g4) ? (() => { if (this._lm !== this.state.mode) { this._lm = this.state.mode; this._hop = (this._hop || 0) + 1; } return this.beeLive(({ direkt:{}, hebel:{ ant:'alert', lens:'bull', wings:'schwirren' }, puffer:{ ant:'tilt', gdy:6, eyes:true, wings:'winken' } })[this.state.mode] || {}, this._hop); })() : null, peekKi:el4('ki'), peekTradeFront:el4('tradeF'), ...(v4 ? this.tadaEls(this.state.mode || 'direkt') : {}), peekKiFront:el4('kiF'), beeGlyph:el4('glyph'), brandV1:!v2, brandV2:v2, beeMask: v2 ? bdir + 'bee-glyph.svg' : 'assets/robo-bee.svg', beeLogo:(bdir||'') + 'bee-cool.svg', beeLogoWhite:(bdir||'') + 'bee-white.svg' };
     const navAct = ({ detail:'honeys', coach:'coaches', live:'coaches', article:'home' })[this.state.screen] || this.state.screen;
     const s = this.state;
     const h0 = ALL_HONEYS.find(x => x.id === s.honeyId);
@@ -1528,7 +1655,9 @@ class Component extends DCLogic {
         bg: v >= 15 ? '#33DA00' : v < 0 ? 'rgba(255,90,78,0.18)' : 'rgba(255,255,255,0.1)', color: v >= 15 ? '#0B0B0B' : v < 0 ? '#FF5A4E' : '#FFFFFF',
         divider: i === perfSorted.length - 1 ? '0' : '1px solid rgba(255,255,255,0.08)', open: () => this.go('product', { productId:x.id }) }; });
     return {
-      sbBg: s.podOpen ? '#141414' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF', sbColor: s.podOpen || s.screen === 'home' ? '#FFFFFF' : '#0B0B0B',
+      ...brandVals,
+      scrollTopPx: s.screen === 'detail' ? '0px' : '48px', onMainScroll: e => { const t = e.currentTarget.scrollTop < 400; if (t !== (this.state.heroTop !== false)) this.setState({ heroTop: t }); },
+      sbBg: s.podOpen ? '#141414' : (s.screen === 'detail' && h0.image && s.heroTop !== false) ? 'transparent' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF', sbColor: s.podOpen || s.screen === 'home' || (s.screen === 'detail' && h0.image && s.heroTop !== false) ? '#FFFFFF' : '#0B0B0B',
       hasPerf: dashList.length > 0, noPerf: dashList.length === 0, perf, perfRows, perfAvg: '', perfOpen: s.perfOpen, perfRot: s.perfOpen ? '180deg' : '0deg', perfRows2: s.perfOpen ? '1fr' : '0fr', perfMove: e => { const r = e.currentTarget.getBoundingClientRect(); const i = Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35); if (i !== this.state.perfHover) this.setState({ perfHover:i }); },
       perfDown: e => { e.preventDefault(); try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} const sel = window.getSelection && window.getSelection(); if (sel) sel.removeAllRanges(); const r = e.currentTarget.getBoundingClientRect(); this.setState({ perfHover: Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35) }); },
       perfNoMenu: e => e.preventDefault(),
@@ -1548,7 +1677,7 @@ class Component extends DCLogic {
       openBasisDetail:() => PERF[h0.id] ? this.go('product', { productId:h0.id }) : this.showToast('Detailseite zum Basiswert folgt'),
       tradeOpen:s.tradeOpen, tradeRows: s.tradeOpen ? '1fr' : '0fr', tradeRot: s.tradeOpen ? '180deg' : '0deg',
       toggleTradeInfo:() => this.setState(st => ({ tradeOpen:!st.tradeOpen })),
-      rd:(() => { const m = this.props.lesebereich || 'Waben-Auflösung schräg';
+      rd:(() => { const m = (this.props.lesebereich ?? 'Waben-Auflösung schräg') || 'Waben-Auflösung schräg';
         const none = { edge:'none', edgeH:'0' };
         const edged = (src, eh = 110) => ({ wrapM:'0 -20px 0', wrapPad:(eh + 14) + 'px 24px ' + (eh + 14) + 'px', bg:'linear-gradient(180deg,transparent 0,transparent ' + (eh - 2) + 'px,#FFFFFF ' + (eh - 2) + 'px,#FFFFFF calc(100% - ' + (eh - 2) + 'px),transparent calc(100% - ' + (eh - 2) + 'px))', radius:'0', cardBg:'transparent', cardR:'0', cardPad:'0 4px', ddPad:'0', edge:'url(' + src + ') left top / auto ' + eh + 'px repeat-x', edgeH:eh + 'px' });
         if (m === 'Waben-Auflösung') return { ...edged('assets/edge-aufloesung.svg?v=3', 220), wrapM:'-70px -20px 0', wrapPad:'190px 24px 96px' };
@@ -1613,7 +1742,7 @@ class Component extends DCLogic {
           line, area: line + ' L320 120 L0 120 Z', endTop:(pts[pts.length-1][1] / 120 * 100).toFixed(1) + '%',
           ranges:PERF_RANGES.map(([k]) => ({ label:k, bg: s.perfRange===k ? '#262626' : 'transparent', color: s.perfRange===k ? '#FFFFFF' : '#0B0B0B', pick:() => this.setState({ perfRange:k }) })),
           facts:facts.map(([k, val], i) => ({ k, v:val || '–', br: i % 2 ? '0' : '1px solid #ECECE8', bb: i < facts.length - 2 ? '1px solid #ECECE8' : '0' })),
-          hasHoney:!!hy.id, honeyTitle:hy.title, honeyImg:hy.image || 'assets/monhey-bee.png', by:p.by, openHoney:() => this.openHoney(p.honey),
+          hasHoney:!!hy.id, honeyTitle:hy.title, honeyImg:hy.image || ((this.props.branding ?? 'Handmade v4')==='Handmade v4' ? 'assets/bee-v4/bee-cool-color.svg' : (this.props.branding ?? 'Handmade v4')==='Handmade v3' ? 'assets/bee-v3/bee-cool-color.svg' : (this.props.branding ?? 'Handmade v4')==='Handmade v2' ? 'assets/bee-v2/bee-cool-color.svg' : 'assets/monhey-bee.png'), by:p.by, openHoney:() => this.openHoney(p.honey),
           copyWkn:() => this.copy(M.wkn || hy.wkn), trade:() => this.showToast('Weiterleitung zum Broker ist im Prototyp nicht verfügbar') }; })(),
       isArticle:s.screen==='article',
       art:(() => { const n = NEWS[s.articleIdx || 0]; const c = COACHES[n.c]; const hy = n.honey && ALL_HONEYS.find(x => x.id === n.honey);
@@ -1674,10 +1803,10 @@ class Component extends DCLogic {
       askBlur:() => { this._af = setTimeout(() => this.setState({ askOpen:false }), 120); },
       flyRows: s.askOpen ? '1fr' : '0fr', flyOp: s.askOpen ? 1 : 0, flyMt: s.askOpen ? '0px' : '-14px',
       chat:s.chat.map(m => ({ text:m.text, align: m.from==='u' ? 'flex-end' : 'flex-start', bg: m.from==='u' ? '#262626' : '#fff', color: m.from==='u' ? '#fff' : '#0B0B0B' })),
-      navItems:nav.map(([k,l,ic]) => ({ label:l, icon:ic, isBee: k==='assistant', notBee: k!=='assistant', bg: navAct===k ? '#FFF765' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0,
+      navItems:nav.map(([k,l,ic]) => ({ label:l, icon:(v4 && k==='honeys') ? 'hive' : ic, isBee: k==='assistant', notBee: k!=='assistant', isHex: false, hexEl: false ? React.createElement('svg', { viewBox:'0 0 24 24', width:'100%', height:'100%', fill:'currentColor', stroke:'currentColor', strokeWidth:2, strokeLinejoin:'round', dangerouslySetInnerHTML:{ __html: '<path d="M12 2.5L18.6 6.25V13.75L12 17.5L5.4 13.75V6.25Z" fill="' + (navAct===k ? 'currentColor' : 'none') + '"/>' + (navAct===k ? '' : '<path d="M5.4 10.5H18.6V13.75L12 17.5L5.4 13.75Z" stroke="none"/>') + '<path d="M12 17.8C10.9 19.3 10 20.3 10 21.3a2 2 0 0 0 4 0c0-1-.9-2-2-3.5Z" stroke="none"/>' } }) : null, bg: navAct===k ? '#FFF765' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0,
         hasBadge: k==='watchlist' && watchCount > 0, badge: watchCount, go:() => k==='assistant' ? this.openSheet('ai') : this.go(k) })),
       pod:(() => { const ci = POD_CH.reduce((k, c, i) => s.podPos >= c[0] ? i : k, 0); const caps = [h0.kurz, h0.s1, h0.s2, h0.s3];
-        return { title:h0.title, by:h0.author, image:h0.image || 'assets/monhey-bee.png', prog:(s.podPos / POD_LEN * 100).toFixed(2) + '%', cur:mmss(s.podPos), left:mmss(POD_LEN - s.podPos),
+        return { title:h0.title, by:h0.author, image:h0.image || ((this.props.branding ?? 'Handmade v4')==='Handmade v4' ? 'assets/bee-v4/bee-cool-color.svg' : (this.props.branding ?? 'Handmade v4')==='Handmade v3' ? 'assets/bee-v3/bee-cool-color.svg' : (this.props.branding ?? 'Handmade v4')==='Handmade v2' ? 'assets/bee-v2/bee-cool-color.svg' : 'assets/monhey-bee.png'), prog:(s.podPos / POD_LEN * 100).toFixed(2) + '%', cur:mmss(s.podPos), left:mmss(POD_LEN - s.podPos),
           speed:String(s.podSpeed).replace('.', ',') + '×', playIcon: s.podPlay ? 'pause' : 'play_arrow', playLabel: s.podPlay ? 'Pause' : 'Abspielen',
           chapter:'KAPITEL ' + (ci + 1) + ' · ' + POD_CH[ci][1].toUpperCase(), caption:caps[ci] }; })(),
       h, hasImage:!!h0.image, noImage:!h0.image, slotId:'honey-img-' + h0.id, slotHint:h0.slotHint || 'Bild ziehen', back:() => this.back(),
