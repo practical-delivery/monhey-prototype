@@ -1161,7 +1161,7 @@ html,body{background:#2B2B2B!important;height:100%;overscroll-behavior:none}
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;lesebereich&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Karten&quot;,&quot;Weißes Band&quot;,&quot;Verlauf&quot;,&quot;Waben-Auflösung&quot;,&quot;Waben-Auflösung schräg&quot;,&quot;Waben-Linien&quot;,&quot;Große Waben&quot;],&quot;default&quot;:&quot;Waben-Auflösung schräg&quot;,&quot;tsType&quot;:&quot;'Karten' | 'Weißes Band' | 'Verlauf' | 'Waben-Auflösung' | 'Waben-Auflösung schräg' | 'Waben-Linien' | 'Große Waben'&quot;,&quot;section&quot;:&quot;Honey Detail&quot;},&quot;branding&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Aktuell&quot;,&quot;Handmade v2&quot;,&quot;Handmade v3&quot;,&quot;Handmade v4&quot;],&quot;default&quot;:&quot;Handmade v4&quot;,&quot;tsType&quot;:&quot;'Aktuell' | 'Handmade v2' | 'Handmade v3' | 'Handmade v4'&quot;,&quot;section&quot;:&quot;Branding&quot;},&quot;radien&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Standard&quot;,&quot;12 px&quot;],&quot;default&quot;:&quot;Standard&quot;,&quot;tsType&quot;:&quot;'Standard' | '12 px'&quot;},&quot;headerbild&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Verlauf dunkel&quot;,&quot;Waben-Auflösung&quot;],&quot;default&quot;:&quot;Waben-Auflösung&quot;,&quot;tsType&quot;:&quot;'Verlauf dunkel' | 'Waben-Auflösung'&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;branding&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Aktuell&quot;,&quot;Handmade v4&quot;],&quot;default&quot;:&quot;Handmade v4&quot;,&quot;tsType&quot;:&quot;'Aktuell' | 'Handmade v4'&quot;,&quot;section&quot;:&quot;Branding&quot;},&quot;radien&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Standard&quot;,&quot;12 px&quot;],&quot;default&quot;:&quot;Standard&quot;,&quot;tsType&quot;:&quot;'Standard' | '12 px'&quot;},&quot;headerbild&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Verlauf dunkel&quot;,&quot;Waben-Auflösung&quot;],&quot;default&quot;:&quot;Waben-Auflösung&quot;,&quot;tsType&quot;:&quot;'Verlauf dunkel' | 'Waben-Auflösung'&quot;}}">
 const PERF = { nvidia:{ pcts:{ '1W':3, '1M':9, '3M':18, '1J':31 }, seed:7 }, siemens:{ pcts:{ '1W':-1, '1M':3, '3M':5, '1J':8 }, seed:3 }, gold:{ pcts:{ '1W':1, '1M':-2, '3M':1, '1J':3 }, seed:11 } };
 const DASH_PRODUCTS = [{ id:'turbo-dax', name:'Turbo Long DAX · Hebel 5', by:'Monhey', pcts:{ '1W':-4, '1M':-9, '3M':6, '1J':-6 }, seed:5, honey:'dax' }];
 const QUOTES = { nvidia:{ name:'NVIDIA Aktie', exch:'NDQ', wkn:'918422', kurs:182.64, abs:4.12, cur:'$', time:'22:00:00' },
@@ -1541,7 +1541,7 @@ class Component extends DCLogic {
 
   componentDidMount() {
     if (!this.props.preset) this.syncBar();
-    Promise.all(['_gen4.js','_gen5.js','_gen6.js'].map(f => fetch('assets/bee-v4/' + f).then(x => x.text()))).then(([a, b, c6]) => {
+    Promise.all(['gen4.js','gen5.js','gen6.js'].map(f => fetch('assets/bee-v4/' + f).then(x => x.text()))).then(([a, b, c6]) => {
       const g = new Function(a + '\n' + b + '\n' + c6 + ';return {bee5,AN5,stroke,seg,arc,W,bz,rell,P,V,ANT5,WINGS5,mir,robo,RB_CSS};')(), Y = '#FFF765';
       this.g4 = g;
       const fingers = (cx, y) => [-5.2, 0, 5.2].map(d => '<rect x="' + (cx + d - 2.3) + '" y="' + (y - 3) + '" width="4.6" height="9" rx="2.3" fill="#FFFFFF" stroke="#0B0B0B" stroke-width="2.3"/>').join('');
@@ -1677,7 +1677,7 @@ class Component extends DCLogic {
       openBasisDetail:() => PERF[h0.id] ? this.go('product', { productId:h0.id }) : this.showToast('Detailseite zum Basiswert folgt'),
       tradeOpen:s.tradeOpen, tradeRows: s.tradeOpen ? '1fr' : '0fr', tradeRot: s.tradeOpen ? '180deg' : '0deg',
       toggleTradeInfo:() => this.setState(st => ({ tradeOpen:!st.tradeOpen })),
-      rd:(() => { const m = (this.props.lesebereich ?? 'Waben-Auflösung schräg') || 'Waben-Auflösung schräg';
+      rd:(() => { const m = 'Waben-Auflösung schräg';
         const none = { edge:'none', edgeH:'0' };
         const edged = (src, eh = 110) => ({ wrapM:'0 -20px 0', wrapPad:(eh + 14) + 'px 24px ' + (eh + 14) + 'px', bg:'linear-gradient(180deg,transparent 0,transparent ' + (eh - 2) + 'px,#FFFFFF ' + (eh - 2) + 'px,#FFFFFF calc(100% - ' + (eh - 2) + 'px),transparent calc(100% - ' + (eh - 2) + 'px))', radius:'0', cardBg:'transparent', cardR:'0', cardPad:'0 4px', ddPad:'0', edge:'url(' + src + ') left top / auto ' + eh + 'px repeat-x', edgeH:eh + 'px' });
         if (m === 'Waben-Auflösung') return { ...edged('assets/edge-aufloesung.svg?v=3', 220), wrapM:'-70px -20px 0', wrapPad:'190px 24px 96px' };
