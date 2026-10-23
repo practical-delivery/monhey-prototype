@@ -46,11 +46,12 @@ a{-webkit-tap-highlight-color:transparent}
 @keyframes mh-breathe{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.05);opacity:.9}}
 @keyframes mh-blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
 @media (max-width: 600px){
+html{--mh-top:env(safe-area-inset-top,0px);--mh-hdr:max(12px,calc(env(safe-area-inset-top,0px) + 4px))}
 html,body{height:100%;overscroll-behavior:none}
 [data-mh="stage"]{padding:0!important;min-height:0!important;height:100dvh!important;display:block!important}
-[data-mh="app"]{width:100vw!important;height:100dvh!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}
+[data-mh="app"]{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:auto!important;height:auto!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}
 [data-mh="statusbar"],[data-mh="homebar"]{display:none!important}
-[data-mh="scroll"]{top:0!important;-webkit-overflow-scrolling:touch}
+[data-mh="scroll"]{-webkit-overflow-scrolling:touch}
 }
 @media (prefers-reduced-motion: reduce){*{animation-duration:1ms!important;transition-duration:1ms!important}}
 </style>
@@ -900,7 +901,7 @@ html,body{height:100%;overscroll-behavior:none}
       <sc-if value="{{ hasImage }}" hint-placeholder-val="{{ true }}">
       <div style="position:relative;margin:{{ heroM }};height:{{ heroH }};overflow:hidden;background:#262626 url({{ h.image }}) center / cover no-repeat;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px 26px;">
         <div aria-hidden="true" style="position:absolute;inset:0;background:{{ heroGrad }};pointer-events:none;"></div><sc-if value="{{ heroHex }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:-1px;height:240px;background:url(assets/edge-hero.svg) center bottom / 480px 240px no-repeat;pointer-events:none;"></div></sc-if>
-        <div style="position:absolute;top:52px;left:20px;right:20px;display:flex;align-items:center;justify-content:space-between;height:52px;">
+        <div style="position:absolute;top:var(--mh-hdr,52px);left:20px;right:20px;display:flex;align-items:center;justify-content:space-between;height:52px;">
           <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;filter:brightness(0) invert(1);"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;color:#FFFFFF;">{{ beeLogoWhiteEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
           <div style="display:flex;gap:8px;"><button onClick="{{ share }}" aria-label="Teilen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;"><span class="material-symbols-outlined" style="font-size:20px;">ios_share</span></button>
           <button onClick="{{ toggleSaveDetail }}" aria-label="Merken" style="width:40px;height:40px;border-radius:50%;border:0;background:{{ detailSaveBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;"><span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ detailSaveFill }};animation:{{ detailSaveAnim }};">bookmark</span></button>
@@ -1532,7 +1533,7 @@ html,body{height:100%;overscroll-behavior:none}
   </sc-if>
 
   <sc-if value="{{ podOpen }}" hint-placeholder-val="{{ false }}">
-    <div data-screen-label="Podcast Player" style="position:absolute;inset:0;z-index:28;padding-top:48px;background:#141414;color:#fff;display:flex;flex-direction:column;overflow:hidden;animation:mh-up .4s cubic-bezier(0.2,0,0,1) both;">
+    <div data-screen-label="Podcast Player" style="position:absolute;inset:0;z-index:28;padding-top:var(--mh-top,48px);background:#141414;color:#fff;display:flex;flex-direction:column;overflow:hidden;animation:mh-up .4s cubic-bezier(0.2,0,0,1) both;">
       <div style="position:absolute;left:50%;top:30%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,247,101,0.55) 0%,rgba(255,247,101,0.12) 35%,rgba(255,247,101,0) 65%);filter:blur(30px);animation:mh-orb 9s ease-in-out infinite;animation-play-state:{{ podAnim }};pointer-events:none;"></div>
       <div style="position:absolute;left:50%;top:38%;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;background:radial-gradient(circle at 65% 60%,rgba(51,218,0,0.22) 0%,rgba(51,218,0,0) 60%);filter:blur(40px);animation:mh-orb 12s ease-in-out infinite reverse;animation-play-state:{{ podAnim }};pointer-events:none;"></div>
       <div style="position:relative;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 12px;">
@@ -2257,7 +2258,7 @@ class Component extends DCLogic {
         divider: i === perfSorted.length - 1 ? '0' : '1px solid rgba(255,255,255,0.08)', open: () => this.go('product', { productId:x.id }) }; });
     return {
       ...brandVals,
-      scrollTopPx: s.screen === 'detail' ? '0px' : '48px', onMainScroll: e => { const t = e.currentTarget.scrollTop < 400; if (t !== (this.state.heroTop !== false)) this.setState({ heroTop: t }); },
+      scrollTopPx: s.screen === 'detail' ? '0px' : 'var(--mh-top,48px)', onMainScroll: e => { const t = e.currentTarget.scrollTop < 400; if (t !== (this.state.heroTop !== false)) this.setState({ heroTop: t }); },
       _chrome: this.syncChrome(s.podOpen ? '#141414' : s.screen === 'detail' ? '#262626' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF'),
       sbBg: s.podOpen ? '#141414' : (s.screen === 'detail' && h0.image && s.heroTop !== false) ? 'transparent' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF', sbColor: s.podOpen || s.screen === 'home' || (s.screen === 'detail' && h0.image && s.heroTop !== false) ? '#FFFFFF' : '#0B0B0B',
       hasPerf: dashList.length > 0, noPerf: dashList.length === 0, perf, perfRows, perfAvg: '', perfOpen: s.perfOpen, perfRot: s.perfOpen ? '180deg' : '0deg', perfRows2: s.perfOpen ? '1fr' : '0fr', perfMove: e => { const r = e.currentTarget.getBoundingClientRect(); const i = Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35); if (i !== this.state.perfHover) this.setState({ perfHover:i }); },
