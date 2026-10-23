@@ -86,7 +86,7 @@ html,body{height:100%;overscroll-behavior:none}
             <div style="width:40px;height:40px;border-radius:50%;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">SK</div>
           </div>
         </div>
-        <h1 style="margin:26px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, <sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}">Stefan.</sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span style="color:#0B0B0B;padding:0 8px 3px;margin-left:-2px;background:url(assets/marker-yellow-flat.svg) center / 100% 100% no-repeat;">Stefan.</span></sc-if></h1>
+        <h1 style="margin:26px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, <sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}">Stefan.</sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}">Stefan.</sc-if></h1>
         <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:30px;">
           <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:14px 16px;min-height:92px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Honeys</span>
@@ -328,7 +328,8 @@ html,body{height:100%;overscroll-behavior:none}
     </sc-if>
 
     <sc-if value="{{ isHoneys }}" hint-placeholder-val="{{ false }}">
-    <div data-screen-label="Honeys" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+    <div data-screen-label="Honeys" style="position:relative;isolation:isolate;padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:760px;z-index:-1;background:url(assets/hex-yellow-fade.svg) top right / 402px 760px no-repeat;pointer-events:none;opacity:0.8;"></div>
       <div style="height:52px;display:flex;align-items:center;"><sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if></div>
       <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Honeys</h1>
       <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Marktideen der Redaktion und deiner Coaches.</p>
@@ -356,7 +357,7 @@ html,body{height:100%;overscroll-behavior:none}
 
     <sc-if value="{{ isWatchlist }}" hint-placeholder-val="{{ false }}">
     <div data-screen-label="Watchlist" style="position:relative;padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
-      <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:760px;background:url(assets/hex-header.svg) top right / 402px 760px no-repeat;pointer-events:none;"></div>
+      <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:760px;background:url(assets/hex-yellow-fade.svg) top right / 402px 760px no-repeat;pointer-events:none;opacity:0.8;"></div>
       <div style="position:relative;height:52px;display:flex;align-items:center;"><sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if></div>
       <h1 style="position:relative;margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Watchlist</h1>
       <p style="position:relative;margin:6px 4px 0;font-size:13px;color:#62665F;">Zum Entfernen nach links wischen.</p>
@@ -426,7 +427,8 @@ html,body{height:100%;overscroll-behavior:none}
     </sc-if>
 
     <sc-if value="{{ isCoaches }}" hint-placeholder-val="{{ false }}">
-    <div data-screen-label="Coaches" style="padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+    <div data-screen-label="Coaches" style="position:relative;isolation:isolate;padding:4px 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
+      <div aria-hidden="true" style="position:absolute;top:0;left:0;right:0;height:760px;z-index:-1;background:url(assets/hex-yellow-fade.svg) top right / 402px 760px no-repeat;pointer-events:none;opacity:0.8;"></div>
       <div style="height:52px;display:flex;align-items:center;"><sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;">{{ beeLogoEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if></div>
       <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Coaches</h1>
       <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Lerne Trading-Coaches kennen und folge ihren Ideen.</p>
@@ -1122,7 +1124,7 @@ html,body{height:100%;overscroll-behavior:none}
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
             <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
               <span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyph }}</span></span>
-              <div><div style="font-size:20px;font-weight:800;">Monhey KI</div><div style="font-size:13px;color:#62665F;">Deine Markt-Idee</div></div>
+              <div><div style="font-size:20px;font-weight:800;">Monhey KI</div><div style="font-size:13px;color:#62665F;">Deine Idee, passende Produkte</div></div>
             </div>
             <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
           </div>
@@ -1218,8 +1220,8 @@ html,body{height:100%;overscroll-behavior:none}
         <div style="display:flex;flex-direction:column;min-height:calc(100% - 4px);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
             <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
-              <span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:23px;height:23px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyph }}</span></sc-if></span>
-              <div><div style="font-size:20px;font-weight:800;">Monhey KI</div><div style="font-size:13px;color:#62665F;"><sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}">Erklärt dir Märkte und Begriffe.</sc-if><sc-if value="{{ kiIdea }}" hint-placeholder-val="{{ true }}">Deine Idee, passende Produkte</sc-if></div></div>
+              <sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}"><span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:23px;height:23px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyph }}</span></sc-if></span></sc-if>
+              <div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:20px;font-weight:800;">Monhey KI</span><sc-if value="{{ kiIdea }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">Neu</span></sc-if></div><sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#62665F;">Erklärt dir Märkte und Begriffe.</div></sc-if></div>
             </div>
             <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
           </div>
@@ -1232,33 +1234,41 @@ html,body{height:100%;overscroll-behavior:none}
               </div>
             </sc-if>
             <sc-if value="{{ chatEmptyIdea }}" hint-placeholder-val="{{ true }}">
-              <div style="display:flex;flex-direction:column;gap:20px;animation:mh-fade .3s both;">
-                <div style="display:flex;flex-direction:column;gap:4px;margin:0 4px;">
-                  <span style="font-size:11px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;align-self:flex-start;">Neu</span>
-                  <h2 style="margin:6px 0 0;font-size:28px;line-height:1.15;font-weight:800;letter-spacing:-0.6px;text-wrap:pretty;">Du hast eine Idee zum Markt?</h2>
+              <div style="position:relative;display:flex;flex-direction:column;gap:28px;padding-top:96px;animation:mh-fade .3s both;">
+                <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:absolute;right:4px;top:8px;width:120px;height:120px;pointer-events:none;">{{ roboHover }}</div></sc-if>
+                <div style="position:relative;display:flex;flex-direction:column;gap:8px;max-width:250px;margin:0 4px;">
+                  <h2 style="margin:0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.7px;text-wrap:pretty;">Du hast eine Idee zum Markt?</h2>
                   <p style="margin:0;font-size:15px;line-height:1.5;color:#62665F;text-wrap:pretty;">Monhey zeigt dir, wie du sie umsetzen kannst.</p>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;background:#fff;border:2px solid rgba(98,102,95,0.6);border-radius:20px;height:66px;padding:0 8px 0 18px;margin-top:-6px;">
-                  <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="Ich glaube, dass …" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:17px;font-weight:600;background:transparent;color:#0B0B0B;">
+                <div style="display:flex;align-items:center;gap:6px;background:#fff;border:2px solid rgba(98,102,95,0.6);border-radius:20px;height:66px;padding:0 8px 0 18px;position:relative;box-shadow:0 10px 28px rgba(11,11,11,0.08);">
+                  <sc-if value="{{ notRec }}" hint-placeholder-val="{{ true }}"><input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="Ich glaube, dass …" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:17px;font-weight:600;background:transparent;color:#0B0B0B;"></sc-if>
+                  <sc-if value="{{ rec }}" hint-placeholder-val="{{ false }}">
+                    <div style="flex:1;min-width:0;display:flex;align-items:center;gap:12px;animation:mh-fade .2s both;">
+                      <span style="font-size:14px;font-weight:700;color:#62665F;white-space:nowrap;">Ich höre zu …</span>
+                      <div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:3px;height:26px;overflow:hidden;">
+                        <sc-for list="{{ waveBars }}" as="w" hint-placeholder-count="16"><span style="width:3px;height:{{ w.h }};border-radius:2px;background:#262626;flex:none;animation:mh-wave {{ w.dur }} ease-in-out infinite;animation-delay:{{ w.delay }};"></span></sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
                   <button onClick="{{ toggleRec }}" aria-label="{{ micLabel }}" style="width:44px;height:44px;border-radius:50%;border:0;background:{{ micBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;animation:{{ micAnim }};transition:background .2s;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;font-variation-settings:'FILL' {{ micFill }};">{{ micIcon }}</span></button>
                   <button onClick="{{ sendAsk }}" aria-label="Idee abschicken" style="width:48px;height:48px;border-radius:50%;border:0;background:#262626;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;">arrow_upward</span></button>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
                   <span style="font-size:12px;font-weight:700;color:#62665F;margin:0 4px;">Andere haben diese Ideen:</span>
-                  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;">
-                    <sc-for list="{{ ideaExamples }}" as="ex" hint-placeholder-count="4">
-                      <button onClick="{{ ex.go }}" style="border:0;background:#fff;border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;cursor:pointer;text-align:left;font-family:inherit;color:#0B0B0B;">
+                  <div class="mh-scroll" style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-padding:0 24px;margin:0 -24px;padding:2px 24px 6px;">
+                    <sc-for list="{{ ideaExamples }}" as="ex" hint-placeholder-count="3">
+                      <button onClick="{{ ex.go }}" style="flex:none;width:176px;min-height:132px;scroll-snap-align:start;border:0;background:#fff;border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:14px;cursor:pointer;text-align:left;font-family:inherit;color:#0B0B0B;">
                         <span style="width:32px;height:32px;border-radius:50%;background:{{ ex.iconBg }};display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:20px;color:{{ ex.iconFg }};">{{ ex.icon }}</span></span>
                         <span style="font-size:15px;line-height:1.3;font-weight:800;">{{ ex.title }}</span>
                       </button>
                     </sc-for>
                   </div>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
                   <span style="font-size:12px;font-weight:700;color:#62665F;margin:0 4px;">Oder frag mich etwas:</span>
-                  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <div class="mh-scroll" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -24px;padding:0 24px;">
                     <sc-for list="{{ askChips }}" as="q" hint-placeholder-count="3">
-                      <button onClick="{{ q.ask }}" style="border:0;background:#fff;border-radius:999px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;color:#0B0B0B;">{{ q.label }}</button>
+                      <button onClick="{{ q.ask }}" style="flex:none;border:1px solid rgba(98,102,95,0.25);background:transparent;border-radius:999px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;color:#0B0B0B;white-space:nowrap;">{{ q.label }}</button>
                     </sc-for>
                   </div>
                 </div>
