@@ -13,6 +13,7 @@
 <link rel="apple-touch-icon" href="app-icon-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<script>(function(){var s=window.navigator.standalone||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);if(!s)return;function f(){var h=Math.max(screen.height,screen.width)==window.innerHeight+0?window.innerHeight:(innerWidth<innerHeight?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width));document.documentElement.style.setProperty("--mh-vh",h+"px");}f();addEventListener("resize",f);addEventListener("orientationchange",function(){setTimeout(f,300)});})();</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -48,9 +49,11 @@ a{-webkit-tap-highlight-color:transparent}
 @media (max-width: 600px){
 html{--mh-top:env(safe-area-inset-top,0px);--mh-hdr:max(12px,calc(env(safe-area-inset-top,0px) + 4px))}
 html,body{height:100%;overscroll-behavior:none}
-[data-mh="stage"]{padding:0!important;min-height:0!important;height:100dvh!important;display:block!important}
-[data-mh="app"]{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:auto!important;height:auto!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}
-[data-mh="statusbar"],[data-mh="homebar"]{display:none!important}
+[data-mh="stage"]{padding:0!important;min-height:0!important;height:var(--mh-vh,100dvh)!important;display:block!important}
+[data-mh="app"]{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:auto!important;width:auto!important;height:var(--mh-vh,100dvh)!important;max-width:none!important;border-radius:0!important;box-shadow:none!important}
+[data-mh="homebar"]{display:none!important}
+[data-mh="statusbar"]{height:var(--mh-top)!important;padding:0!important;pointer-events:none}
+[data-mh="statusbar"]>*{display:none!important}
 [data-mh="scroll"]{-webkit-overflow-scrolling:touch}
 }
 @media (prefers-reduced-motion: reduce){*{animation-duration:1ms!important;transition-duration:1ms!important}}
