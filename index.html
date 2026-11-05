@@ -61,7 +61,8 @@ html,body{height:100%;overscroll-behavior:none}
 [data-mh="scroll"]{-webkit-overflow-scrolling:touch}
 }
 @media (prefers-reduced-motion: reduce){*{animation-duration:1ms!important;transition-duration:1ms!important}}
-::highlight(mh-term){background-color:rgba(255,247,101,0.55)}
+::highlight(mh-term){text-decoration:underline dotted 1.5px;text-decoration-color:#0B0B0B;text-underline-offset:3px}
+::highlight(mh-term-d){text-decoration:underline dotted 1.5px;text-decoration-color:rgba(255,255,255,0.75);text-underline-offset:3px}
 ::highlight(mh-term-on){background-color:#FFF765;color:#0B0B0B}
 </style>
 </helmet>
@@ -81,7 +82,7 @@ html,body{height:100%;overscroll-behavior:none}
 
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div data-screen-label="Start" style="padding:0 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
-      <div style="margin:0 -20px;padding:4px 24px 56px;border-radius:0 0 36px 36px;background:radial-gradient(90% 55% at 100% 42%, rgba(255,247,101,0.13) 0%, rgba(255,247,101,0) 70%), radial-gradient(70% 40% at 0% 100%, rgba(255,247,101,0.07) 0%, rgba(255,247,101,0) 70%), url(assets/hex-pattern.svg) top center / 700px 1100px no-repeat, linear-gradient(180deg,#2B2B2B 0%,#262626 50%,#1F1F1F 100%);color:#fff;display:flex;flex-direction:column;">
+      <div style="margin:0 -20px;padding:4px 24px 52px;border-radius:0 0 36px 36px;background:radial-gradient(90% 55% at 100% 42%, rgba(255,247,101,0.13) 0%, rgba(255,247,101,0) 70%), radial-gradient(70% 40% at 0% 100%, rgba(255,247,101,0.07) 0%, rgba(255,247,101,0) 70%), url(assets/hex-pattern.svg) top center / 700px 1100px no-repeat, linear-gradient(180deg,#2B2B2B 0%,#262626 50%,#1F1F1F 100%);color:#fff;display:flex;flex-direction:column;">
         <div style="display:flex;align-items:center;justify-content:space-between;height:52px;margin:0 -4px;">
           <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;filter:brightness(0) invert(1);"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;color:#FFFFFF;">{{ beeLogoWhiteEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
           <div style="display:flex;gap:8px;align-items:center;">
@@ -92,7 +93,7 @@ html,body{height:100%;overscroll-behavior:none}
             <div style="width:40px;height:40px;border-radius:50%;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">SK</div>
           </div>
         </div>
-        <h1 style="margin:64px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, <sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}">Stefan.</sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}">Stefan.</sc-if></h1>
+        <h1 style="margin:56px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, <sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}">Stefan.</sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}">Stefan.</sc-if></h1>
         <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:44px;">
           <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:18px 16px;min-height:110px;justify-content:space-between;background:rgba(255,255,255,0.08);font-family:inherit;display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Honeys</span>
@@ -107,7 +108,7 @@ html,body{height:100%;overscroll-behavior:none}
           </div><span style="font-size:12px;line-height:1.2;font-weight:700;">3 Updates</span></div>
           </button>
         </div>
-        <div style="display:flex;align-items:baseline;justify-content:space-between;margin:72px 2px 0;gap:10px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin:64px 2px 0;gap:10px;">
           <span style="font-size:14px;font-weight:700;color:#FFF765;">So performen Deine Honeys</span>
           <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;">{{ perfAvg }}</span>
         </div>
@@ -2127,7 +2128,6 @@ const PROD_NEWS = {
   siemens:[['vor 25 Min.','AWS gewinnt Großauftrag: US-Behörde verlagert Rechenzentren in die Amazon-Cloud'],['vor 2 Std.','Prime Day bricht Rekord – Umsatz liegt 11 % über Vorjahr'],['Heute, 08:10','Analysten heben Kursziel für Amazon auf 260 US-Dollar'],['Gestern','Amazon testet Drohnen-Lieferung jetzt auch in Europa']]
 };
 const GLOSSAR = {
-  'KI':['Künstliche Intelligenz','Software, die aus Daten lernt und Aufgaben wie Texte schreiben oder Bilder erkennen übernimmt. Für Anleger zählt vor allem: KI braucht enorm viel Rechenleistung, davon profitieren Chip- und Cloud-Anbieter.'],
   'Cloud':['Cloud','Rechenzentren, deren Speicher und Rechenleistung Firmen über das Internet mieten. Für Amazon, Microsoft und Google ist das eines der profitabelsten Geschäfte.'],
   'AWS':['Amazon Web Services','Amazons Cloud-Sparte. Sie macht nur einen Teil des Umsatzes aus, liefert aber den Großteil des Gewinns.'],
   'Rally':['Rally','Ein schneller, kräftiger Kursanstieg über einige Tage oder Wochen. Nach einer Rally sind Rücksetzer häufig.'],
@@ -2334,10 +2334,10 @@ class Component extends DCLogic {
   termLife() {
     if (this._termOn || typeof document === 'undefined' || !window.CSS || !CSS.highlights || typeof Highlight === 'undefined') return; this._termOn = true;
     const app = () => document.querySelector('[data-screen-label="Monhey App"]');
-    this._termScan = () => { clearTimeout(this._tsT); this._tsT = setTimeout(() => { const root = app(); if (!root) return; if ((this.props.erklaeren ?? 'An') !== 'An') { CSS.highlights.delete('mh-term'); this._terms = []; return; }
-      const out = []; const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => { const p = n.parentElement; if (!p || !n.nodeValue.trim() || p.closest('button,a,input,textarea,[data-mh-sheet],[data-mh-noterm],h1')) return NodeFilter.FILTER_REJECT; return NodeFilter.FILTER_ACCEPT; } });
-      let n; while ((n = w.nextNode())) { const t = n.nodeValue; GL_RE.lastIndex = 0; let m; while ((m = GL_RE.exec(t))) { const st = m.index + m[1].length; const r = new Range(); r.setStart(n, st); r.setEnd(n, st + m[2].length); out.push({ r, k:m[2] }); } }
-      this._terms = out; CSS.highlights.set('mh-term', new Highlight(...out.map(x => x.r))); }, 160); };
+    this._termScan = () => { clearTimeout(this._tsT); this._tsT = setTimeout(() => { const root = app(); if (!root) return; if ((this.props.erklaeren ?? 'An') !== 'An') { CSS.highlights.delete('mh-term'); CSS.highlights.delete('mh-term-d'); this._terms = []; return; }
+      const out = [], lum = {}; const isLight = el => { const c = getComputedStyle(el).color.match(/\d+(\.\d+)?/g); return c && (+c[0] * 0.299 + +c[1] * 0.587 + +c[2] * 0.114) > 160; }; const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => { const p = n.parentElement; if (!p || !n.nodeValue.trim() || p.closest('button,a,input,textarea,[data-mh-sheet],[data-mh-noterm],h1')) return NodeFilter.FILTER_REJECT; return NodeFilter.FILTER_ACCEPT; } });
+      let n; while ((n = w.nextNode())) { const t = n.nodeValue; GL_RE.lastIndex = 0; let m; while ((m = GL_RE.exec(t))) { const st = m.index + m[1].length; const r = new Range(); r.setStart(n, st); r.setEnd(n, st + m[2].length); out.push({ r, k:m[2], dk: isLight(n.parentElement) }); } }
+      this._terms = out; CSS.highlights.set('mh-term', new Highlight(...out.filter(x => !x.dk).map(x => x.r))); CSS.highlights.set('mh-term-d', new Highlight(...out.filter(x => x.dk).map(x => x.r))); }, 160); };
     this._termTap = e => { if ((this.props.erklaeren ?? 'An') !== 'An' || !this._terms || !this._terms.length) return;
       if (e.target.closest && e.target.closest('[data-mh-explain]')) return;
       let node, off; if (document.caretRangeFromPoint) { const c = document.caretRangeFromPoint(e.clientX, e.clientY); if (c) { node = c.startContainer; off = c.startOffset; } } else if (document.caretPositionFromPoint) { const c = document.caretPositionFromPoint(e.clientX, e.clientY); if (c) { node = c.offsetNode; off = c.offset; } }
