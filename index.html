@@ -81,7 +81,7 @@ html,body{height:100%;overscroll-behavior:none}
 
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div data-screen-label="Start" style="padding:0 20px 120px;display:flex;flex-direction:column;animation:mh-in .3s cubic-bezier(0.2,0,0,1) both;">
-      <div style="margin:0 -20px;padding:4px 24px 28px;border-radius:0 0 36px 36px;background:radial-gradient(90% 55% at 100% 42%, rgba(255,247,101,0.13) 0%, rgba(255,247,101,0) 70%), radial-gradient(70% 40% at 0% 100%, rgba(255,247,101,0.07) 0%, rgba(255,247,101,0) 70%), url(assets/hex-pattern.svg) top center / 700px 1100px no-repeat, linear-gradient(180deg,#2B2B2B 0%,#262626 50%,#1F1F1F 100%);color:#fff;display:flex;flex-direction:column;">
+      <div style="margin:0 -20px;padding:4px 24px 56px;border-radius:0 0 36px 36px;background:radial-gradient(90% 55% at 100% 42%, rgba(255,247,101,0.13) 0%, rgba(255,247,101,0) 70%), radial-gradient(70% 40% at 0% 100%, rgba(255,247,101,0.07) 0%, rgba(255,247,101,0) 70%), url(assets/hex-pattern.svg) top center / 700px 1100px no-repeat, linear-gradient(180deg,#2B2B2B 0%,#262626 50%,#1F1F1F 100%);color:#fff;display:flex;flex-direction:column;">
         <div style="display:flex;align-items:center;justify-content:space-between;height:52px;margin:0 -4px;">
           <sc-if value="{{ brandV1 }}" hint-placeholder-val="{{ true }}"><img src="assets/monhey-logo.png" alt="monhey!" style="height:38px;width:117px;display:block;filter:brightness(0) invert(1);"></sc-if><sc-if value="{{ brandV2 }}" hint-placeholder-val="{{ false }}"><span style="height:38px;display:flex;align-items:center;gap:3px;color:#FFFFFF;">{{ beeLogoWhiteEl }}<span style="font-weight:800;font-style:italic;font-size:23px;letter-spacing:-0.6px;line-height:1;">monhey!</span></span></sc-if>
           <div style="display:flex;gap:8px;align-items:center;">
@@ -92,29 +92,29 @@ html,body{height:100%;overscroll-behavior:none}
             <div style="width:40px;height:40px;border-radius:50%;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">SK</div>
           </div>
         </div>
-        <h1 style="margin:26px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, <sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}">Stefan.</sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}">Stefan.</sc-if></h1>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:30px;">
-          <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:14px;min-height:92px;justify-content:space-between;background:rgba(255,255,255,0.08);font-family:inherit;display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
+        <h1 style="margin:64px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, <sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}">Stefan.</sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}">Stefan.</sc-if></h1>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:44px;">
+          <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:18px 16px;min-height:110px;justify-content:space-between;background:rgba(255,255,255,0.08);font-family:inherit;display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Honeys</span>
             <div style="display:flex;align-items:center;gap:8px;"><div style="display:flex;align-items:center;flex:none;">
             <sc-for list="{{ hexHoneys }}" as="hx" hint-placeholder-count="3"><span style="width:22px;height:25px;margin-left:{{ hx.ml }};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:18px;height:21px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#2F2F2F;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#FFF765;">{{ hx.num }}</span></span></sc-for>
           </div><span style="font-size:12px;line-height:1.2;font-weight:700;">5 neue<br>Honeys</span></div>
           </button>
-          <button onClick="{{ goCoaches }}" style="text-align:left;border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:14px;min-height:92px;justify-content:space-between;background:rgba(255,255,255,0.08);font-family:inherit;display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
+          <button onClick="{{ goCoaches }}" style="text-align:left;border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:18px 16px;min-height:110px;justify-content:space-between;background:rgba(255,255,255,0.08);font-family:inherit;display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Coaches</span>
             <div style="display:flex;align-items:center;gap:8px;"><div style="display:flex;align-items:center;flex:none;">
             <sc-for list="{{ hexCoaches }}" as="hx" hint-placeholder-count="3"><span style="width:22px;height:25px;margin-left:{{ hx.ml }};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:19px;height:22px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);overflow:hidden;display:block;"><span style="width:100%;height:100%;background:#2F2F2F url({{ hx.img }}) 50% 22% / cover no-repeat;transform:scale(2.3);transform-origin:50% 26%;display:block;"></span></span></span></sc-for>
           </div><span style="font-size:12px;line-height:1.2;font-weight:700;">3 Updates</span></div>
           </button>
         </div>
-        <div style="display:flex;align-items:baseline;justify-content:space-between;margin:40px 2px 0;gap:10px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin:72px 2px 0;gap:10px;">
           <span style="font-size:14px;font-weight:700;color:#FFF765;">So performen Deine Honeys</span>
           <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;">{{ perfAvg }}</span>
         </div>
         <sc-if value="{{ hasPerf }}" hint-placeholder-val="{{ true }}">
-          <div class="mh-scroll" style="margin:14px -20px 0;padding:0 20px 2px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-padding:0 20px;">
+          <div class="mh-scroll" style="margin:18px -20px 0;padding:0 20px 2px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-padding:0 20px;">
             <sc-for list="{{ perfCards }}" as="pc" hint-placeholder-count="3">
-              <button onClick="{{ pc.open }}" style="flex:none;width:{{ pc.w }};scroll-snap-align:start;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.08);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:12px;cursor:pointer;color:#fff;text-align:left;font-family:inherit;">
+              <button onClick="{{ pc.open }}" style="flex:none;width:{{ pc.w }};scroll-snap-align:start;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.08);border-radius:20px;padding:18px 16px 16px;display:flex;flex-direction:column;gap:16px;cursor:pointer;color:#fff;text-align:left;font-family:inherit;">
                 <span style="display:flex;align-items:center;gap:10px;width:100%;">
                   <span style="width:40px;height:40px;border-radius:10px;flex:none;background:#3A3A3A url({{ pc.img }}) center / cover no-repeat;"></span>
                   <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-size:14px;line-height:1.25;font-weight:700;color:#FFF765;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ pc.title }}</span><span style="font-size:12px;color:rgba(255,255,255,0.6);">{{ pc.by }}</span></span>
@@ -138,7 +138,7 @@ html,body{height:100%;overscroll-behavior:none}
               </button>
             </sc-for>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:14px;background:rgba(255,255,255,0.06);border-radius:999px;padding:4px;">
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:20px;background:rgba(255,255,255,0.06);border-radius:999px;padding:4px;">
             <sc-for list="{{ perfRanges }}" as="pr" hint-placeholder-count="3">
               <button onClick="{{ pr.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ pr.bg }};color:{{ pr.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ pr.label }}</button>
             </sc-for>
@@ -152,7 +152,7 @@ html,body{height:100%;overscroll-behavior:none}
         </sc-if>
       </div>
 
-      <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 4px 0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:48px 4px 0;">
         <h2 style="margin:0;font-size:20px;font-weight:800;">Neue Honeys</h2>
         
       </div>
