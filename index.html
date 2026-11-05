@@ -30,9 +30,13 @@ a{color:#0B0B0B}a:hover{color:#62665F}
 button{font-family:inherit;color:#0B0B0B;-webkit-tap-highlight-color:transparent}
 a{-webkit-tap-highlight-color:transparent}
 .material-symbols-outlined{font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';font-feature-settings:'liga';-webkit-font-smoothing:antialiased;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
-.mh-scroll::-webkit-scrollbar{display:none}
+.input[data-tw]::placeholder{font-size:15px;font-weight:500;color:rgba(98,102,95,0.55);}
+mh-scroll::-webkit-scrollbar{display:none}
 @media (max-width: 600px){input,textarea,select{font-size:16px!important}}
 .mh-dark-input::placeholder{color:rgba(255,255,255,0.62)}
+@keyframes mh-assist-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(14px) scale(0.94)}}
+@keyframes mh-beebob{0%,100%{translate:0 0}50%{translate:0 -2.5px}}
+@keyframes mh-assist{from{opacity:0;transform:translateY(14px) scale(0.92)}to{opacity:1;transform:none}}
 @keyframes mh-up{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes mh-down{from{transform:translateY(0)}to{transform:translateY(100%)}}
 @keyframes mh-fade{from{opacity:0}to{opacity:1}}
@@ -57,6 +61,8 @@ html,body{height:100%;overscroll-behavior:none}
 [data-mh="scroll"]{-webkit-overflow-scrolling:touch}
 }
 @media (prefers-reduced-motion: reduce){*{animation-duration:1ms!important;transition-duration:1ms!important}}
+::highlight(mh-term){background-color:rgba(255,247,101,0.55)}
+::highlight(mh-term-on){background-color:#FFF765;color:#0B0B0B}
 </style>
 </helmet>
 <div data-mh="stage" style="min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:22px 12px;">
@@ -88,16 +94,16 @@ html,body{height:100%;overscroll-behavior:none}
         </div>
         <h1 style="margin:26px 2px 0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.5px;color:#FFF765;">Hey, <sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}">Stefan.</sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}">Stefan.</sc-if></h1>
         <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:30px;">
-          <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:14px 16px;min-height:92px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
+          <button onClick="{{ goHoneys }}" style="text-align:left;border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:14px;min-height:92px;justify-content:space-between;background:rgba(255,255,255,0.08);font-family:inherit;display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Honeys</span>
             <div style="display:flex;align-items:center;gap:8px;"><div style="display:flex;align-items:center;flex:none;">
             <sc-for list="{{ hexHoneys }}" as="hx" hint-placeholder-count="3"><span style="width:22px;height:25px;margin-left:{{ hx.ml }};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:18px;height:21px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#2F2F2F;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#FFF765;">{{ hx.num }}</span></span></sc-for>
           </div><span style="font-size:12px;line-height:1.2;font-weight:700;">5 neue<br>Honeys</span></div>
           </button>
-          <button onClick="{{ goCoaches }}" style="text-align:left;border:1px solid rgba(255,247,101,0.4);border-radius:22px;padding:14px 16px;min-height:92px;justify-content:space-between;background:linear-gradient(150deg,rgba(255,247,101,0.16) 0%,rgba(255,255,255,0.03) 70%);display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
+          <button onClick="{{ goCoaches }}" style="text-align:left;border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:14px;min-height:92px;justify-content:space-between;background:rgba(255,255,255,0.08);font-family:inherit;display:flex;flex-direction:column;gap:10px;cursor:pointer;color:#fff;transition:transform .15s;" style-active="transform:scale(0.97);">
             <span style="font-size:16px;font-weight:800;color:#FFF765;">Deine Coaches</span>
             <div style="display:flex;align-items:center;gap:8px;"><div style="display:flex;align-items:center;flex:none;">
-            <sc-for list="{{ hexCoaches }}" as="hx" hint-placeholder-count="3"><span style="width:22px;height:25px;margin-left:{{ hx.ml }};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:18px;height:21px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#2F2F2F;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#FFF765;">{{ hx.num }}</span></span></sc-for>
+            <sc-for list="{{ hexCoaches }}" as="hx" hint-placeholder-count="3"><span style="width:22px;height:25px;margin-left:{{ hx.ml }};clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span style="width:19px;height:22px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);overflow:hidden;display:block;"><span style="width:100%;height:100%;background:#2F2F2F url({{ hx.img }}) 50% 22% / cover no-repeat;transform:scale(2.3);transform-origin:50% 26%;display:block;"></span></span></span></sc-for>
           </div><span style="font-size:12px;line-height:1.2;font-weight:700;">3 Updates</span></div>
           </button>
         </div>
@@ -106,50 +112,36 @@ html,body{height:100%;overscroll-behavior:none}
           <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;">{{ perfAvg }}</span>
         </div>
         <sc-if value="{{ hasPerf }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ perf.open }}" style="margin-top:14px;text-align:left;border:0;background:transparent;padding:0 2px;display:flex;flex-direction:column;gap:2px;cursor:pointer;color:#fff;">
-            <span style="display:flex;align-items:baseline;gap:10px;"><span style="font-size:36px;line-height:1.05;font-weight:800;letter-spacing:-0.8px;color:{{ perf.pctColor }};">{{ perf.pct }}</span><span style="font-size:15px;font-weight:700;">Gesamt</span></span>
-            <span style="font-size:13px;color:rgba(255,255,255,0.7);">{{ perf.sub }}</span>
-          </button>
-          <div onPointerMove="{{ perfMove }}" onPointerDown="{{ perfDown }}" onPointerUp="{{ perfLeave }}" onPointerCancel="{{ perfLeave }}" onPointerLeave="{{ perfLeave }}" onContextMenu="{{ perfNoMenu }}" style="touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;cursor:crosshair;position:relative;height:114px;margin:24px 0 0;border-bottom:1px solid rgba(255,255,255,0.12);">
-            <svg viewBox="0 0 320 120" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;">
-              <defs>
-                <linearGradient id="mhPerfFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF765" stop-opacity="0.42"></stop><stop offset="100%" stop-color="#FFF765" stop-opacity="0"></stop></linearGradient>
-                <linearGradient id="mhPerfLine" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFF765" stop-opacity="0.45"></stop><stop offset="100%" stop-color="#FFF765" stop-opacity="1"></stop></linearGradient>
-              </defs>
-              <path d="{{ perf.area }}" fill="url(#mhPerfFill)" style="d:path('{{ perf.area }}');transition:d .7s cubic-bezier(0.2,0,0,1);"></path>
-              <path d="{{ perf.line }}" style="d:path('{{ perf.line }}');transition:d .7s cubic-bezier(0.2,0,0,1);" fill="none" stroke="url(#mhPerfLine)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
-            </svg>
-            <sc-if value="{{ perf.hov }}" hint-placeholder-val="{{ false }}">
-              <span style="position:absolute;top:0;bottom:0;left:{{ perf.hx }};width:1px;margin-left:-0.5px;background:linear-gradient(180deg,rgba(255,247,101,0) 0%,rgba(255,247,101,0.9) {{ perf.hy }},rgba(255,247,101,0) 100%);transition:left .12s cubic-bezier(0.2,0,0,1);pointer-events:none;"></span>
-              <span style="position:absolute;top:8px;left:{{ perf.hx }};transform:translateX({{ perf.tipX }});transition:left .12s cubic-bezier(0.2,0,0,1);z-index:2;box-shadow:0 4px 14px rgba(0,0,0,0.35);background:#FFF765;color:#0B0B0B;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap;pointer-events:none;">{{ perf.hDate }}</span>
-              <span style="position:absolute;left:{{ perf.hx }};top:{{ perf.hy }};width:64px;height:64px;border-radius:50%;background:radial-gradient(circle,rgba(255,247,101,0.7) 0%,rgba(255,247,101,0.25) 35%,rgba(255,247,101,0) 70%);filter:blur(6px);transform:translate(-50%,-50%);transition:left .12s cubic-bezier(0.2,0,0,1),top .12s cubic-bezier(0.2,0,0,1);pointer-events:none;mix-blend-mode:screen;"></span>
-              <span style="position:absolute;left:{{ perf.hx }};top:{{ perf.hy }};width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,247,101,0.6);transform:translate(-50%,-50%);animation:mh-ring 1.6s cubic-bezier(0.2,0,0,1) infinite;transition:left .12s cubic-bezier(0.2,0,0,1),top .12s cubic-bezier(0.2,0,0,1);pointer-events:none;"></span>
-              <span style="position:absolute;left:{{ perf.hx }};top:{{ perf.hy }};width:12px;height:12px;border-radius:50%;background:#FFF765;border:2px solid #262626;transform:translate(-50%,-50%);box-shadow:0 0 12px rgba(255,247,101,0.9);transition:left .12s cubic-bezier(0.2,0,0,1),top .12s cubic-bezier(0.2,0,0,1);pointer-events:none;"></span>
-            </sc-if>
-            <span style="position:absolute;right:0;top:{{ perf.endTop }};transition:top .7s cubic-bezier(0.2,0,0,1);width:10px;height:10px;border-radius:50%;background:#FFF765;transform:translate(50%,-50%);box-shadow:0 0 0 5px rgba(255,247,101,0.18),0 0 18px rgba(255,247,101,0.9);"></span>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:20px;background:rgba(255,255,255,0.06);border-radius:999px;padding:4px;">
-            <sc-for list="{{ perfRanges }}" as="pr" hint-placeholder-count="4">
-              <button onClick="{{ pr.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ pr.bg }};color:{{ pr.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ pr.label }}</button>
-            </sc-for>
-          </div>
-          <div style="margin-top:14px;display:flex;flex-direction:column;border-radius:20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);padding:0 14px;">
-            <button onClick="{{ togglePerfList }}" aria-expanded="{{ perfOpen }}" style="height:50px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#fff;font-size:14px;font-weight:700;">
-              <span>Deine Honeys im Detail</span>
-              <span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;transform:rotate({{ perfRot }});transition:transform .3s cubic-bezier(0.2,0,0,1);">expand_more</span>
-            </button>
-            <div style="display:grid;grid-template-rows:{{ perfRows2 }};transition:grid-template-rows .35s cubic-bezier(0.2,0,0,1);">
-              <div style="overflow:hidden;min-height:0;display:flex;flex-direction:column;">
-                <div style="border-top:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;">
-            <sc-for list="{{ perfRows }}" as="pr" hint-placeholder-count="4">
-              <button onClick="{{ pr.open }}" style="border:0;border-bottom:{{ pr.divider }};background:transparent;padding:11px 0;display:flex;align-items:center;gap:12px;cursor:pointer;color:#fff;text-align:left;">
-                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ pr.name }}</span><span style="font-size:12px;color:rgba(255,255,255,0.6);">{{ pr.by }}</span></span>
-                <span style="flex:none;min-width:64px;text-align:center;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:800;background:{{ pr.bg }};color:{{ pr.color }};">{{ pr.pct }}</span>
+          <div class="mh-scroll" style="margin:14px -20px 0;padding:0 20px 2px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-padding:0 20px;">
+            <sc-for list="{{ perfCards }}" as="pc" hint-placeholder-count="3">
+              <button onClick="{{ pc.open }}" style="flex:none;width:{{ pc.w }};scroll-snap-align:start;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.08);border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:12px;cursor:pointer;color:#fff;text-align:left;font-family:inherit;">
+                <span style="display:flex;align-items:center;gap:10px;width:100%;">
+                  <span style="width:40px;height:40px;border-radius:10px;flex:none;background:#3A3A3A url({{ pc.img }}) center / cover no-repeat;"></span>
+                  <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-size:14px;line-height:1.25;font-weight:700;color:#FFF765;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ pc.title }}</span><span style="font-size:12px;color:rgba(255,255,255,0.6);">{{ pc.by }}</span></span>
+                </span>
+                <span style="display:flex;align-items:center;gap:14px;width:100%;">
+                  <span style="position:relative;flex:1;min-width:0;height:48px;">
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;">
+                      <defs>
+                        <linearGradient id="{{ pc.gL }}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="{{ pc.color }}" stop-opacity="0"></stop><stop offset="55%" stop-color="{{ pc.color }}" stop-opacity="0.6"></stop><stop offset="100%" stop-color="{{ pc.color }}" stop-opacity="1"></stop></linearGradient>
+                        <linearGradient id="{{ pc.gA }}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="{{ pc.color }}" stop-opacity="0.28"></stop><stop offset="100%" stop-color="{{ pc.color }}" stop-opacity="0"></stop></linearGradient>
+                        <mask id="{{ pc.gM }}"><rect x="0" y="0" width="100" height="40" fill="url(#{{ pc.gL }})"></rect></mask>
+                      </defs>
+                      <path d="{{ pc.area }}" fill="url(#{{ pc.gA }})" mask="url(#{{ pc.gM }})"></path>
+                      <path d="{{ pc.line }}" fill="none" stroke="url(#{{ pc.gL }})" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+                    </svg>
+                    <span style="position:absolute;right:0;top:{{ pc.endTop }};width:8px;height:8px;border-radius:50%;background:{{ pc.color }};transform:translate(50%,-50%);box-shadow:0 0 0 4px {{ pc.glow }},0 0 14px {{ pc.color }};"></span>
+                  </span>
+                  <span style="font-size:30px;line-height:1;font-weight:800;letter-spacing:-0.6px;color:{{ pc.color }};flex:none;">{{ pc.pct }}</span>
+                </span>
+                <span style="display:flex;align-items:center;gap:2px;font-size:13px;font-weight:700;color:#FFF765;">Zum Honey<span class="material-symbols-outlined" style="font-size:18px;">chevron_right</span></span>
               </button>
             </sc-for>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:14px;background:rgba(255,255,255,0.06);border-radius:999px;padding:4px;">
+            <sc-for list="{{ perfRanges }}" as="pr" hint-placeholder-count="3">
+              <button onClick="{{ pr.pick }}" style="height:34px;border:0;border-radius:999px;background:{{ pr.bg }};color:{{ pr.color }};font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,color .2s;">{{ pr.label }}</button>
+            </sc-for>
           </div>
         </sc-if>
         <sc-if value="{{ noPerf }}" hint-placeholder-val="{{ false }}">
@@ -162,12 +154,7 @@ html,body{height:100%;overscroll-behavior:none}
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 4px 0;">
         <h2 style="margin:0;font-size:20px;font-weight:800;">Neue Honeys</h2>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:13px;font-weight:700;color:#62665F;">{{ carLabel }}</span>
-          <button onClick="{{ carNext }}" aria-label="Nächster Honey" style="width:36px;height:36px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-            <span class="material-symbols-outlined" style="font-size:20px;">chevron_right</span>
-          </button>
-        </div>
+        
       </div>
 
       <div ref="{{ carRef }}" onScroll="{{ onCarScroll }}" onPointerDown="{{ carDown }}" onPointerMove="{{ carMove }}" onPointerUp="{{ carUp }}" onPointerLeave="{{ carUp }}" class="mh-scroll" style="margin:12px -20px 0;padding:0 24px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;scrollbar-width:none;touch-action:pan-x pan-y;cursor:grab;user-select:none;">
@@ -182,8 +169,7 @@ html,body{height:100%;overscroll-behavior:none}
               </sc-if>
               <div style="position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(180deg,rgba(38,38,38,0) 0%,rgba(38,38,38,0.85) 100%);pointer-events:none;"></div>
               <div style="position:absolute;top:16px;left:16px;right:16px;display:flex;align-items:center;gap:8px;pointer-events:none;">
-                <span style="background:#FFF765;color:#0B0B0B;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ car.author }}</span>
-                <span style="background:rgba(255,247,101,0.85);color:#0B0B0B;font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;">{{ car.tag }}</span>
+                <sc-if value="{{ car.isAi }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;"><span style="width:28px;height:28px;flex:none;border-radius:50%;background:#FFF765;display:flex;align-items:center;justify-content:center;"><img src="assets/bee-v4/robo.svg" alt="" style="width:24px;height:24px;display:block;"></span><span style="background:#FFF765;color:#0B0B0B;font-size:12px;line-height:16px;font-weight:700;padding:6px 12px;border-radius:999px;">AI Bee</span></span></sc-if><sc-if value="{{ car.notAi }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:center;gap:4px;"><sc-if value="{{ car.coachImg }}" hint-placeholder-val="{{ false }}"><span style="width:28px;height:28px;flex:none;border-radius:50%;overflow:hidden;display:block;box-sizing:border-box;border:2px solid #FFF765;"><span style="width:100%;height:100%;background:#2F2F2F url({{ car.coachImg }}) 50% 22% / cover no-repeat;transform:scale(1.8);transform-origin:50% 28%;display:block;"></span></span></sc-if><span style="background:#FFF765;color:#0B0B0B;font-size:12px;line-height:16px;font-weight:700;padding:6px 12px;border-radius:999px;">{{ car.author }}</span></span></sc-if>
                 <button onClick="{{ car.toggleSave }}" aria-label="Merken" style="pointer-events:auto;margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,0.92);color:#0B0B0B;display:flex;align-items:center;justify-content:center;cursor:pointer;">
                   <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ car.saveFill }};animation:{{ car.saveAnim }};">bookmark</span>
                 </button>
@@ -193,7 +179,7 @@ html,body{height:100%;overscroll-behavior:none}
               <h3 style="margin: 0; font-size: 28px; line-height: 1.12; font-weight: 800; letter-spacing: -0.4px; text-wrap: pretty; color: #F2F2EF; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">{{ car.title }}</h3>
               <p style="margin: 0; font-size: 15px; line-height: 1.45; color: #F2F2EF; opacity: 0.9; text-wrap: pretty; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ car.teaser }}</p>
               <div style="border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,0.8fr) minmax(0,1.1fr);align-items:center;margin-top:4px;">
-                <div style="padding:14px 12px;display:flex;flex-direction:column;gap:3px;border-right:1px solid rgba(255,255,255,0.08);"><span style="font-size:11px;color:rgba(255,255,255,0.65);">Potenzial</span><span style="font-size:14px;line-height:1.2;font-weight:800;color:#33DA00;text-wrap:balance;">{{ car.pot }}</span></div>
+                <div style="padding:14px 12px;display:flex;flex-direction:column;gap:3px;border-right:1px solid rgba(255,255,255,0.08);"><span style="font-size:11px;color:rgba(255,255,255,0.65);">Kurs</span><span style="font-size:14px;line-height:1.2;font-weight:800;white-space:nowrap;">{{ car.kurs }}</span></div>
                 <div style="padding:14px 12px;display:flex;flex-direction:column;gap:3px;border-right:1px solid rgba(255,255,255,0.08);"><span style="font-size:11px;color:rgba(255,255,255,0.65);">Kursziel</span><span style="font-size:14px;line-height:1.2;font-weight:800;white-space:nowrap;">{{ car.ziel }}</span></div>
                 <div style="padding:14px 10px;display:flex;flex-direction:column;gap:10px;min-width:0;">
                   <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:11px;font-weight:800;width:36px;flex:none;">Chance</span><div style="flex:1;min-width:0;height:4px;border-radius:2px;background:rgba(255,255,255,0.12);overflow:hidden;"><div style="width:{{ car.chanceW }};height:100%;border-radius:2px;background:#33DA00;"></div></div></div>
@@ -218,7 +204,7 @@ html,body{height:100%;overscroll-behavior:none}
       <div style="position:relative;z-index:1;margin-top:24px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
         <div style="display:flex;align-items:center;gap:12px;">
           <span style="width:40px;height:40px;border-radius:12px;background:#262626;display:flex;align-items:center;justify-content:center;flex:none;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:24px;height:24px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:28px;height:28px;display:block;flex:none;">{{ beeGlyph }}</span></sc-if></span>
-          <h2 style="margin:0;font-size:20px;font-weight:800;">Monhey KI</h2>
+          <h2 style="margin:0;font-size:20px;font-weight:800;">AI Bee</h2>
         </div>
         <p style="margin:0;font-size:15px;line-height:1.5;color:#62665F;">Suche Produkte oder frag, was Dich beschäftigt</p>
       <div style="display:flex;align-items:center;gap:6px;background:#F1F2EE;border-radius:16px;height:60px;padding:0 8px 0 18px;">
@@ -256,7 +242,7 @@ html,body{height:100%;overscroll-behavior:none}
         <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:220px;background:url(assets/edge-aufloesung-schraeg.svg) center top / 440px 220px no-repeat;transform:scale(-1,-1);pointer-events:none;"></div>
         <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:absolute;right:18px;top:70px;width:104px;height:104px;pointer-events:none;">{{ roboHover }}</div></sc-if>
         <div style="position:relative;display:flex;align-items:center;gap:8px;">
-          <span style="font-size:14px;font-weight:800;">Monhey KI</span>
+          <span style="font-size:14px;font-weight:800;">AI Bee</span>
           <span style="font-size:11px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">Neu</span>
         </div>
         <div style="position:relative;display:flex;flex-direction:column;gap:4px;max-width:280px;margin-bottom:4px;">
@@ -265,7 +251,7 @@ html,body{height:100%;overscroll-behavior:none}
         </div>
       <div style="position:relative;display:flex;align-items:center;gap:6px;background:#fff;border:2px solid rgba(98,102,95,0.6);border-radius:20px;height:66px;padding:0 8px 0 18px;">
         <sc-if value="{{ notRec }}" hint-placeholder-val="{{ true }}">
-          <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" onFocus="{{ askFocus }}" onBlur="{{ askBlur }}" placeholder="Ich glaube, dass …" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:17px;font-weight:600;background:transparent;color:#0B0B0B;">
+          <input data-tw="1" ref="{{ twRef }}" value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" onFocus="{{ askFocus }}" onBlur="{{ askBlur }}" placeholder="Ich glaube, dass NVIDIA…" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:17px;font-weight:600;background:transparent;color:#0B0B0B;">
         </sc-if>
         <sc-if value="{{ rec }}" hint-placeholder-val="{{ false }}">
           <div style="flex:1;min-width:0;display:flex;align-items:center;gap:12px;animation:mh-fade .2s both;">
@@ -279,6 +265,17 @@ html,body{height:100%;overscroll-behavior:none}
         </sc-if>
         <button onClick="{{ toggleRec }}" aria-label="{{ micLabel }}" style="width:44px;height:44px;border-radius:50%;border:0;background:{{ micBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;animation:{{ micAnim }};transition:background .2s;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;font-variation-settings:'FILL' {{ micFill }};">{{ micIcon }}</span></button>
         <button onClick="{{ sendAsk }}" aria-label="Idee abschicken" style="width:48px;height:48px;border-radius:50%;border:0;background:#262626;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;">arrow_upward</span></button>
+        <sc-if value="{{ sugOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:-2px;right:-2px;top:calc(100% + 8px);z-index:30;background:#fff;border-radius:18px;box-shadow:0 14px 36px rgba(11,11,11,0.16);padding:8px;display:flex;flex-direction:column;animation:mh-rise .22s cubic-bezier(0.2,0,0,1) both;">
+            <span style="font-size:12px;font-weight:700;color:#62665F;padding:8px 10px 6px;">Aktuell gefragt</span>
+            <sc-for list="{{ ideaSugs }}" as="sg" hint-placeholder-count="3">
+              <button onMouseDown="{{ sg.keep }}" onClick="{{ sg.pick }}" style="border:0;background:transparent;border-radius:12px;padding:11px 10px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:left;font-family:inherit;font-size:15px;font-weight:600;color:#0B0B0B;" style-hover="background:#F1F2EE;">
+                <span class="material-symbols-outlined" style="font-size:18px;color:#62665F;flex:none;">{{ sg.icon }}</span>
+                <span style="flex:1;min-width:0;">{{ sg.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
       </div>
         <div style="position:relative;display:flex;flex-direction:column;gap:8px;margin-top:4px;">
           <span style="font-size:12px;font-weight:700;color:#62665F;margin:0 2px;">Andere haben diese Ideen:</span>
@@ -311,7 +308,7 @@ html,body{height:100%;overscroll-behavior:none}
       </div>
       <button onClick="{{ openLive }}" style="margin-top:12px;text-align:left;border:0;background:#262626;color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
         <div style="display:flex;align-items:center;gap:8px;">
-          <span style="display:flex;align-items:center;gap:6px;background:#FFF765;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span style="width:6px;height:6px;border-radius:50%;background:#262626;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
+          <span style="display:flex;align-items:center;gap:6px;background:#FF5A4E;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span style="width:6px;height:6px;border-radius:50%;background:#fff;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
           <span style="font-size:13px;font-weight:600;color:#B8BCB4;">Heute, 18:00</span>
           <sc-if value="{{ liveRegistered }}" hint-placeholder-val="{{ false }}">
             <span style="margin-left:auto;display:flex;align-items:center;gap:4px;background:#FFF765;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span class="material-symbols-outlined" style="font-size:14px;">check</span>Angemeldet</span>
@@ -337,9 +334,13 @@ html,body{height:100%;overscroll-behavior:none}
         <sc-for list="{{ honeyList }}" as="h" hint-placeholder-count="3">
           <div style="position:relative;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;animation-delay:{{ h.delay }};">
             <button onClick="{{ h.open }}" style="width:100%;text-align:left;border:0;background:#fff;border-radius:20px;padding:0;display:grid;grid-template-columns:104px minmax(0,1fr);overflow:hidden;cursor:pointer;color:#0B0B0B;font-family:inherit;transition:transform .15s;" style-active="transform:scale(0.98);">
-              <span style="position:relative;background:{{ h.thumbBg }};min-height:132px;"><span style="position:absolute;left:8px;bottom:8px;background:#FFF765;color:#0B0B0B;font-size:10px;font-weight:800;letter-spacing:.3px;padding:3px 7px;border-radius:999px;">{{ h.tag }}</span></span>
+              <span style="position:relative;background:{{ h.thumbBg }};min-height:132px;"></span>
               <span style="padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;min-width:0;">
-                <span style="font-size:12px;font-weight:700;color:#62665F;padding-right:36px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ h.author }} · {{ h.basis }}</span>
+                <span style="display:flex;align-items:center;gap:6px;padding-right:36px;min-width:0;">
+                  <sc-if value="{{ h.isAi }}" hint-placeholder-val="{{ false }}"><span style="width:20px;height:20px;flex:none;border-radius:50%;background:#FFF765;display:flex;align-items:center;justify-content:center;"><img src="assets/bee-v4/robo.svg" alt="" style="width:17px;height:17px;display:block;"></span></sc-if>
+                  <sc-if value="{{ h.coachImg }}" hint-placeholder-val="{{ false }}"><span style="width:20px;height:20px;flex:none;border-radius:50%;overflow:hidden;display:block;box-sizing:border-box;border:1.5px solid #FFF765;"><span style="width:100%;height:100%;background:#2F2F2F url({{ h.coachImg }}) 50% 22% / cover no-repeat;transform:scale(1.8);transform-origin:50% 28%;display:block;"></span></span></sc-if>
+                  <span style="font-size:12px;font-weight:700;color:#62665F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ h.authorName }} · {{ h.basis }}</span>
+                </span>
                 <span style="font-size:16px;line-height:1.28;font-weight:800;padding-right:24px;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{{ h.title }}</span>
                 <span style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:2px;">
                   <span style="font-size:14px;font-weight:800;color:#1F9E00;white-space:nowrap;">{{ h.pot }}</span>
@@ -349,6 +350,15 @@ html,body{height:100%;overscroll-behavior:none}
             <button onClick="{{ h.toggleSave }}" aria-label="Merken" style="position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;">
               <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ h.saveFill }};animation:{{ h.saveAnim }};">bookmark</span>
             </button>
+          </div>
+        </sc-for>
+      </div>
+      <h2 style="position:relative;margin:36px 4px 0;font-size:20px;font-weight:800;">News</h2>
+      <div style="position:relative;margin-top:10px;background:#fff;border-radius:20px;padding:0 18px;display:flex;flex-direction:column;">
+        <sc-for list="{{ marketNews }}" as="mn" hint-placeholder-count="5">
+          <div style="padding:14px 0;border-bottom:{{ mn.bb }};display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#62665F;"><span>{{ mn.time }}</span><span>·</span><span>{{ mn.asset }}</span></div>
+            <span style="font-size:15px;line-height:1.35;font-weight:700;text-wrap:pretty;">{{ mn.title }}</span>
           </div>
         </sc-for>
       </div>
@@ -433,7 +443,7 @@ html,body{height:100%;overscroll-behavior:none}
       <h1 style="margin:12px 4px 0;font-size:34px;font-weight:800;letter-spacing:-0.5px;">Coaches</h1>
       <p style="margin:6px 4px 0;font-size:15px;line-height:1.5;color:#62665F;">Lerne Trading-Coaches kennen und folge ihren Ideen.</p>
       <button onClick="{{ openLive }}" style="margin-top:20px;text-align:left;border:0;background:#262626;color:#fff;border-radius:20px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;">
-        <span style="display:flex;align-items:center;gap:6px;background:#FFF765;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;flex:none;"><span style="width:6px;height:6px;border-radius:50%;background:#262626;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
+        <span style="display:flex;align-items:center;gap:6px;background:#FF5A4E;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;flex:none;"><span style="width:6px;height:6px;border-radius:50%;background:#fff;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
         <span style="flex:1;font-size:14px;font-weight:700;">Heute 18:00 · IT-Werte im Fokus</span>
         <span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;">arrow_forward</span>
       </button>
@@ -512,27 +522,36 @@ html,body{height:100%;overscroll-behavior:none}
         <div style="display:flex;align-items:center;gap:6px;margin-top:8px;"><span style="font-size:22px;font-weight:800;">{{ cp.name }}</span><span class="material-symbols-outlined" style="font-size:19px;font-variation-settings:'FILL' 1;">verified</span></div>
         <span style="font-size:14px;color:#62665F;">{{ cp.topics }}</span>
         <div style="width:100%;margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#F2F2EF;border-radius:16px;padding:12px 0;">
-          <div><div style="font-size:17px;font-weight:800;">{{ cp.track }}</div><div style="font-size:12px;color:#62665F;margin-top:2px;">Track</div></div>
+          <div><div style="font-size:17px;font-weight:800;">{{ cp.track }}</div><div style="font-size:12px;color:#62665F;margin-top:2px;">Track seit Start</div></div>
           <div style="border-left:1px solid #E2E2DD;border-right:1px solid #E2E2DD;"><div style="font-size:17px;font-weight:800;">{{ cp.hit }}</div><div style="font-size:12px;color:#62665F;margin-top:2px;">Trefferquote</div></div>
           <div><div style="font-size:17px;font-weight:800;">{{ cp.subs }}</div><div style="font-size:12px;color:#62665F;margin-top:2px;">Abonnenten</div></div>
         </div>
         <button onClick="{{ cpToggle }}" style="margin-top:12px;width:100%;height:52px;border-radius:14px;border:0;background:{{ cpBtnBg }};color:{{ cpBtnColor }};font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;">
           <span class="material-symbols-outlined" style="font-size:20px;animation:{{ cpAnim }};">{{ cpBtnIcon }}</span><span>{{ cpBtnLabel }}</span>
         </button>
+        <sc-if value="{{ cpShowPrice }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;font-size:13px;margin-top:2px;">
+            <sc-if value="{{ cpNonMember }}" hint-placeholder-val="{{ true }}"><span style="color:#62665F;">Für Monhey Members nur</span><span style="font-weight:800;background:#FFF765;padding:1px 6px;border-radius:4px;">79,90 €</span><button onClick="{{ openPayMember }}" style="border:0;background:transparent;padding:0;font-family:inherit;font-size:13px;font-weight:700;text-decoration:underline;cursor:pointer;color:#0B0B0B;">Member werden</button></sc-if>
+            <sc-if value="{{ member }}" hint-placeholder-val="{{ false }}"><span style="color:#62665F;">Dein Member-Preis. Ohne Mitgliedschaft</span><span style="color:#62665F;text-decoration:line-through;">99 €</span></sc-if>
+          </div>
+        </sc-if>
         <span style="font-size:12px;color:#62665F;margin-top:2px;">{{ cpBtnNote }}</span>
       </div>
 
       <div style="margin-top:12px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
         <span style="font-size:15px;line-height:1.6;color:#3B3F39;">{{ cp.bio }}</span>
-        <div style="display:flex;align-items:flex-end;gap:6px;height:64px;">
-          <sc-for list="{{ cp.bars }}" as="b" hint-placeholder-count="6">
-            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;">
-              <div style="width:100%;height:{{ b.h }};border-radius:6px;background:{{ b.bg }};animation:mh-rise .5s cubic-bezier(0.2,0,0,1) both;"></div>
-              <span style="font-size:11px;font-weight:600;color:#62665F;">{{ b.label }}</span>
-            </div>
-          </sc-for>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <span style="font-size:36px;line-height:1.05;font-weight:800;letter-spacing:-0.8px;color:{{ cp.perfCol }};">{{ cp.track }}</span>
+            <span style="font-size:13px;font-weight:700;color:#62665F;">Ø Performance seit Start</span>
+          </div>
+          <svg viewBox="0 0 300 90" preserveAspectRatio="none" style="width:100%;height:90px;display:block;overflow:visible;">
+            <path d="{{ cp.perfArea }}" fill="{{ cp.perfFill }}"></path>
+            <path d="{{ cp.perfLine }}" fill="none" stroke="{{ cp.perfStroke }}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:#62665F;"><span>Start {{ cp.since }}</span><span>Heute</span></div>
         </div>
-        <span style="font-size:12px;color:#62665F;">Trefferquote pro Monat · illustrative Werte</span>
+        <span style="font-size:12px;color:#62665F;">Durchschnitt aller Ideen von {{ cp.first }} · illustrative Darstellung</span>
       </div>
 
       <sc-if value="{{ cpHasHoneys }}" hint-placeholder-val="{{ false }}">
@@ -571,7 +590,7 @@ html,body{height:100%;overscroll-behavior:none}
         <img src="assets/coach-1.jpg" alt="" style="position:absolute;right:0;top:0;height:100%;width:62%;object-fit:cover;">
         <div style="position:absolute;inset:0;background:linear-gradient(90deg,#262626 36%,rgba(11,11,11,0) 100%);"></div>
         <div style="position:absolute;top:16px;left:16px;display:flex;gap:8px;">
-          <span style="display:flex;align-items:center;gap:6px;background:#FFF765;color:#0B0B0B;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span style="width:6px;height:6px;border-radius:50%;background:#262626;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
+          <span style="display:flex;align-items:center;gap:6px;background:#FF5A4E;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;"><span style="width:6px;height:6px;border-radius:50%;background:#fff;animation:mh-blink 1.4s infinite;"></span>LIVE</span>
           <span style="display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.16);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;"><span class="material-symbols-outlined" style="font-size:14px;">group</span>{{ liveCount }}</span>
         </div>
         <div style="position:absolute;left:18px;bottom:18px;color:#fff;font-size:15px;font-weight:700;">Heute, 18:00 · 45 Min.</div>
@@ -764,8 +783,11 @@ html,body{height:100%;overscroll-behavior:none}
       </div>
 
       <sc-if value="{{ prodPage.isStock }}" hint-placeholder-val="{{ false }}">
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Monhey Einschätzung</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:18px;">
+      <div style="position:relative;margin:28px -20px 0;background:linear-gradient(180deg,transparent 0,transparent 218px,#FFFFFF 218px,#FFFFFF calc(100% - 218px),transparent calc(100% - 218px));padding:170px 24px 170px;display:flex;flex-direction:column;">
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:220px;background:url(assets/edge-aufloesung-schraeg.svg) center top / 440px 220px no-repeat;pointer-events:none;"></div>
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:220px;background:url(assets/edge-aufloesung-schraeg.svg) center top / 440px 220px no-repeat;transform:scale(-1,-1);pointer-events:none;"></div>
+      <h2 style="position:relative;margin:0;font-size:20px;font-weight:800;color:#0B0B0B;">Monhey Einschätzung</h2>
+      <div style="position:relative;margin-top:14px;display:flex;flex-direction:column;gap:18px;">
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;"><span style="font-size:13px;color:#62665F;">Gesamteindruck</span><span style="font-size:17px;font-weight:800;">{{ prodPage.impLabel }}</span></div>
           <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;">
@@ -785,15 +807,15 @@ html,body{height:100%;overscroll-behavior:none}
         </div>
       </div>
 
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Das Wichtigste in Kürze</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">Das Wichtigste in Kürze</h2>
+      <div style="position:relative;margin-top:14px;display:flex;flex-direction:column;gap:14px;">
         <sc-for list="{{ prodPage.points }}" as="p" hint-placeholder-count="4">
           <div style="display:flex;gap:12px;align-items:flex-start;"><span style="width:24px;height:24px;border-radius:50%;background:{{ p.bg }};display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;color:#0B0B0B;">{{ p.icon }}</span></span><span style="font-size:15px;line-height:1.45;text-wrap:pretty;">{{ p.text }}</span></div>
         </sc-for>
       </div>
 
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Im Vergleich zur Branche</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:18px;">
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">Im Vergleich zur Branche</h2>
+      <div style="position:relative;margin-top:14px;display:flex;flex-direction:column;gap:18px;">
         <sc-for list="{{ prodPage.cmp }}" as="c" hint-placeholder-count="3">
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;"><span style="font-size:14px;font-weight:800;">{{ c.label }}</span><span style="font-size:12px;color:#62665F;">{{ c.note }}</span></div>
@@ -805,8 +827,8 @@ html,body{height:100%;overscroll-behavior:none}
         </sc-for>
       </div>
 
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Über das Unternehmen</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">Über das Unternehmen</h2>
+      <div style="position:relative;margin-top:14px;display:flex;flex-direction:column;gap:14px;">
         <p style="margin:0;font-size:15px;line-height:1.55;text-wrap:pretty;">{{ prodPage.desc }}</p>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <span style="font-size:12px;font-weight:700;background:#F2F2EF;padding:6px 10px;border-radius:999px;">Sitz: {{ prodPage.hq }}</span>
@@ -814,6 +836,7 @@ html,body{height:100%;overscroll-behavior:none}
         </div>
       </div>
 
+      </div>
       <div style="margin-top:28px;background:#262626;color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
         <div style="display:flex;align-items:center;gap:12px;">
           <span style="width:44px;height:44px;border-radius:12px;background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:24px;color:#0B0B0B;">description</span></span>
@@ -827,8 +850,11 @@ html,body{height:100%;overscroll-behavior:none}
       </sc-if>
 
       <sc-if value="{{ prodPage.isInfo }}" hint-placeholder-val="{{ false }}">
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Kurz erklärt</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:20px;">
+      <div style="position:relative;margin:28px -20px 0;background:linear-gradient(180deg,transparent 0,transparent 218px,#FFFFFF 218px,#FFFFFF calc(100% - 218px),transparent calc(100% - 218px));padding:170px 24px 170px;display:flex;flex-direction:column;">
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:220px;background:url(assets/edge-aufloesung-schraeg.svg) center top / 440px 220px no-repeat;pointer-events:none;"></div>
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:220px;background:url(assets/edge-aufloesung-schraeg.svg) center top / 440px 220px no-repeat;transform:scale(-1,-1);pointer-events:none;"></div>
+      <h2 style="position:relative;margin:0;font-size:20px;font-weight:800;color:#0B0B0B;">Kurz erklärt</h2>
+      <div style="position:relative;margin-top:14px;display:flex;flex-direction:column;gap:20px;">
         <p style="margin:0;font-size:16px;line-height:1.55;font-weight:600;text-wrap:pretty;">{{ prodPage.intro }}</p>
         <div style="display:flex;flex-direction:column;">
           <sc-for list="{{ prodPage.steps }}" as="st" hint-placeholder-count="3">
@@ -841,8 +867,8 @@ html,body{height:100%;overscroll-behavior:none}
       </div>
 
       <sc-if value="{{ prodPage.hasWeights }}" hint-placeholder-val="{{ false }}">
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Die größten Werte im Index</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">Die größten Werte im Index</h2>
+      <div style="position:relative;margin-top:14px;display:flex;flex-direction:column;gap:14px;">
         <sc-for list="{{ prodPage.weights }}" as="w" hint-placeholder-count="5">
           <div style="display:grid;grid-template-columns:120px minmax(0,1fr) 52px;align-items:center;gap:10px;font-size:14px;"><span style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ w.name }}</span><span style="height:10px;border-radius:5px;background:#F2F2EF;overflow:hidden;"><span style="display:block;height:100%;width:{{ w.w }};background:#262626;border-radius:5px;"></span></span><span style="font-weight:800;text-align:right;">{{ w.val }}</span></div>
         </sc-for>
@@ -851,37 +877,38 @@ html,body{height:100%;overscroll-behavior:none}
       </sc-if>
 
       <sc-if value="{{ prodPage.hasDrivers }}" hint-placeholder-val="{{ false }}">
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">{{ prodPage.driversTitle }}</h2>
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">{{ prodPage.driversTitle }}</h2>
       <div style="margin-top:10px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;">
         <sc-for list="{{ prodPage.drivers }}" as="d" hint-placeholder-count="4">
-          <div style="background:#fff;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px;"><span style="width:36px;height:36px;border-radius:50%;background:#F2F2EF;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;color:#0B0B0B;">{{ d.icon }}</span></span><span style="font-size:15px;font-weight:800;">{{ d.title }}</span><span style="font-size:13px;line-height:1.45;color:#3B3F39;text-wrap:pretty;">{{ d.text }}</span></div>
+          <div style="background:#F2F2EF;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px;"><span style="width:36px;height:36px;border-radius:50%;background:#F2F2EF;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;color:#0B0B0B;">{{ d.icon }}</span></span><span style="font-size:15px;font-weight:800;">{{ d.title }}</span><span style="font-size:13px;line-height:1.45;color:#3B3F39;text-wrap:pretty;">{{ d.text }}</span></div>
         </sc-for>
       </div>
       </sc-if>
 
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Chance und Risiko</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">Chance und Risiko</h2>
+      <div style="position:relative;margin-top:6px;display:flex;flex-direction:column;">
         <div style="padding:16px 0;border-bottom:1px solid #ECECE8;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#33DA00;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span></span><div><div style="font-size:16px;font-weight:800;">Chance</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;text-wrap:pretty;">{{ prodPage.chance }}</div></div></div>
         <div style="padding:16px 0;display:flex;gap:12px;"><span style="width:24px;height:24px;border-radius:50%;background:#FFB38A;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:16px;">arrow_downward</span></span><div><div style="font-size:16px;font-weight:800;">Risiko</div><div style="font-size:15px;line-height:1.55;color:#3B3F39;margin-top:4px;text-wrap:pretty;">{{ prodPage.risk }}</div></div></div>
       </div>
 
       <sc-if value="{{ prodPage.hasWays }}" hint-placeholder-val="{{ false }}">
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">{{ prodPage.waysTitle }}</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">{{ prodPage.waysTitle }}</h2>
+      <div style="position:relative;margin-top:6px;display:flex;flex-direction:column;">
         <sc-for list="{{ prodPage.ways }}" as="w" hint-placeholder-count="3">
           <button onClick="{{ w.go }}" style="border:0;border-bottom:{{ w.bb }};background:transparent;padding:16px 0;display:flex;align-items:flex-start;gap:14px;cursor:pointer;text-align:left;font-family:inherit;color:#0B0B0B;"><span style="width:36px;height:36px;border-radius:50%;background:#FFF765;display:flex;align-items:center;justify-content:center;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;color:#0B0B0B;">{{ w.icon }}</span></span><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;"><span style="font-size:16px;font-weight:800;">{{ w.title }}</span><span style="font-size:14px;line-height:1.5;color:#3B3F39;text-wrap:pretty;">{{ w.text }}</span><span style="font-size:12px;font-weight:700;color:#62665F;">{{ w.risk }}</span></span><span class="material-symbols-outlined" style="font-size:22px;color:#62665F;margin-top:6px;">chevron_right</span></button>
         </sc-for>
       </div>
       </sc-if>
 
-      <h2 style="margin:28px 4px 0;font-size:13px;font-weight:700;color:#62665F;">Gut zu wissen</h2>
-      <div style="margin-top:10px;background:#fff;border-radius:24px;padding:4px 20px;display:flex;flex-direction:column;">
+      <h2 style="position:relative;margin:40px 0 0;font-size:20px;font-weight:800;color:#0B0B0B;">Gut zu wissen</h2>
+      <div style="position:relative;margin-top:6px;display:flex;flex-direction:column;">
         <sc-for list="{{ prodPage.faq }}" as="q" hint-placeholder-count="3">
           <div style="border-bottom:{{ q.bb }};display:flex;flex-direction:column;">
             <button onClick="{{ q.toggle }}" style="border:0;background:transparent;padding:16px 0;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;font-family:inherit;color:#0B0B0B;"><span style="flex:1;font-size:15px;font-weight:800;line-height:1.35;">{{ q.q }}</span><span class="material-symbols-outlined" style="font-size:22px;">{{ q.icon }}</span></button>
             <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}"><p style="margin:-6px 0 0;padding:0 28px 16px 0;font-size:14px;line-height:1.55;color:#3B3F39;text-wrap:pretty;animation:mh-fade .25s both;">{{ q.a }}</p></sc-if>
           </div>
         </sc-for>
+      </div>
       </div>
       </sc-if>
 
@@ -897,6 +924,15 @@ html,body{height:100%;overscroll-behavior:none}
       <button onClick="{{ prodPage.trade }}" style="margin-top:20px;height:56px;border:0;border-radius:14px;background:#262626;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .15s;" style-active="transform:scale(0.98);">
         <span>Beim Broker handeln</span><span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;">arrow_outward</span>
       </button>
+      <h2 style="margin:36px 4px 0;font-size:20px;font-weight:800;">News</h2>
+      <div style="margin-top:10px;background:#fff;border-radius:20px;padding:0 18px;display:flex;flex-direction:column;">
+        <sc-for list="{{ prodPage.news }}" as="pn" hint-placeholder-count="4">
+          <div style="padding:14px 0;border-bottom:{{ pn.bb }};display:flex;flex-direction:column;gap:4px;">
+            <span style="font-size:12px;font-weight:700;color:#62665F;">{{ pn.time }}</span>
+            <span style="font-size:15px;line-height:1.35;font-weight:700;text-wrap:pretty;">{{ pn.title }}</span>
+          </div>
+        </sc-for>
+      </div>
       <p style="margin:16px 4px 0;font-size:12px;line-height:1.5;color:#62665F;">Alle Kurse und Werte sind illustrative Beispieldaten. Keine individuelle Anlageberatung.</p>
     </div>
     </sc-if>
@@ -1047,12 +1083,13 @@ html,body{height:100%;overscroll-behavior:none}
           </button>
         </div>
 
-        <h2 style="margin:56px 4px 0;font-size:20px;font-weight:800;">Wie willst du traden?</h2>
+        <div aria-hidden="true" style="position:relative;height:0;"><div style="position:absolute;left:-20px;right:-20px;top:24px;height:330px;background:url(assets/hex-trade-grau3.svg) center top / 440px 330px no-repeat;pointer-events:none;"></div></div>
+        <h2 style="position:relative;margin:80px 4px 0;max-width:230px;font-size:30px;line-height:1.12;font-weight:800;letter-spacing:-0.6px;text-wrap:balance;">Wie willst du traden?</h2>
         <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:relative;height:0;"><div style="position:absolute;right:26px;bottom:-38px;width:78px;height:78px;">{{ peekTrade }}</div><div style="position:absolute;z-index:2;right:26px;bottom:-38px;width:78px;height:78px;pointer-events:none;">{{ peekTradeFront }}</div></div></sc-if>
-        <div style="position:relative;z-index:1;margin-top:12px;background:#fff;border-radius:999px;padding:5px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;">
-          <div style="position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 18px) / 3);border-radius:999px;background:#262626;transform:translateX({{ modeX }});transition:transform .35s cubic-bezier(0.2,0,0,1);"></div>
+        <div style="position:relative;z-index:1;margin-top:16px;background:#fff;border-radius:999px;padding:5px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;">
+          <div style="position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 18px) / 3);border-radius:999px;background:#FFF765;transform:translateX({{ modeX }});transition:transform .35s cubic-bezier(0.2,0,0,1);"></div>
           <sc-for list="{{ modes }}" as="m" hint-placeholder-count="3">
-            <button onClick="{{ m.pick }}" style="position:relative;height:42px;border:0;border-radius:999px;background:transparent;font-size:13px;font-weight:700;cursor:pointer;color:{{ m.color }};transition:color .3s;">{{ m.label }}</button>
+            <button onClick="{{ m.pick }}" style="position:relative;height:52px;border:0;border-radius:999px;background:transparent;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;color:{{ m.color }};transition:color .3s;">{{ m.label }}</button>
           </sc-for>
         </div>
         <div style="position:relative;margin-top:16px;">
@@ -1083,7 +1120,7 @@ html,body{height:100%;overscroll-behavior:none}
     </sc-if>
   </div>
 
-  <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+  <sc-if value="{{ navClassic }}" hint-placeholder-val="{{ true }}">
     <div style="position:absolute;left:20px;right:20px;bottom:26px;z-index:25;display:flex;justify-content:space-between;gap:4px;background:linear-gradient(180deg,rgba(52,52,52,0.88) 0%,rgba(30,30,30,0.92) 100%);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-radius:999px;padding:6px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.18),0 12px 30px rgba(0,0,0,0.35),0 0 0 1px rgba(0,0,0,0.25);animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
       <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
         <button onClick="{{ n.go }}" aria-label="{{ n.label }}" title="{{ n.label }}" style="position:relative;flex:1;min-width:0;height:52px;border-radius:999px;border:0;background:{{ n.bg }};color:{{ n.color }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .25s,color .25s;">
@@ -1097,9 +1134,78 @@ html,body{height:100%;overscroll-behavior:none}
     </div>
   </sc-if>
 
+  <sc-if value="{{ navSplit }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:20px;right:20px;bottom:26px;z-index:{{ navZ }};display:flex;align-items:center;gap:10px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">
+      <div style="flex:1;min-width:0;display:flex;justify-content:space-between;gap:4px;background:linear-gradient(180deg,rgba(52,52,52,0.88) 0%,rgba(30,30,30,0.92) 100%);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-radius:999px;padding:6px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.18),0 12px 30px rgba(0,0,0,0.35),0 0 0 1px rgba(0,0,0,0.25);">
+        <sc-for list="{{ navMain }}" as="n" hint-placeholder-count="4">
+          <button onClick="{{ n.go }}" aria-label="{{ n.label }}" title="{{ n.label }}" style="position:relative;flex:1;min-width:0;height:52px;border-radius:999px;border:0;background:{{ n.bg }};color:{{ n.color }};display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .25s,color .25s;">
+            <span class="material-symbols-outlined" style="font-size:24px;font-variation-settings:'FILL' {{ n.fill }};">{{ n.icon }}</span>
+            <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:5px;right:5px;min-width:16px;height:16px;border-radius:8px;background:#FFF765;color:#0B0B0B;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;box-shadow:0 0 0 2px #262626;">{{ n.badge }}</span></sc-if>
+          </button>
+        </sc-for>
+      </div>
+      <button data-mh-beehab="1" onClick="{{ toggleAssist }}" aria-label="AI Bee öffnen" title="AI Bee" style="position:relative;overflow:visible;flex:none;width:64px;height:64px;border-radius:50%;border:0;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;background:{{ assistBtnBg }};color:{{ assistBtnColor }};backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.18),0 12px 30px rgba(0,0,0,0.35),0 0 0 1px rgba(0,0,0,0.25);transition:background .25s,color .25s;">
+        <sc-if value="{{ assistClosed }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position:absolute;inset:6px;border-radius:50%;background:radial-gradient(circle at var(--gx,50%) var(--gy,45%),rgba(255,247,101,0.28) 0%,rgba(255,247,101,0) 62%);pointer-events:none;"></span><span aria-hidden="true" style="position:relative;width:44px;height:44px;margin-top:-1px;display:block;animation:mh-beebob 3.4s ease-in-out infinite;"><span data-mh-bee="1" style="width:100%;height:100%;display:block;color:#FFFFFF;will-change:transform;"><span style="width:100%;height:100%;display:block;transform:scaleX(-1);">{{ beeGlyphW }}</span></span></span></sc-if>
+        <sc-if value="{{ assistX }}" hint-placeholder-val="{{ false }}"><span class="material-symbols-outlined" style="font-size:28px;">close</span></sc-if>
+      </button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ explainOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-mh-explain="1" data-mh-noterm="1" style="position:absolute;left:10px;right:10px;bottom:102px;z-index:24;border-radius:24px;padding:14px 14px 12px 16px;background:rgba(34,34,34,0.74);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.16),0 18px 44px rgba(0,0,0,0.35);color:#fff;display:flex;flex-direction:column;gap:10px;transform-origin:92% 100%;animation:mh-assist .32s cubic-bezier(0.2,0,0,1) both;">
+      <div style="display:flex;align-items:flex-start;gap:8px;">
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;"><span style="font-size:15px;font-weight:800;color:#FFF765;">{{ explain.title }}</span><span style="font-size:14px;line-height:1.5;color:rgba(255,255,255,0.88);text-wrap:pretty;">{{ explain.text }}</span></span>
+        <button onClick="{{ explainClose }}" aria-label="Schließen" style="width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;color:#fff;"><span class="material-symbols-outlined" style="font-size:18px;">close</span></button>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <sc-for list="{{ explain.chips }}" as="ec" hint-placeholder-count="2"><button onClick="{{ ec.go }}" style="border:1px solid rgba(255,255,255,0.2);background:transparent;border-radius:999px;padding:7px 12px;font-family:inherit;font-size:13px;font-weight:700;color:#fff;cursor:pointer;">{{ ec.label }}</button></sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:999px;padding:4px 4px 4px 14px;">
+        <input value="{{ peekText }}" onChange="{{ onPeekText }}" onKeyDown="{{ onPeekKey }}" placeholder="Weiter fragen …" style="flex:1;min-width:0;border:0;outline:none;background:transparent;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+        <button onClick="{{ peekSend }}" aria-label="Senden" style="width:36px;height:36px;border-radius:50%;border:0;background:#FFF765;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;color:#0B0B0B;">arrow_upward</span></button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ peekAssist }}" hint-placeholder-val="{{ false }}">
+    <div data-mh-noterm="1" style="position:absolute;left:10px;right:10px;bottom:102px;z-index:24;border-radius:24px;padding:12px 12px 12px 16px;background:rgba(34,34,34,0.74);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.16),0 18px 44px rgba(0,0,0,0.35);color:#fff;display:flex;flex-direction:column;gap:10px;transform-origin:92% 100%;animation:mh-assist .4s cubic-bezier(0.2,0,0,1) .7s both;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.3;">Fragen zu <span style="color:#FFF765;">{{ peekName }}</span>?</span>
+        <button onClick="{{ peekClose }}" aria-label="Schließen" style="width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;color:#fff;"><span class="material-symbols-outlined" style="font-size:18px;">close</span></button>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:999px;padding:4px 4px 4px 14px;">
+        <input value="{{ peekText }}" onChange="{{ onPeekText }}" onKeyDown="{{ onPeekKey }}" placeholder="{{ peekPh }}" style="flex:1;min-width:0;border:0;outline:none;background:transparent;color:#fff;font-family:inherit;font-size:15px;font-weight:600;">
+        <button onClick="{{ peekSend }}" aria-label="Senden" style="width:36px;height:36px;border-radius:50%;border:0;background:#FFF765;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:20px;color:#0B0B0B;">arrow_upward</span></button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ assistOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ toggleAssist }}" style="position:absolute;inset:0;z-index:23;background:rgba(11,11,11,0.18);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:mh-fade .25s both;"></div>
+    <div style="position:absolute;left:10px;right:10px;bottom:102px;z-index:24;border-radius:28px;padding:16px;background:rgba(34,34,34,0.74);backdrop-filter:blur(26px) saturate(1.5);-webkit-backdrop-filter:blur(26px) saturate(1.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.16),0 24px 60px rgba(0,0,0,0.4);color:#fff;display:flex;flex-direction:column;gap:14px;transform-origin:92% 100%;animation:mh-assist .32s cubic-bezier(0.2,0,0,1) both;">
+      <div style="display:flex;align-items:center;gap:8px;margin:0 2px;">
+        <span style="font-size:15px;font-weight:800;color:#FFF765;">AI Bee</span>
+        <span style="font-size:13px;color:rgba(255,255,255,0.7);">Deine Idee, deine Frage, dein Produkt</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.16);border-radius:999px;padding:5px 5px 5px 16px;">
+        <input value="{{ assistText }}" onChange="{{ onAssistText }}" onKeyDown="{{ onAssistKey }}" autofocus="{{ true }}" placeholder="Idee, Frage, Produkt oder WKN …" style="flex:1;min-width:0;border:0;outline:none;background:transparent;color:#fff;font-family:inherit;font-size:16px;font-weight:600;">
+        <button onClick="{{ assistSend }}" aria-label="Senden" style="width:40px;height:40px;border-radius:50%;border:0;background:#FFF765;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;">arrow_upward</span></button>
+      </div>
+      <div style="display:flex;flex-direction:column;">
+        <sc-for list="{{ assistSugg }}" as="a" hint-placeholder-count="3">
+          <button onClick="{{ a.go }}" style="border:0;border-top:{{ a.bt }};background:transparent;padding:11px 2px;display:flex;align-items:center;gap:12px;cursor:pointer;color:#fff;text-align:left;font-family:inherit;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;animation-delay:{{ a.delay }};">
+            <span style="width:34px;height:34px;border-radius:50%;flex:none;background:#FFF765;display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:19px;color:#0B0B0B;">{{ a.icon }}</span></span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;"><span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);">{{ a.kind }}</span><span style="font-size:14px;font-weight:700;">{{ a.text }}</span></span>
+            <span class="material-symbols-outlined" style="font-size:18px;color:rgba(255,255,255,0.5);">north_west</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(11,11,11,0.4);z-index:40;animation:{{ backdropAnim }};"></div>
-    <div data-mh-sheet="1" class="mh-scroll" style="position:absolute;left:0;right:0;bottom:0;top:{{ sheetTop }};background:#F2F2EF;border-radius:28px 28px 0 0;z-index:41;overflow-y:auto;scrollbar-width:none;padding:10px 20px 40px;animation:{{ sheetAnim }};">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:{{ bdBg }};backdrop-filter:{{ bdBlur }};-webkit-backdrop-filter:{{ bdBlur }};z-index:40;animation:{{ backdropAnim }};"></div>
+    <div data-mh-sheet="1" class="mh-scroll" style="position:absolute;left:{{ shL }};right:{{ shL }};bottom:{{ shB }};top:{{ sheetTop }};background:{{ shBg }};backdrop-filter:{{ shBlur }};-webkit-backdrop-filter:{{ shBlur }};border-radius:{{ shR }};box-shadow:{{ shShadow }};color:{{ shColor }};transform-origin:92% 100%;z-index:41;overflow-y:auto;scrollbar-width:none;padding:10px 20px 40px;animation:{{ sheetAnim }};">
       <div style="width:36px;height:4px;border-radius:2px;background:#CFCFC9;margin:0 auto;"></div>
 
       <sc-if value="{{ isReportSheet }}" hint-placeholder-val="{{ false }}">
@@ -1119,12 +1225,12 @@ html,body{height:100%;overscroll-behavior:none}
           <span style="text-align:center;font-size:12px;color:#62665F;">Beispielablauf · es wird nichts berechnet</span>
         </div>
       </sc-if>
-      <sc-if value="{{ isIdeaSheet }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ isIdeaSheetLight }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;min-height:calc(100% - 4px);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
             <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
               <span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyph }}</span></span>
-              <div><div style="font-size:20px;font-weight:800;">Monhey KI</div><div style="font-size:13px;color:#62665F;">Deine Idee, passende Produkte</div></div>
+              <div><div style="font-size:20px;font-weight:800;">AI Bee</div><div style="font-size:13px;color:#62665F;">Deine Idee, passende Produkte</div></div>
             </div>
             <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
           </div>
@@ -1164,15 +1270,10 @@ html,body{height:100%;overscroll-behavior:none}
               </div>
 
               <div style="background:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) .2s both;">
-                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;">
-                  <h3 style="margin:0;font-size:18px;font-weight:800;">So schätzen wir das ein</h3>
-                  <span style="font-size:13px;font-weight:800;">{{ idea.scoreLabel }}</span>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:6px;">
-                  <div style="display:flex;gap:3px;">
-                    <sc-for list="{{ idea.scoreBars }}" as="b" hint-placeholder-count="10"><span style="flex:1;height:8px;border-radius:2px;background:{{ b }};"></span></sc-for>
-                  </div>
-                  <span style="font-size:12px;color:#62665F;">Rückenwind für deine Idee</span>
+                <h3 style="margin:0;font-size:18px;font-weight:800;">So schätzen wir das ein</h3>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:13px;font-weight:800;width:52px;flex:none;">Chance</span><div style="flex:1;min-width:0;height:6px;border-radius:3px;background:#ECECE8;overflow:hidden;"><div style="width:{{ idea.chanceW }};height:100%;border-radius:3px;background:#33DA00;"></div></div><span style="font-size:13px;font-weight:800;width:36px;text-align:right;flex:none;">{{ idea.scoreLabel }}</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:13px;font-weight:800;width:52px;flex:none;">Risiko</span><div style="flex:1;min-width:0;height:6px;border-radius:3px;background:#ECECE8;overflow:hidden;"><div style="width:{{ idea.riskW }};height:100%;border-radius:3px;background:#FF5A4E;"></div></div><span style="font-size:13px;font-weight:800;width:36px;text-align:right;flex:none;">{{ idea.riskLabel }}</span></div>
                 </div>
                 <p style="margin:0;font-size:15px;line-height:1.55;text-wrap:pretty;">{{ idea.assess }}</p>
                 <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;">
@@ -1216,12 +1317,104 @@ html,body{height:100%;overscroll-behavior:none}
           </div>
         </div>
       </sc-if>
-      <sc-if value="{{ isAiSheet }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ isIdeaSheetDark }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;min-height:calc(100% - 4px);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
+              <span style="width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyphW }}</span></span>
+              <div><div style="font-size:20px;font-weight:800;">AI Bee</div><div style="font-size:13px;color:rgba(255,255,255,0.68);">Deine Idee, passende Produkte</div></div>
+            </div>
+            <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;;color:#FFFFFF"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:14px;padding:20px 0 16px;">
+            <div style="align-self:flex-end;max-width:86%;background:rgba(0,0,0,0.35);color:#fff;border-radius:20px 20px 6px 20px;padding:14px 18px;font-size:15px;line-height:1.5;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">{{ idea.text }}</div>
+
+            <sc-if value="{{ ideaThinking }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px 0 8px;animation:mh-fade .3s both;">
+                <div style="width:120px;height:120px;">{{ roboThinkW }}</div>
+                <div style="display:flex;flex-direction:column;gap:10px;min-width:240px;">
+                  <sc-for list="{{ ideaStatus }}" as="st" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:10px;opacity:{{ st.op }};transition:opacity .3s;">
+                      <span style="width:24px;height:24px;border-radius:50%;background:{{ st.bg }};display:flex;align-items:center;justify-content:center;flex:none;transition:background .3s;;color:#0B0B0B"><span class="material-symbols-outlined" style="font-size:16px;color:#FFFFFF;">{{ st.icon }}</span></span>
+                      <span style="font-size:15px;font-weight:700;">{{ st.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ ideaDone }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:10px;align-items:flex-start;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;">
+                <span style="width:40px;height:40px;flex:none;display:block;">{{ roboAvaW }}</span>
+                <div style="background:rgba(255,255,255,0.09);border-radius:6px 20px 20px 20px;padding:14px 16px;font-size:15px;line-height:1.5;text-wrap:pretty;">Verstanden. Du rechnest mit {{ idea.thesis }}. Hier ist meine Einschätzung und wie du die Idee umsetzen kannst.</div>
+              </div>
+
+              <div style="background:rgba(0,0,0,0.35);color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) .1s both;">
+                <span style="font-size:12px;font-weight:700;color:#B8BCB4;">DEINE IDEE</span>
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span style="width:44px;height:44px;border-radius:50%;background:{{ idea.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;;color:#0B0B0B"><span class="material-symbols-outlined" style="font-size:26px;color:{{ idea.iconFg }};">{{ idea.icon }}</span></span>
+                  <span style="font-size:24px;line-height:1.15;font-weight:800;letter-spacing:-0.4px;">{{ idea.title }}</span>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <span style="font-size:12px;font-weight:700;background:rgba(255,255,255,0.12);padding:6px 10px;border-radius:999px;">Markt: {{ idea.market }}</span>
+                  <span style="font-size:12px;font-weight:700;background:rgba(255,255,255,0.12);padding:6px 10px;border-radius:999px;">Zeitraum: {{ idea.horizon }}</span>
+                </div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.09);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) .2s both;">
+                <h3 style="margin:0;font-size:18px;font-weight:800;">So schätzen wir das ein</h3>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:13px;font-weight:800;width:52px;flex:none;">Chance</span><div style="flex:1;min-width:0;height:6px;border-radius:3px;background:rgba(255,255,255,0.1);overflow:hidden;"><div style="width:{{ idea.chanceW }};height:100%;border-radius:3px;background:#33DA00;"></div></div><span style="font-size:13px;font-weight:800;width:36px;text-align:right;flex:none;">{{ idea.scoreLabel }}</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:13px;font-weight:800;width:52px;flex:none;">Risiko</span><div style="flex:1;min-width:0;height:6px;border-radius:3px;background:rgba(255,255,255,0.1);overflow:hidden;"><div style="width:{{ idea.riskW }};height:100%;border-radius:3px;background:#FF5A4E;"></div></div><span style="font-size:13px;font-weight:800;width:36px;text-align:right;flex:none;">{{ idea.riskLabel }}</span></div>
+                </div>
+                <p style="margin:0;font-size:15px;line-height:1.55;text-wrap:pretty;">{{ idea.assess }}</p>
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;">
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <span style="font-size:13px;font-weight:800;">Dafür spricht</span>
+                    <sc-for list="{{ idea.pro }}" as="p" hint-placeholder-count="2"><div style="display:flex;gap:8px;font-size:13px;line-height:1.45;color:rgba(255,255,255,0.85);"><span style="width:8px;height:8px;border-radius:50%;background:#33DA00;flex:none;margin-top:5px;"></span><span>{{ p }}</span></div></sc-for>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <span style="font-size:13px;font-weight:800;">Dagegen spricht</span>
+                    <sc-for list="{{ idea.contra }}" as="p" hint-placeholder-count="2"><div style="display:flex;gap:8px;font-size:13px;line-height:1.45;color:rgba(255,255,255,0.85);"><span style="width:8px;height:8px;border-radius:50%;background:#FF6608;flex:none;margin-top:5px;"></span><span>{{ p }}</span></div></sc-for>
+                  </div>
+                </div>
+              </div>
+
+              <h3 style="margin:14px 4px 0;font-size:20px;font-weight:800;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) .3s both;">So setzt du deine Idee um</h3>
+              <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:relative;height:0;margin-top:26px;"><div style="position:absolute;right:24px;top:-43px;width:84px;height:84px;">{{ ideaBeeW }}</div><div style="position:absolute;z-index:2;right:24px;top:-43px;width:84px;height:84px;pointer-events:none;">{{ ideaBeeFrontW }}</div></div></sc-if>
+              <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;">
+                <sc-for list="{{ idea.products }}" as="p" hint-placeholder-count="3">
+                  <div style="background:rgba(255,255,255,0.09);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;animation-delay:{{ p.delay }};">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+                      <span style="font-size:12px;font-weight:800;background:{{ p.tagBg }};padding:5px 10px;border-radius:999px;;color:#0B0B0B">{{ p.strat }}</span>
+                      <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:12px;color:rgba(255,255,255,0.68);">Risiko</span><div style="display:flex;gap:2px;"><sc-for list="{{ p.riskBars }}" as="b" hint-placeholder-count="3"><span style="width:14px;height:6px;border-radius:2px;background:{{ b }};;color:#0B0B0B"></span></sc-for></div></div>
+                    </div>
+                    <span style="font-size:17px;font-weight:800;line-height:1.25;">{{ p.name }}</span>
+                    <span style="font-size:14px;line-height:1.5;color:rgba(255,255,255,0.68);text-wrap:pretty;">{{ p.desc }}</span>
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:2px;">
+                      <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.68);">WKN {{ p.wkn }} · {{ p.issuer }}</span>
+                      <button onClick="{{ p.open }}" style="border:0;background:rgba(0,0,0,0.35);color:#fff;border-radius:999px;height:40px;padding:0 16px;font-family:inherit;font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px;cursor:pointer;flex:none;">Ansehen<span class="material-symbols-outlined" style="font-size:18px;color:#FFF765;">arrow_forward</span></button>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <p style="margin:4px 4px 0;font-size:12px;line-height:1.5;color:rgba(255,255,255,0.68);text-wrap:pretty;">Beispielhafte Einschätzung, keine Anlageberatung. Hebelprodukte können bis zum Totalverlust führen.</p>
+            </sc-if>
+          </div>
+          <div style="position:sticky;bottom:-40px;z-index:6;margin:16px -20px -40px;padding:36px 16px 16px;background:linear-gradient(180deg,rgba(34,34,34,0) 0%,rgba(34,34,34,0.82) 42%,rgba(30,30,30,0.94) 100%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30px);mask-image:linear-gradient(180deg,transparent 0,#000 30px);border-radius:0 0 28px 28px;">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:999px;height:58px;padding:0 6px 0 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.12);">
+              <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="Neue Idee oder Frage …" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#FFFFFF;">
+              <button onClick="{{ sendAsk }}" aria-label="Senden" style="width:44px;height:44px;border-radius:50%;border:0;background:#FFF765;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;">arrow_upward</span></button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isAiSheetLight }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;min-height:calc(100% - 4px);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
             <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
               <sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}"><span style="width:40px;height:40px;border-radius:50%;background:#262626;display:flex;align-items:center;justify-content:center;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:23px;height:23px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyph }}</span></sc-if></span></sc-if>
-              <div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:20px;font-weight:800;">Monhey KI</span><sc-if value="{{ kiIdea }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">Neu</span></sc-if></div><sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#62665F;">Erklärt dir Märkte und Begriffe.</div></sc-if></div>
+              <div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:20px;font-weight:800;">AI Bee</span><sc-if value="{{ kiIdea }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;font-weight:800;background:#FFF765;padding:3px 8px;border-radius:999px;">Neu</span></sc-if></div><sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#62665F;">Erklärt dir Märkte und Begriffe.</div></sc-if></div>
             </div>
             <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
           </div>
@@ -1277,6 +1470,16 @@ html,body{height:100%;overscroll-behavior:none}
             <sc-for list="{{ chat }}" as="m" hint-placeholder-count="0">
               <div style="align-self:{{ m.align }};max-width:86%;background:{{ m.bg }};color:{{ m.color }};border-radius:20px;padding:14px 18px;font-size:15px;line-height:1.5;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">{{ m.text }}</div>
             </sc-for>
+            <sc-if value="{{ wkHas }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-start;width:100%;max-width:330px;margin-top:4px;background:#fff;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:12px;color:#0B0B0B;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+                  <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:17px;font-weight:800;">{{ wk.name }}</span><span style="font-size:12px;color:#62665F;">WKN {{ wk.wkn }} · {{ wk.exch }}</span></div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none;"><span style="font-size:17px;font-weight:800;white-space:nowrap;">{{ wk.kurs }}</span><span style="font-size:13px;font-weight:800;color:{{ wk.chgColor }};white-space:nowrap;">{{ wk.chg }}</span></div>
+                </div>
+                <p style="margin:0;font-size:14px;line-height:1.5;color:#3B3F39;text-wrap:pretty;">{{ wk.info }}</p>
+                <button onClick="{{ wk.open }}" style="height:46px;border:0;border-radius:999px;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;">Zur Detailseite<span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span></button>
+              </div>
+            </sc-if>
             <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
               <div style="align-self:flex-start;background:#fff;border-radius:20px;padding:16px 18px;display:flex;gap:5px;">
                 <span style="width:7px;height:7px;border-radius:50%;background:#62665F;animation:mh-blink 1.2s infinite;"></span>
@@ -1289,6 +1492,93 @@ html,body{height:100%;overscroll-behavior:none}
             <div style="display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid rgba(98,102,95,0.35);border-radius:999px;height:58px;padding:0 6px 0 20px;box-shadow:0 12px 32px rgba(11,11,11,0.18),0 2px 6px rgba(11,11,11,0.08);">
               <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="{{ aiPlaceholder }}" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#0B0B0B;">
               <button onClick="{{ sendAsk }}" aria-label="Senden" style="width:44px;height:44px;border-radius:50%;border:0;background:#262626;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;">arrow_upward</span></button>
+            </div>
+          </div></sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isAiSheetDark }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;min-height:calc(100% - 4px);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+            <div style="display:flex;align-items:center;gap:12px;margin-left:4px;">
+              <sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}"><span style="width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;"><sc-if value="{{ notV4 }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:#FFF765;width:23px;height:23px;display:block;flex:none;background:currentColor;-webkit-mask:url({{ beeMask }}) center / contain no-repeat;mask:url({{ beeMask }}) center / contain no-repeat;"></span></sc-if><sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color:#FFF765;width:27px;height:27px;display:block;flex:none;">{{ beeGlyphW }}</span></sc-if></span></sc-if>
+              <div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:20px;font-weight:800;">AI Bee</span><sc-if value="{{ kiIdea }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;font-weight:800;background:#FFF765;color:#0B0B0B;padding:3px 8px;border-radius:999px;">Neu</span></sc-if></div><sc-if value="{{ kiOld }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:rgba(255,255,255,0.68);">Erklärt dir Märkte und Begriffe.</div></sc-if></div>
+            </div>
+            <button onClick="{{ closeSheet }}" aria-label="Schließen" style="width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,0.09);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;;color:#FFFFFF"><span class="material-symbols-outlined" style="font-size:22px;">close</span></button>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding:20px 0 16px;">
+            <sc-if value="{{ chatEmptyOld }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <sc-for list="{{ askChips }}" as="q" hint-placeholder-count="3">
+                  <button onClick="{{ q.ask }}" style="border:0;background:rgba(255,255,255,0.09);border-radius:999px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;color:#FFFFFF;">{{ q.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ chatEmptyIdea }}" hint-placeholder-val="{{ true }}">
+              <div style="position:relative;display:flex;flex-direction:column;gap:28px;padding-top:96px;animation:mh-fade .3s both;">
+                <sc-if value="{{ brandV4 }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position:absolute;right:4px;top:8px;width:120px;height:120px;pointer-events:none;">{{ roboHoverW }}</div></sc-if>
+                <div style="position:relative;display:flex;flex-direction:column;gap:8px;max-width:250px;margin:0 4px;">
+                  <h2 style="margin:0;font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-0.7px;text-wrap:pretty;">Du hast eine Idee zum Markt?</h2>
+                  <p style="margin:0;font-size:15px;line-height:1.5;color:rgba(255,255,255,0.68);text-wrap:pretty;">Monhey zeigt dir, wie du sie umsetzen kannst.</p>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.09);border:2px solid rgba(255,255,255,0.22);border-radius:20px;height:66px;padding:0 8px 0 18px;position:relative;box-shadow:0 10px 28px rgba(11,11,11,0.08);">
+                  <sc-if value="{{ notRec }}" hint-placeholder-val="{{ true }}"><input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="Ich glaube, dass …" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:17px;font-weight:600;background:transparent;color:#FFFFFF;"></sc-if>
+                  <sc-if value="{{ rec }}" hint-placeholder-val="{{ false }}">
+                    <div style="flex:1;min-width:0;display:flex;align-items:center;gap:12px;animation:mh-fade .2s both;">
+                      <span style="font-size:14px;font-weight:700;color:rgba(255,255,255,0.68);white-space:nowrap;">Ich höre zu …</span>
+                      <div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:3px;height:26px;overflow:hidden;">
+                        <sc-for list="{{ waveBars }}" as="w" hint-placeholder-count="16"><span style="width:3px;height:{{ w.h }};border-radius:2px;background:rgba(0,0,0,0.35);flex:none;animation:mh-wave {{ w.dur }} ease-in-out infinite;animation-delay:{{ w.delay }};"></span></sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <button onClick="{{ toggleRec }}" aria-label="{{ micLabel }}" style="width:44px;height:44px;border-radius:50%;border:0;background:{{ micBg }};display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;animation:{{ micAnim }};transition:background .2s;;color:#0B0B0B"><span class="material-symbols-outlined" style="font-size:22px;color:#FFFFFF;font-variation-settings:'FILL' {{ micFill }};">{{ micIcon }}</span></button>
+                  <button onClick="{{ sendAsk }}" aria-label="Idee abschicken" style="width:48px;height:48px;border-radius:50%;border:0;background:#FFF765;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:22px;color:#0B0B0B;">arrow_upward</span></button>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.68);margin:0 4px;">Andere haben diese Ideen:</span>
+                  <div class="mh-scroll" style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-padding:0 24px;margin:0 -24px;padding:2px 24px 6px;">
+                    <sc-for list="{{ ideaExamples }}" as="ex" hint-placeholder-count="3">
+                      <button onClick="{{ ex.go }}" style="flex:none;width:176px;min-height:132px;scroll-snap-align:start;border:0;background:rgba(255,255,255,0.09);border-radius:18px;padding:16px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:14px;cursor:pointer;text-align:left;font-family:inherit;color:#FFFFFF;">
+                        <span style="width:32px;height:32px;border-radius:50%;background:{{ ex.iconBg }};display:flex;align-items:center;justify-content:center;;color:#0B0B0B"><span class="material-symbols-outlined" style="font-size:20px;color:{{ ex.iconFg }};">{{ ex.icon }}</span></span>
+                        <span style="font-size:15px;line-height:1.3;font-weight:800;">{{ ex.title }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.68);margin:0 4px;">Oder frag mich etwas:</span>
+                  <div class="mh-scroll" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -24px;padding:0 24px;">
+                    <sc-for list="{{ askChips }}" as="q" hint-placeholder-count="3">
+                      <button onClick="{{ q.ask }}" style="flex:none;border:1px solid rgba(255,255,255,0.22);background:transparent;border-radius:999px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;color:#FFFFFF;white-space:nowrap;">{{ q.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-for list="{{ chatDark }}" as="m" hint-placeholder-count="0">
+              <div style="align-self:{{ m.align }};max-width:86%;background:{{ m.bg }};color:{{ m.color }};border-radius:20px;padding:14px 18px;font-size:15px;line-height:1.5;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">{{ m.text }}</div>
+            </sc-for>
+            <sc-if value="{{ wkHas }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-start;width:100%;max-width:330px;margin-top:4px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.14);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:12px;color:#FFFFFF;animation:mh-rise .35s cubic-bezier(0.2,0,0,1) both;">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+                  <div style="display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-size:17px;font-weight:800;">{{ wk.name }}</span><span style="font-size:12px;color:rgba(255,255,255,0.68);">WKN {{ wk.wkn }} · {{ wk.exch }}</span></div>
+                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none;"><span style="font-size:17px;font-weight:800;white-space:nowrap;">{{ wk.kurs }}</span><span style="font-size:13px;font-weight:800;color:{{ wk.chgColor }};white-space:nowrap;">{{ wk.chg }}</span></div>
+                </div>
+                <p style="margin:0;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.85);text-wrap:pretty;">{{ wk.info }}</p>
+                <button onClick="{{ wk.open }}" style="height:46px;border:0;border-radius:999px;background:#FFF765;color:#0B0B0B;display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;">Zur Detailseite<span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span></button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-start;background:rgba(255,255,255,0.09);border-radius:20px;padding:16px 18px;display:flex;gap:5px;">
+                <span style="width:7px;height:7px;border-radius:50%;background:#62665F;animation:mh-blink 1.2s infinite;"></span>
+                <span style="width:7px;height:7px;border-radius:50%;background:#62665F;animation:mh-blink 1.2s infinite .2s;"></span>
+                <span style="width:7px;height:7px;border-radius:50%;background:#62665F;animation:mh-blink 1.2s infinite .4s;"></span>
+              </div>
+            </sc-if>
+          </div>
+          <sc-if value="{{ aiInputBottom }}" hint-placeholder-val="{{ false }}"><div style="position:sticky;bottom:-40px;z-index:6;margin:16px -20px -40px;padding:36px 16px 16px;background:linear-gradient(180deg,rgba(34,34,34,0) 0%,rgba(34,34,34,0.82) 42%,rgba(30,30,30,0.94) 100%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30px);mask-image:linear-gradient(180deg,transparent 0,#000 30px);border-radius:0 0 28px 28px;">
+            <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:999px;height:58px;padding:0 6px 0 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.12);">
+              <input value="{{ askText }}" onChange="{{ onAsk }}" onKeyDown="{{ onAskKey }}" placeholder="{{ aiPlaceholder }}" style="flex:1;min-width:0;border:0;outline:none;font-family:inherit;font-size:15px;background:transparent;color:#FFFFFF;">
+              <button onClick="{{ sendAsk }}" aria-label="Senden" style="width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;;color:#FFFFFF"><span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;">arrow_upward</span></button>
             </div>
           </div></sc-if>
         </div>
@@ -1402,16 +1692,17 @@ html,body{height:100%;overscroll-behavior:none}
               <span style="display:flex;align-items:center;gap:4px;background:#FFF765;color:#0B0B0B;font-size:12px;font-weight:800;padding:5px 11px 5px 9px;border-radius:999px;"><span class="material-symbols-outlined" style="font-size:15px;font-variation-settings:'FILL' 1;">star</span>Monhey Empfehlung</span>
               <button onClick="{{ topProd.copy }}" style="border:0;background:rgba(255,255,255,0.12);border-radius:999px;height:32px;padding:0 12px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;font-weight:700;color:#fff;">{{ topProd.wkn }}<span class="material-symbols-outlined" style="font-size:15px;">content_copy</span></button>
             </div>
+            <sc-if value="{{ topProd.hasStats }}" hint-placeholder-val="{{ false }}"><div key="{{ topProd.levKey }}" style="font-size:18px;line-height:1.2;font-weight:800;color:#FFF765;margin-top:4px;margin-bottom:-10px;animation:mh-rise .3s cubic-bezier(0.2,0,0,1) both;">{{ topProd.levHead }}</div></sc-if>
             <button onClick="{{ topProd.detail }}" style="border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#fff;display:flex;flex-direction:column;gap:4px;">
-              <span style="display:flex;align-items:center;gap:2px;font-size:21px;line-height:1.2;font-weight:800;">{{ topProd.name }}<span class="material-symbols-outlined" style="font-size:22px;color:#FFF765;">chevron_right</span></span>
+              <span style="display:flex;align-items:center;gap:2px;font-size:18px;line-height:1.2;font-weight:800;width:100%;min-width:0;"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;">{{ topProd.name }}</span><span class="material-symbols-outlined" style="font-size:20px;color:#FFF765;flex:none;">chevron_right</span><span style="padding-left:2px;font-size:16px;font-weight:800;white-space:nowrap;flex:none;">{{ topProd.pxTxt }}</span></span>
               <span style="font-size:14px;color:#B8BCB4;">{{ topProd.issuer }}</span>
             </button>
-            <sc-if value="{{ topProd.hasStats }}" hint-placeholder-val="{{ false }}">
-              <div style="display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,0.08);border-radius:14px;">
-                <div style="padding:10px 14px;border-right:1px solid rgba(255,255,255,0.1);"><div style="font-size:12px;color:#B8BCB4;">Hebel</div><div style="font-size:17px;font-weight:800;color:#FFF765;margin-top:2px;">{{ topProd.levTxt }}</div></div>
-                <div style="padding:10px 14px;"><div style="font-size:12px;color:#B8BCB4;">Knock-out</div><div style="font-size:17px;font-weight:800;margin-top:2px;">{{ topProd.koTxt }}</div></div>
-              </div>
-            </sc-if>
+            <p style="margin:-4px 0 0;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.82);text-wrap:pretty;">{{ topProd.descTxt }}</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,0.08);border-radius:14px;">
+              <div style="padding:10px 14px;border-right:1px solid rgba(255,255,255,0.1);"><div style="font-size:12px;color:#B8BCB4;">Produkt-Typ</div><div style="font-size:15px;font-weight:800;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ topProd.typTxt }}</div></div>
+              <div style="padding:10px 14px;"><div style="font-size:12px;color:#B8BCB4;">Laufzeit</div><div style="font-size:15px;font-weight:800;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ topProd.lzTxt }}</div></div>
+              <sc-if value="{{ topProd.hasStats }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 14px;border-right:1px solid rgba(255,255,255,0.1);border-top:1px solid rgba(255,255,255,0.1);"><div style="font-size:12px;color:#B8BCB4;">Hebel</div><div style="font-size:15px;font-weight:800;margin-top:2px;color:#FFF765;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ topProd.levTxt }}</div></div><div style="padding:10px 14px;border-top:1px solid rgba(255,255,255,0.1);"><div style="font-size:12px;color:#B8BCB4;">Knock-out</div><div style="font-size:15px;font-weight:800;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ topProd.koTxt }}</div></div></sc-if>
+            </div>
             <div style="display:flex;gap:8px;">
               <button onClick="{{ topProd.watch }}" style="flex:1;height:52px;border:0;border-radius:14px;background:#FFF765;color:#0B0B0B;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s;" style-active="transform:scale(0.98);"><span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' {{ topProd.watchFill }};">bookmark</span><span>Auf die Merkliste</span></button>
               <button onClick="{{ topProd.broker }}" aria-label="Zum Broker" style="height:52px;padding:0 14px;border:0;border-radius:14px;background:rgba(255,255,255,0.12);color:#fff;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;font-size:13px;font-weight:700;"><span>Broker</span><span class="material-symbols-outlined" style="font-size:18px;">arrow_outward</span></button>
@@ -1421,9 +1712,11 @@ html,body{height:100%;overscroll-behavior:none}
           <div style="margin-top:8px;background:#fff;border-radius:20px;padding:0 16px;display:flex;flex-direction:column;">
             <sc-for list="{{ otherProds }}" as="p" hint-placeholder-count="2">
               <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:{{ p.divider }};">
-                <button onClick="{{ p.detail }}" style="flex:1;min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;display:flex;flex-direction:column;gap:2px;">
+                <button onClick="{{ p.detail }}" style="flex:1;min-width:0;border:0;background:transparent;padding:0;text-align:left;cursor:pointer;color:#0B0B0B;display:flex;flex-direction:column;gap:3px;font-family:inherit;">
                   <span style="font-size:14px;font-weight:700;">{{ p.issuer }}</span>
-                  <span style="font-size:12px;color:#62665F;">{{ p.sub }}</span>
+                  <sc-if value="{{ p.hasStats }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:baseline;gap:8px;font-size:13px;"><span style="font-weight:800;">{{ p.levHead }}</span><span style="font-weight:700;">{{ p.pxTxt }}</span></span></sc-if>
+                  <span style="font-size:12px;color:#62665F;">{{ p.typTxt }} · {{ p.lzTxt }}</span>
+                  <span style="font-size:12px;color:#62665F;">{{ p.subLine }}</span>
                 </button>
                 <button onClick="{{ p.watch }}" aria-label="Merken" style="width:34px;height:34px;border-radius:50%;border:0;background:#F2F2EF;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;"><span class="material-symbols-outlined" style="font-size:17px;font-variation-settings:'FILL' {{ p.watchFill }};">bookmark</span></button>
                 <span class="material-symbols-outlined" style="font-size:20px;color:#62665F;">chevron_right</span>
@@ -1606,7 +1899,7 @@ html,body{height:100%;overscroll-behavior:none}
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;branding&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Aktuell&quot;,&quot;Handmade v4&quot;],&quot;default&quot;:&quot;Handmade v4&quot;,&quot;tsType&quot;:&quot;'Aktuell' | 'Handmade v4'&quot;,&quot;section&quot;:&quot;Branding&quot;},&quot;radien&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Standard&quot;,&quot;12 px&quot;],&quot;default&quot;:&quot;Standard&quot;,&quot;tsType&quot;:&quot;'Standard' | '12 px'&quot;},&quot;headerbild&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Verlauf dunkel&quot;,&quot;Waben-Auflösung&quot;],&quot;default&quot;:&quot;Waben-Auflösung&quot;,&quot;tsType&quot;:&quot;'Verlauf dunkel' | 'Waben-Auflösung'&quot;},&quot;kiBereich&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Fragen &amp; Suche&quot;,&quot;Markt-Idee&quot;],&quot;default&quot;:&quot;Markt-Idee&quot;,&quot;tsType&quot;:&quot;'Fragen &amp; Suche' | 'Markt-Idee'&quot;,&quot;section&quot;:&quot;Monhey KI&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;branding&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Aktuell&quot;,&quot;Handmade v4&quot;],&quot;default&quot;:&quot;Handmade v4&quot;,&quot;tsType&quot;:&quot;'Aktuell' | 'Handmade v4'&quot;,&quot;section&quot;:&quot;Branding&quot;},&quot;radien&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Standard&quot;,&quot;12 px&quot;],&quot;default&quot;:&quot;Standard&quot;,&quot;tsType&quot;:&quot;'Standard' | '12 px'&quot;},&quot;headerbild&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Verlauf dunkel&quot;,&quot;Waben-Auflösung&quot;],&quot;default&quot;:&quot;Waben-Auflösung&quot;,&quot;tsType&quot;:&quot;'Verlauf dunkel' | 'Waben-Auflösung'&quot;},&quot;kiBereich&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Fragen &amp; Suche&quot;,&quot;Markt-Idee&quot;],&quot;default&quot;:&quot;Markt-Idee&quot;,&quot;tsType&quot;:&quot;'Fragen &amp; Suche' | 'Markt-Idee'&quot;,&quot;section&quot;:&quot;Monhey KI&quot;},&quot;paywall&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Aus&quot;,&quot;An&quot;],&quot;default&quot;:&quot;Aus&quot;,&quot;tsType&quot;:&quot;'Aus' | 'An'&quot;,&quot;section&quot;:&quot;Paywall&quot;},&quot;navigation&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Klassisch&quot;,&quot;Assistent abgesetzt&quot;],&quot;default&quot;:&quot;Assistent abgesetzt&quot;,&quot;tsType&quot;:&quot;'Klassisch' | 'Assistent abgesetzt'&quot;,&quot;section&quot;:&quot;Navigation&quot;},&quot;erklaeren&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Aus&quot;,&quot;An&quot;],&quot;default&quot;:&quot;An&quot;,&quot;tsType&quot;:&quot;'Aus' | 'An'&quot;,&quot;section&quot;:&quot;Tippen zum Erklären&quot;}}">
 const PERF = { dax:{ pcts:{ '1W':-1, '1M':2, '3M':6, '1J':19 }, seed:13 }, nvidia:{ pcts:{ '1W':3, '1M':9, '3M':18, '1J':31 }, seed:7 }, siemens:{ pcts:{ '1W':-1, '1M':3, '3M':5, '1J':8 }, seed:3 }, gold:{ pcts:{ '1W':1, '1M':-2, '3M':1, '1J':3 }, seed:11 } };
 const DASH_PRODUCTS = [{ id:'turbo-dax', name:'Turbo Long DAX · Hebel 5', by:'Monhey', pcts:{ '1W':-4, '1M':-9, '3M':6, '1J':-6 }, seed:5, honey:'dax' }];
 const QUOTES = { nvidia:{ name:'NVIDIA Aktie', exch:'NDQ', wkn:'918422', kurs:182.64, abs:4.12, cur:'$', time:'22:00:00' },
@@ -1678,7 +1971,7 @@ const perfSeries = (pct, seed) => { let r = seed * 997; const rnd = () => { r = 
 const hexD = (n, on, off) => Array.from({ length:5 }, (_, i) => ({ fill: i < Math.round(n/2) ? on : off }));
 const HONEYS = [
   { id:'siemens', authorType:'REDAKTION', author:'Monhey', tag:'KI', meta:'5 Min. Lesezeit', byline:'Ein Honey aus der Monhey Redaktion',
-    image:'assets/hero-amazon-server.png', title:'Amazon kauft KI Startup Decart für 7 Milliarden Euro', hl:'7 Milliarden Euro', teaser:'Mit der Übernahme von Decart greift Amazon im Geschäft mit KI-Chips an. Was dahinter steckt und was das für die Aktie heißen kann.', chance:'Vom Wettbewerb um KI-Chips profitieren.',
+    image:'assets/hero-amazon-server.png', title:'Amazon im Kaufrausch, Kurs vor Ausbruch', hl:'Kaufrausch', teaser:'Mit der Übernahme von Decart greift Amazon im Geschäft mit KI-Chips an. Was dahinter steckt und was das für die Aktie heißen kann.', chance:'Vom Wettbewerb um KI-Chips profitieren.',
     kurz:'Amazons Akquisition könnte es KI-Anbietern einfacher machen, von NVIDIA Chips auf günstigere umzusteigen – auch die von Amazon. Decart entwickelt Software, mit der KI-Modelle auf unterschiedlicher Hardware laufen. Für Amazons Cloud-Sparte AWS könnte das ein Argument gegenüber der Konkurrenz werden.',
     basis:'Amazon Aktie', wkn:'Q3ZWGF', kurs:'227,38 €', chg:'+2,3 %', ziel:'255,00 €', stopp:'210,00 €', mcap:'500 Mrd. €', div:'0,0 %', pot:'+8 % bis +14 %',
     cl:3, rl:2, c10:7, r10:5, chanceTxt:'höher', riskTxt:'mittel',
@@ -1690,7 +1983,7 @@ const HONEYS = [
       hinter:'Amazon ist mit AWS der größte Cloud-Anbieter der Welt, vor Microsoft und Google. Die Sparte liefert gut die Hälfte des operativen Gewinns, obwohl sie nur einen kleinen Teil des Umsatzes ausmacht. Der Wettbewerb dreht sich derzeit vor allem um KI-Rechenleistung. Viele Kunden sind dabei an NVIDIA-Chips gebunden, die teuer und knapp sind. Amazon baut mit Trainium und Inferentia seit Jahren eigene Chips, die günstiger sind, aber bisher wenig genutzt werden. Decart liefert die Software, mit der sich KI-Modelle ohne großen Aufwand auf diese Chips übertragen lassen. Analysten sehen die Übernahme überwiegend positiv. Kritisch gesehen werden der hohe Preis und mögliche Prüfungen durch Kartellbehörden.',
       analyse:'Chart und Nachrichtenlage zeigen in dieselbe Richtung. Der Ausbruch aus der Seitwärtsphase hat mit der Decart-Übernahme einen klaren Auslöser, und das hohe Volumen spricht dafür, dass der Markt die Meldung ernst nimmt. Fundamental ist der Hebel groß: Schon kleine Marktanteilsgewinne von AWS im KI-Geschäft wirken sich spürbar auf Amazons Gewinn aus. Daraus ergibt sich das Szenario des Honeys mit einem Ziel um 255 €. Das Risiko liegt darin, dass viel Zuversicht schon im Kurs steckt. Bleiben die Erfolge bei den eigenen Chips aus oder stoppen Behörden den Deal, könnte der Kurs zurück in die alte Spanne fallen. Der Stopp bei 210 € begrenzt diesen Fall.' } },
   { id:'nvidia', authorType:'COACH', author:'Marcus Veit', tag:'AKTIEN', meta:'5 Min. Lesezeit', byline:'Ein Honey von Coach Marcus Veit',
-    title:'IT-Werte schwingen sich zu neuen Höhenflügen', teaser:'Warum die Nachfrage nach KI-Chips weiter wächst und was das für Nvidia heißt.', chance:'Vom anhaltenden KI-Ausbau profitieren.',
+    title:'Nvidia hebt ab, KI-Hunger kennt keine Grenzen', hl:'hebt ab', teaser:'Warum die Nachfrage nach KI-Chips weiter wächst und was das für Nvidia heißt.', chance:'Vom anhaltenden KI-Ausbau profitieren.',
     kurz:'Microsoft, Amazon und Google haben ihre Investitionen in Rechenzentren erneut angehoben. Den größten Teil davon gibt die Branche für KI-Chips aus, und hier ist Nvidia Marktführer. Gleichzeitig ist die Aktie hoch bewertet, und die Erwartungen an jede Quartalszahl sind entsprechend groß.', image:'assets/hero-nvidia.jpg',
     slotHint:'Bild: Chips / Rechenzentrum', basis:'Nvidia Aktie', wkn:'918422', kurs:'182,40 €', chg:'+1,8 %', ziel:'205,00 €', stopp:'165,00 €', mcap:'4,4 Bio. €', div:'0,0 %', pot:'+10 % bis +16 %',
     cl:3, rl:3, c10:8, r10:8, chanceTxt:'höher', riskTxt:'höher',
@@ -1699,7 +1992,7 @@ const HONEYS = [
     s3:'Mit der Nvidia Aktie setzt du direkt auf den Marktführer bei KI-Chips. Der Kurs reagiert stark auf Quartalszahlen und Aussagen der großen Kunden, Schwankungen von 10 % in wenigen Tagen sind keine Seltenheit. Wer auf einen kurzfristigen Anstieg setzen möchte, kann einen Hebel nutzen, trägt dann aber auch ein deutlich höheres Verlustrisiko. Breiter aufgestellt bist du mit einem Halbleiter-ETF, der neben Nvidia auch Zulieferer und Wettbewerber enthält. Prüfe vorher, wie hoch dein Anteil an Technologiewerten bereits ist.',
     deep:{ technik:'Die Aktie befindet sich seit Monaten in einem stabilen Aufwärtstrend mit steigenden Hochs und Tiefs. Der letzte Rücksetzer endete bei rund 170 € genau am 50-Tage-Durchschnitt, dort haben Käufer mit hohem Volumen zugegriffen. Seitdem hat der Kurs das alte Hoch bei 178 € überwunden. Diese Marke dient nun als erste Unterstützung. Der Relative-Stärke-Index liegt bei 64 und damit im kräftigen, aber noch nicht überhitzten Bereich. Das nächste Kursziel ergibt sich aus der Höhe der letzten Konsolidierung und liegt bei etwa 205 €. Fällt der Kurs unter 165 €, wäre der Trend gebrochen. Dort liegt der Stopp.', hinter:'Rechenzentren für KI brauchen spezialisierte Chips, die sehr viele Berechnungen gleichzeitig ausführen. Nvidia hat hier einen Vorsprung von mehreren Jahren. Der eigentliche Burggraben ist aber die Software CUDA, mit der Entwickler seit über 15 Jahren arbeiten. Wer auf Nvidia-Chips entwickelt, wechselt nur ungern. Wettbewerber wie AMD holen auf, und die Cloud-Anbieter bauen eigene Chips, um unabhängiger zu werden. Hinzu kommen Exportbeschränkungen nach China, die Nvidia einen Teil des Marktes verschließen. Analysten sehen die Aktie dennoch überwiegend positiv, die meisten Kursziele liegen über dem aktuellen Kurs.', analyse:'Trend und Nachrichtenlage passen zusammen. Die angehobenen Investitionspläne der Cloud-Anbieter sichern Nvidia für die nächsten Quartale eine hohe Auslastung, und der Chart bestätigt das mit einem sauberen Ausbruch. Fundamental wächst der Gewinn so schnell, dass sich die hohe Bewertung relativiert: Gemessen am erwarteten Gewinn des nächsten Jahres liegt das KGV bei rund 28. Daraus ergibt sich das Szenario des Honeys mit einem Ziel um 205 €. Das größte Risiko sind die Erwartungen selbst. Melden Kunden geringere Investitionen oder sinken die Margen durch mehr Wettbewerb, kann die Aktie schnell zweistellig fallen. Der Stopp bei 165 € begrenzt diesen Fall.' } },
   { id:'gold', authorType:'COACH', author:'Otto Option', tag:'ROHSTOFFE', meta:'5 Min. Lesezeit', byline:'Ein Honey von Coach Otto Option',
-    title:'Gold wieder in der Kaufzone', teaser:'Warum der Goldpreis nach der Korrektur wieder interessant wird.', chance:'Stabilität ins Depot holen.',
+    title:'Gold vor dem großen Comeback', hl:'Comeback', teaser:'Warum der Goldpreis nach der Korrektur wieder interessant wird.', chance:'Stabilität ins Depot holen.',
     kurz:'Gold hat nach seinem Rekordhoch rund 6 % nachgegeben und stabilisiert sich jetzt an einer wichtigen Unterstützung. Gleichzeitig kaufen Notenbanken weiter in großem Stil zu, und die Zinsen sinken. Für Coach Otto Option ist das ein guter Zeitpunkt, um Gold als Stabilitätsanker ins Depot zu holen.', image:'assets/hero-gold.jpg',
     slotHint:'Bild: Goldbarren', basis:'Gold (Xetra-Gold)', wkn:'A0S9GB', kurs:'98,20 €', chg:'+0,6 %', ziel:'106,00 €', stopp:'93,50 €', mcap:'–', div:'0,0 %', pot:'+5 % bis +8 %',
     cl:2, rl:1, c10:5, r10:3, chanceTxt:'mittel', riskTxt:'niedrig',
@@ -1708,7 +2001,7 @@ const HONEYS = [
     s3:'Xetra-Gold ist ein börsengehandeltes Wertpapier, das zu 100 % mit physischem Gold hinterlegt ist. Du kannst dir das Gold sogar ausliefern lassen. Gold eignet sich vor allem als Stabilitätsanker: Es entwickelt sich oft anders als Aktien und kann Verluste in Krisenphasen abfedern. Viele Anleger halten deshalb 5 bis 10 % ihres Depots in Gold. Beachte, dass Gold keine laufenden Erträge bringt. Dein Ertrag entsteht nur, wenn der Preis steigt. Kursgewinne sind nach einem Jahr Haltedauer steuerfrei.',
     deep:{ technik:'Der Goldpreis befindet sich seit über zwei Jahren in einem langfristigen Aufwärtstrend. Die aktuelle Korrektur hat den Kurs genau an die frühere Widerstandszone um 95 € bis 97 € geführt. Diese Zone hat der Preis im Winter nach oben durchbrochen, jetzt wurde sie von oben getestet und hat gehalten. Charttechniker sprechen von einem bestätigten Rollentausch: Aus dem alten Widerstand ist eine Unterstützung geworden. Zusätzlich verläuft dort der 100-Tage-Durchschnitt. Das Kursziel des Honeys liegt bei 106 € und damit leicht über dem Rekordhoch. Fällt der Kurs unter 93,50 €, wäre die Unterstützung gebrochen. Dort liegt der Stopp.', hinter:'Zentralbanken kaufen seit 2022 jährlich über 1.000 Tonnen Gold, doppelt so viel wie im Jahrzehnt davor. Der wichtigste Grund: Nach den Sanktionen gegen Russland wollen viele Länder ihre Reserven weniger vom US-Dollar abhängig machen. Gleichzeitig steigt die Nachfrage aus Asien, wo Gold traditionell als Wertanlage gilt. Auf der Angebotsseite ist der Spielraum begrenzt. Die Minenproduktion wächst seit Jahren kaum, neue Lagerstätten sind teuer zu erschließen. Bremsend wirkt dagegen ein starker US-Dollar, weil Gold in Dollar gehandelt wird und für Käufer außerhalb der USA dann teurer wird.', analyse:'Die beiden wichtigsten Treiber sprechen derzeit für Gold: Die realen Zinsen, also die Zinsen nach Abzug der Inflation, sind rückläufig, und der US-Dollar hat seit Jahresbeginn an Wert verloren. Dazu kommt die strukturelle Nachfrage der Zentralbanken, die den Preis auch bei Rücksetzern stützt. Der Chart bestätigt das Bild mit einem erfolgreichen Test der Unterstützung. Daraus ergibt sich das Szenario des Honeys mit einem Ziel um 106 €. Das Chancen-Risiko-Verhältnis ist moderat, Gold schwankt deutlich weniger als Einzelaktien. Risiken sind ein überraschender Zinsanstieg oder ein deutlich stärkerer Dollar. Der Stopp bei 93,50 € begrenzt diesen Fall.' } },
   { id:'dax', authorType:'REDAKTION', author:'Monhey', tag:'INDIZES', meta:'5 Min. Lesezeit', byline:'Ein Honey aus der Monhey Redaktion',
-    title:'Der DAX vor der nächsten Etappe', teaser:'Warum der deutsche Leitindex nach dem Rücksetzer wieder Schwung holen könnte und welche Marken jetzt zählen.', chance:'Breit am deutschen Markt teilhaben.',
+    title:'DAX nimmt Anlauf auf neues Rekordhoch', hl:'Rekordhoch', teaser:'Warum der deutsche Leitindex nach dem Rücksetzer wieder Schwung holen könnte und welche Marken jetzt zählen.', chance:'Breit am deutschen Markt teilhaben.',
     kurz:'Der DAX hat nach seinem Rekordhoch rund 3 % verloren und sich an der Marke von 23.800 Punkten gefangen. Sinkende Zinsen, das Infrastrukturpaket der Bundesregierung und solide Quartalszahlen sprechen für einen neuen Anlauf. Zölle und eine schwache Industrie bleiben aber Bremsfaktoren.', image:'assets/hero-dax.png',
     slotHint:'Bild: Frankfurter Börse / DAX-Kurve', basis:'DAX Index', wkn:'846900', kurs:'24.180 Pkt.', chg:'−0,4 %', ziel:'25.400 Pkt.', stopp:'23.500 Pkt.', mcap:'–', div:'–', pot:'+4 % bis +6 %',
     cl:2, rl:2, c10:6, r10:5, chanceTxt:'mittel', riskTxt:'mittel',
@@ -1789,30 +2082,30 @@ const ANSWERS = {
   'Risiko verstehen':'Das Risiko beschreibt, wie stark der Wert einer Anlage schwanken kann. Monhey zeigt es dir pro Honey als qualitatives Profil: niedrig, mittel oder höher.',
 };
 const IDEAS = {
-  tech_down:{ title:'Tech-Werte fallen', short:'Tech-Werte fallen in den nächsten Monaten', say:'Ich glaube, dass Tech-Werte in den nächsten Monaten fallen. Wie kann ich davon profitieren?', icon:'trending_down', dir:'down', market:'Nasdaq 100', horizon:'3–6 Monate', thesis:'fallenden Tech-Kursen in den nächsten Monaten', score:6, context:'Anlass: Bewertungen nahe am Rekord',
+  tech_down:{ title:'Tech-Werte fallen', short:'Tech-Werte fallen in den nächsten Monaten', say:'Ich glaube, dass Tech-Werte in den nächsten Monaten fallen. Wie kann ich davon profitieren?', icon:'trending_down', dir:'down', market:'Nasdaq 100', horizon:'3–6 Monate', thesis:'fallenden Tech-Kursen in den nächsten Monaten', score:6, risk:7, context:'Anlass: Bewertungen nahe am Rekord',
     assess:'Nach zwei starken Jahren sind viele Tech-Werte hoch bewertet. Ein Rücksetzer ist plausibel, der genaue Zeitpunkt aber schwer zu treffen. Setze deshalb eher auf Produkte, die dir Zeit lassen.',
     pro:['Hohe Bewertungen nach der Rally','Zinsen könnten länger hoch bleiben'], contra:['KI-Investitionen stützen die Gewinne','Rücksetzer wurden zuletzt schnell gekauft'],
-    products:[{ strat:'Ohne Hebel', name:'Short ETF Nasdaq 100', issuer:'Beispiel ETF', wkn:'A2P3SX', risk:1, desc:'Steigt, wenn der Nasdaq 100 fällt. Kein Knock-out, täglich handelbar.' },
-      { strat:'Mit Puffer', name:'Reverse Bonus Nasdaq 100', issuer:'Beispielbank', wkn:'MH2RBN', risk:2, desc:'Zahlt einen Bonus, solange der Index nicht über die Barriere steigt.' },
-      { strat:'Mit Hebel', name:'Turbo Short Nasdaq 100 · Hebel 5', issuer:'Beispielbank', wkn:'MH5NSQ', risk:3, desc:'Fünffache Wirkung. Steigt der Index über die Knock-out-Schwelle, verfällt das Produkt.', lev:5 }] },
-  gold_up:{ title:'Gold steigt weiter', short:'Gold steigt weiter', say:'Ich glaube, dass der Goldpreis weiter steigt.', icon:'trending_up', dir:'up', market:'Gold', horizon:'6–12 Monate', thesis:'einem weiter steigenden Goldpreis', score:7, context:'Anlass: Notenbanken kaufen Gold',
+    products:[{ strat:'Ohne Hebel', name:'Short ETF Nasdaq 100', issuer:'Beispiel ETF', wkn:'A2P3SX', risk:1, desc:'Verdiene, wenn der Nasdaq 100 fällt. Jederzeit verkaufbar.' },
+      { strat:'Mit Puffer', name:'Reverse Bonus Nasdaq 100', issuer:'Beispielbank', wkn:'MH2RBN', risk:2, desc:'Verdiene, solange der Nasdaq 100 nicht über 30.000 steigt.' },
+      { strat:'Mit Hebel', name:'Turbo Short Nasdaq 100 · Hebel 5', issuer:'Beispielbank', wkn:'MH5NSQ', risk:3, desc:'Verdiene fünffach, wenn der Nasdaq 100 fällt. Steigt er über 27.500, ist dein Einsatz weg.', lev:5 }] },
+  gold_up:{ title:'Gold steigt weiter', short:'Gold steigt weiter', say:'Ich glaube, dass der Goldpreis weiter steigt.', icon:'trending_up', dir:'up', market:'Gold', horizon:'6–12 Monate', thesis:'einem weiter steigenden Goldpreis', score:7, risk:3, context:'Anlass: Notenbanken kaufen Gold',
     assess:'Notenbanken kaufen weiter Gold, und die Nachfrage als sicherer Hafen ist hoch. Nach dem starken Anstieg sind Rücksetzer aber jederzeit möglich.',
     pro:['Anhaltende Käufe der Notenbanken','Unsicherheit stützt die Nachfrage'], contra:['Steigende Zinsen machen Gold weniger attraktiv','Starker Anstieg lädt zu Gewinnmitnahmen ein'],
-    products:[{ strat:'Ohne Hebel', name:'Xetra-Gold', issuer:'Deutsche Börse Commodities', wkn:'A0S9GB', risk:1, desc:'Bildet den Goldpreis eins zu eins ab und ist mit physischem Gold hinterlegt.' },
-      { strat:'Mit Puffer', name:'Discount-Zertifikat Gold', issuer:'Beispielbank', wkn:'MH1DGD', risk:2, desc:'Günstiger einsteigen als direkt, dafür ist der Gewinn nach oben begrenzt.' },
-      { strat:'Mit Hebel', name:'Turbo Long Gold · Hebel 4', issuer:'Beispielbank', wkn:'MH4GLD', risk:3, desc:'Vierfache Wirkung. Fällt Gold unter die Knock-out-Schwelle, verfällt das Produkt.', lev:4 }] },
-  dax_flat:{ title:'Der DAX läuft seitwärts', short:'Der DAX läuft seitwärts', say:'Ich glaube, dass der DAX in den nächsten Monaten seitwärts läuft.', icon:'trending_flat', dir:'flat', market:'DAX', horizon:'3 Monate', thesis:'einem DAX ohne große Bewegung', score:5, context:'Anlass: Markt wartet auf die EZB',
+    products:[{ strat:'Ohne Hebel', name:'Xetra-Gold', issuer:'Deutsche Börse Commodities', wkn:'A0S9GB', risk:1, desc:'Verdiene eins zu eins mit dem Goldpreis. Echtes Gold liegt dafür im Tresor.' },
+      { strat:'Mit Puffer', name:'Discount-Zertifikat Gold', issuer:'Beispielbank', wkn:'MH1DGD', risk:2, desc:'Kaufe Gold 8 % günstiger. Verdiene bis maximal 110 € pro Zertifikat.' },
+      { strat:'Mit Hebel', name:'Turbo Long Gold · Hebel 4', issuer:'Beispielbank', wkn:'MH4GLD', risk:3, desc:'Verdiene vierfach, wenn Gold steigt. Fällt Gold unter 85 €, ist dein Einsatz weg.', lev:4 }] },
+  dax_flat:{ title:'Der DAX läuft seitwärts', short:'Der DAX läuft seitwärts', say:'Ich glaube, dass der DAX in den nächsten Monaten seitwärts läuft.', icon:'trending_flat', dir:'flat', market:'DAX', horizon:'3 Monate', thesis:'einem DAX ohne große Bewegung', score:5, risk:5, context:'Anlass: Markt wartet auf die EZB',
     assess:'Viele Anleger warten auf die nächsten Zinsentscheide. Eine Seitwärtsphase ist gut möglich. Dafür gibt es Produkte, die auch ohne Kursanstieg eine Rendite bringen.',
     pro:['Markt wartet auf neue Impulse','Gewinne der Unternehmen stabil'], contra:['Zinsentscheide können den Markt bewegen','Geopolitische Risiken'],
-    products:[{ strat:'Mit Puffer', name:'Discount-Zertifikat DAX', issuer:'Beispielbank', wkn:'MH3DDX', risk:2, desc:'Rendite auch bei Seitwärtsbewegung, mit eingebautem Abschlag.' },
-      { strat:'Mit Bonus', name:'Bonus-Zertifikat DAX', issuer:'Beispielbank', wkn:'MH3BDX', risk:2, desc:'Zahlt einen Bonus, solange der DAX nicht unter die Barriere fällt.' },
-      { strat:'Mit Hebel', name:'Inline-Optionsschein DAX', issuer:'Beispielbank', wkn:'MH3IDX', risk:3, desc:'Zahlt 10 € aus, wenn der DAX bis zum Ende in einer Spanne bleibt.' }] },
-  oil_up:{ title:'Der Ölpreis zieht an', short:'Der Ölpreis zieht an', say:'Ich glaube, dass der Ölpreis bald steigt.', icon:'trending_up', dir:'up', market:'Brent-Öl', horizon:'1–3 Monate', thesis:'einem steigenden Ölpreis', score:5, context:'Anlass: OPEC drosselt die Förderung',
+    products:[{ strat:'Mit Puffer', name:'Discount-Zertifikat DAX', issuer:'Beispielbank', wkn:'MH3DDX', risk:2, desc:'Kaufe den DAX 7 % günstiger. Verdiene auch, wenn er sich kaum bewegt.' },
+      { strat:'Mit Bonus', name:'Bonus-Zertifikat DAX', issuer:'Beispielbank', wkn:'MH3BDX', risk:2, desc:'Verdiene 9 % Bonus, solange der DAX nicht unter 20.000 fällt.' },
+      { strat:'Mit Hebel', name:'Inline-Optionsschein DAX', issuer:'Beispielbank', wkn:'MH3IDX', risk:3, desc:'Erhalte 10 €, wenn der DAX bis Juni zwischen 22.000 und 26.000 bleibt.' }] },
+  oil_up:{ title:'Der Ölpreis zieht an', short:'Der Ölpreis zieht an', say:'Ich glaube, dass der Ölpreis bald steigt.', icon:'trending_up', dir:'up', market:'Brent-Öl', horizon:'1–3 Monate', thesis:'einem steigenden Ölpreis', score:5, risk:6, context:'Anlass: OPEC drosselt die Förderung',
     assess:'Die OPEC hält das Angebot knapp. Eine schwächere Konjunktur könnte die Nachfrage aber bremsen. Öl schwankt stark, achte deshalb auf dein Risiko.',
     pro:['Knappes Angebot durch die OPEC','Niedrige Lagerbestände'], contra:['Schwächere Konjunktur bremst die Nachfrage','Hohe Schwankungen'],
-    products:[{ strat:'Breit gestreut', name:'Energie-ETF Europa', issuer:'Beispiel ETF', wkn:'A2Q4EN', risk:1, desc:'Investiert in große Energiekonzerne statt direkt in den Ölpreis.' },
-      { strat:'Ohne Hebel', name:'Brent Rohöl ETC', issuer:'Beispiel ETC', wkn:'A1N49P', risk:2, desc:'Bildet den Ölpreis über Terminkontrakte ab.' },
-      { strat:'Mit Hebel', name:'Turbo Long Brent · Hebel 3', issuer:'Beispielbank', wkn:'MH3BRT', risk:3, desc:'Dreifache Wirkung. Fällt der Ölpreis unter die Schwelle, verfällt das Produkt.', lev:3 }] } };
+    products:[{ strat:'Breit gestreut', name:'Energie-ETF Europa', issuer:'Beispiel ETF', wkn:'A2Q4EN', risk:1, desc:'Investiere in 40 große Energiekonzerne Europas auf einmal.' },
+      { strat:'Ohne Hebel', name:'Brent Rohöl ETC', issuer:'Beispiel ETC', wkn:'A1N49P', risk:2, desc:'Verdiene direkt mit dem Ölpreis, ohne Umweg über Aktien.' },
+      { strat:'Mit Hebel', name:'Turbo Long Brent · Hebel 3', issuer:'Beispielbank', wkn:'MH3BRT', risk:3, desc:'Verdiene dreifach, wenn Öl steigt. Fällt Brent unter 60 $, ist dein Einsatz weg.', lev:3 }] } };
 const matchIdea = t => { t = t.toLowerCase();
   if (/gold/.test(t)) return 'gold_up'; if (/(^|\W)öl|oel|brent|opec/.test(t)) return 'oil_up';
   if (/seitw|dax/.test(t)) return 'dax_flat'; return 'tech_down'; };
@@ -1830,9 +2123,42 @@ const POD_CH = [[0,'Einstieg'],[78,'Was dahinter steckt'],[196,'Chancen und Risi
 const mmss = t => Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0');
 const NAV_SCREENS = ['home','honeys','watchlist','coaches'];
 
+const PROD_NEWS = {
+  siemens:[['vor 25 Min.','AWS gewinnt Großauftrag: US-Behörde verlagert Rechenzentren in die Amazon-Cloud'],['vor 2 Std.','Prime Day bricht Rekord – Umsatz liegt 11 % über Vorjahr'],['Heute, 08:10','Analysten heben Kursziel für Amazon auf 260 US-Dollar'],['Gestern','Amazon testet Drohnen-Lieferung jetzt auch in Europa']]
+};
+const GLOSSAR = {
+  'KI':['Künstliche Intelligenz','Software, die aus Daten lernt und Aufgaben wie Texte schreiben oder Bilder erkennen übernimmt. Für Anleger zählt vor allem: KI braucht enorm viel Rechenleistung, davon profitieren Chip- und Cloud-Anbieter.'],
+  'Cloud':['Cloud','Rechenzentren, deren Speicher und Rechenleistung Firmen über das Internet mieten. Für Amazon, Microsoft und Google ist das eines der profitabelsten Geschäfte.'],
+  'AWS':['Amazon Web Services','Amazons Cloud-Sparte. Sie macht nur einen Teil des Umsatzes aus, liefert aber den Großteil des Gewinns.'],
+  'Rally':['Rally','Ein schneller, kräftiger Kursanstieg über einige Tage oder Wochen. Nach einer Rally sind Rücksetzer häufig.'],
+  'Knock-out':['Knock-out','Die Kursschwelle eines Turbos. Erreicht der Basiswert diese Marke, verfällt das Produkt fast wertlos.'],
+  'Hebel':['Hebel','Verstärkt die Bewegung des Basiswerts. Bei Hebel 5 bewegt sich dein Produkt etwa fünfmal so stark, nach oben wie nach unten.'],
+  'Turbo':['Turbo-Zertifikat','Ein Hebelprodukt mit Knock-out-Schwelle. Du setzt wenig Geld ein und machst große Bewegungen mit, trägst aber auch ein hohes Risiko.'],
+  'Risikopuffer':['Risikopuffer','Ein Sicherheitsabstand: Erst wenn der Kurs unter eine festgelegte Schwelle fällt, machst du Verlust. Dafür ist der mögliche Gewinn begrenzt.'],
+  'Discount-Zertifikat':['Discount-Zertifikat','Du kaufst eine Aktie mit Rabatt. Im Gegenzug ist dein Gewinn nach oben gedeckelt.'],
+  'KGV':['Kurs-Gewinn-Verhältnis','Zeigt, wie viele Jahresgewinne der Börsenwert kostet. Ein KGV von 30 heißt: Anleger zahlen das 30-Fache des Jahresgewinns.'],
+  'Dividende':['Dividende','Der Teil des Gewinns, den ein Unternehmen an seine Aktionäre ausschüttet, meist einmal im Jahr.'],
+  'Marktkapitalisierung':['Marktkapitalisierung','Der Börsenwert eines Unternehmens: Aktienkurs mal Anzahl aller Aktien.'],
+  'Volatilität':['Volatilität','Wie stark ein Kurs schwankt. Hohe Volatilität heißt größere Chancen, aber auch größere Risiken.'],
+  'ETF':['ETF','Ein Fonds, der einen Index wie den DAX nachbildet. Mit einem Kauf bist du an vielen Unternehmen gleichzeitig beteiligt.'],
+  'Index':['Index','Ein Korb aus vielen Aktien, der zeigt, wie sich ein Markt insgesamt entwickelt, zum Beispiel DAX oder Nasdaq 100.'],
+  'DAX':['DAX','Der deutsche Leitindex mit den 40 größten börsennotierten Unternehmen Deutschlands.'],
+  'Nasdaq':['Nasdaq','US-Börse und gleichnamiger Index mit vielen Technologiewerten wie Apple, NVIDIA und Amazon.'],
+  'Emittent':['Emittent','Die Bank, die ein Zertifikat herausgibt. Geht sie pleite, kann dein Geld verloren sein (Emittentenrisiko).'],
+  'Basiswert':['Basiswert','Das Original, auf das sich ein Produkt bezieht, zum Beispiel die Amazon-Aktie bei einem Amazon-Turbo.'],
+  'Open End':['Open End','Das Produkt hat kein festes Laufzeitende. Es läuft, bis du verkaufst oder der Knock-out erreicht wird.'],
+  'Kursziel':['Kursziel','Der Kurs, den Analysten einer Aktie in den nächsten 12 Monaten zutrauen. Eine Einschätzung, keine Garantie.'],
+  'Bewertung':['Bewertung','Wie teuer eine Aktie im Verhältnis zu Gewinn oder Umsatz ist. Eine hohe Bewertung heißt: Es ist schon viel Optimismus eingepreist.'],
+  'Zinsen':['Zinsen','Steigen die Zinsen, werden sichere Anlagen attraktiver. Wachstumsaktien geraten dann oft unter Druck.'],
+  'Rendite':['Rendite','Was eine Anlage in einem Zeitraum einbringt, in Prozent des eingesetzten Geldes.'],
+  'Xetra':['Xetra','Der elektronische Handelsplatz der Deutschen Börse. Hier wird der Großteil deutscher Aktien gehandelt.'],
+  'Long':['Long','Du setzt auf steigende Kurse.'],
+  'Short':['Short','Du setzt auf fallende Kurse.']
+};
+const GL_RE = new RegExp('(^|[^A-Za-zÄÖÜäöüß-])(' + Object.keys(GLOSSAR).sort((a, b) => b.length - a.length).map(k => k.replace(/[-]/g, '\\-')).join('|') + ')(?=$|[^A-Za-zÄÖÜäöüß])', 'g');
 class Component extends DCLogic {
   state = { screen:'home', hist:[], car:0, honeyId:'siemens', mode:'hebel', unlocked:[], member:false, sheet:null, closing:false, payPlan:'single',
-    focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'1J', perfOpen:false, perfHover:null, basisOpen:false, tradeOpen:false, watchSearch:['sp500','amd'], swipe:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
+    focus:'hinter', deepShown:false, follow:false, toast:null, product:null, watchHoneys:['nvidia','siemens','gold'], perfId:null, perfRange:'3M', perfOpen:false, perfHover:null, basisOpen:false, tradeOpen:false, watchSearch:['sp500','amd'], swipe:null, podOpen:false, podPlay:false, podPos:0, podSpeed:1, watchProducts:[], popped:null,
     following:['veit'], rec:false, cdlRange:'1M', lev:5, coachId:'veit', liveReg:false, regEmail:'stefan.k@beispiel.de', reminder:'15', askText:'', chat:[], typing:false, begleitet:[], pushPerm:'unknown', begPending:null, sysAlert:false };
   scrollRef = React.createRef();
   carRef = React.createRef();
@@ -1853,7 +2179,11 @@ class Component extends DCLogic {
     this._i1 = setTimeout(() => this.setState({ ideaStep:1 }), 900);
     this._i2 = setTimeout(() => this.setState({ ideaStep:2 }), 1800);
     this._i3 = setTimeout(() => this.setState({ ideaStep:3 }), 2800); }
-  routeAsk(text) { if (!text || !text.trim()) return; if (this.ideaMode && !isQuestion(text.trim())) this.startIdea(text.trim()); else this.ask(text); }
+  assistGo(text) { if (!text || !text.trim()) return; const t = text.trim(); this.setState({ assistOpen:false, assistText:'' }); this.routeAsk(t); }
+  routeAsk(text) { if (!text || !text.trim()) return; const wk = text.trim().toUpperCase().replace(/^WKN\s*/, ''); const wid = Object.keys(QUOTES).find(k => QUOTES[k].wkn === wk);
+    if (wid) { const doIt = () => { this.setState(s => ({ assistOpen:false, askText:'', wkId:null, chat:[...s.chat, { from:'u', text:text.trim() }], typing:true }));
+      clearTimeout(this._wk); this._wk = setTimeout(() => { this.setState(s => ({ typing:false, wkId:wid, chat:[...s.chat, { from:'a', text:'Zur WKN ' + QUOTES[wid].wkn + ' habe ich das gefunden:' }] })); const el = document.querySelector('[data-mh-sheet]'); if (el) setTimeout(() => el.scrollTo({ top:el.scrollHeight, behavior:'smooth' }), 40); }, 900); };
+      if (this.state.sheet === 'ai') doIt(); else if (this.state.sheet) this.closeSheet(() => { this.openSheet('ai'); doIt(); }); else { this.openSheet('ai'); doIt(); } return; } if (this.ideaMode && !isQuestion(text.trim())) this.startIdea(text.trim()); else this.ask(text); }
   ideaVals(s) {
     const I = IDEAS[s.ideaKey] || IDEAS.tech_down, ic = DIR_ICON[I.dir];
     const st = s.ideaStep || 0;
@@ -1862,7 +2192,7 @@ class Component extends DCLogic {
       ideaExamples:Object.keys(IDEAS).map(k => { const x = IDEAS[k], c = DIR_ICON[x.dir]; return { title:x.short, context:x.context, icon:x.icon, iconBg:c[0], iconFg:c[1], go:() => this.startIdea(x.say) }; }),
       ideaThinking: st < 3, ideaDone: st >= 3,
       ideaStatus: labels.map((l, i) => ({ label:l, op: i <= st ? 1 : 0.35, icon: i < st ? 'check' : i === st ? 'more_horiz' : '', bg: i < st ? '#FFF765' : i === st ? '#E4E4DF' : '#ECECE8' })),
-      idea:{ ...I, text:s.ideaText || I.say, iconBg:ic[0], iconFg:ic[1], scoreLabel:I.score + '/10', scoreBars:bars10(I.score, '#262626'),
+      idea:{ ...I, text:s.ideaText || I.say, iconBg:ic[0], iconFg:ic[1], scoreLabel:I.score + '/10', chanceW:(I.score * 10) + '%', riskW:((I.risk || 5) * 10) + '%', riskLabel:(I.risk || 5) + '/10',
         products:I.products.map((p, i) => ({ ...p, delay:(0.35 + i * 0.08) + 's', tagBg: i === 0 ? '#FFF765' : '#F1F2EE', riskBars:bars(p.risk, '#262626'),
           open:() => this.closeSheet(() => this.openSheet('product', { pdProduct:{ name:p.name, issuer:p.issuer, wkn:p.wkn, key:p.wkn + p.issuer, honeyId:'siemens', lev:p.lev }, pdFrom:'watchlist', pdRange:'1M' })) })) },
       roboThink: this.state.b4 && this.state.b4.think ? React.createElement('span', { style:{ display:'block', width:'100%', height:'100%' }, dangerouslySetInnerHTML:{ __html:this.state.b4.think } }) : null,
@@ -1919,7 +2249,7 @@ class Component extends DCLogic {
   }
   reportVals(s) {
     const id = s.productId, st = STOCKS[id] || STOCKS.nvidia, q = QUOTES[id] || QUOTES.nvidia;
-    const name = q.name.replace(/ Aktie$/, ''), unlocked = s.member || (s.reports || []).includes(id), plan = s.reportPlan || 'single';
+    const name = q.name.replace(/ Aktie$/, ''), unlocked = !this.payOn || s.member || (s.reports || []).includes(id), plan = s.reportPlan || 'single';
     const cmpTxt = st.kgv > st.kgvBr ? 'höher' : 'niedriger';
     const fmt1 = v => String(v).replace('.', ',');
     const table = [['Kennzahl','Aktie','Branche',1], ['KGV (Prognose)', fmt1(st.kgv), fmt1(st.kgvBr)], ['Gewinnwachstum p. a.', st.growth, '–'], ['Operative Marge', st.ebit + ' %', st.ebitBr + ' %'], ['Eigenkapitalquote', st.eq + ' %', st.eqBr + ' %'], ['Dividendenrendite', st.div, fmt1(st.divBr) + ' %'], ['Beta', st.beta, '1,00'], ['Volatilität 12 M.', st.vola, '–']];
@@ -1941,7 +2271,7 @@ class Component extends DCLogic {
   syncChrome(c) {
     if (this._chrome === c || typeof document === 'undefined') return;
     this._chrome = c; const de = document.documentElement;
-    de.style.backgroundColor = c; if (document.body) document.body.style.backgroundColor = window.innerWidth <= 600 ? c : '';
+    const mob = window.innerWidth <= 600; de.style.backgroundColor = mob ? c : ''; if (document.body) document.body.style.backgroundColor = mob ? c : '';
     let m = document.querySelector('meta[name="theme-color"]'); if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); } m.content = c;
   }
   openSheet(sheet, extra) { clearTimeout(this._c); this.setState({ sheet, closing:false, ...(extra||{}) }); }
@@ -1984,7 +2314,41 @@ class Component extends DCLogic {
     this._mCur = this._mTo.map((v, i) => this._mFrom[i] + (v - this._mFrom[i]) * e);
     return this._mCur;
   }
-  componentWillUnmount() { cancelAnimationFrame(this._mRaf); }
+  beeLife() {
+    if (this._beeOn || typeof document === 'undefined') return; this._beeOn = true;
+    const q = () => document.querySelector('[data-mh-bee]'), hab = () => document.querySelector('[data-mh-beehab]');
+    let tx = 0, ty = 0, cx = 0, cy = 0, rot = 0, last = Date.now(), raf;
+    const loop = () => { cx += (tx - cx) * 0.14; cy += (ty - cy) * 0.14; const b = q(); if (b) { b.style.transform = 'translate(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px) rotate(' + (cx * 2.2).toFixed(2) + 'deg)'; const h = hab(); if (h) h.style.setProperty('--gx', (50 + cx * 5) + '%'); h && h.style.setProperty('--gy', (45 + cy * 5) + '%'); } raf = requestAnimationFrame(loop); };
+    loop(); this._beeRaf = () => cancelAnimationFrame(raf);
+    this._beeMove = e => { const b = hab(); if (!b) return; const r = b.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2); const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260);
+      tx = dx / d * 5 * k; ty = dy / d * 4 * k; last = Date.now(); };
+    const anim = (frames, o) => { const b = q(); if (b && b.parentElement && b.parentElement.animate) b.parentElement.animate(frames, o); };
+    this._beeHappy = () => anim([{ transform:'translateY(0) scale(1)' }, { transform:'translateY(-7px) scale(1.12) rotate(-8deg)' }, { transform:'translateY(0) scale(0.96) rotate(6deg)' }, { transform:'translateY(-3px) scale(1.05) rotate(-3deg)' }, { transform:'none' }], { duration:620, easing:'cubic-bezier(.2,0,0,1)' });
+    let tT = 0; this._beeType = e => { if (!e.target || e.target.tagName !== 'INPUT') return; const n = Date.now(); if (n - tT < 700) return; tT = n; this._beeHappy(); };
+    this._beeDown = e => { const h = hab(); if (!h || !h.contains(e.target)) return; anim([{ transform:'scale(1)' }, { transform:'scale(1.25,0.75)' }, { transform:'scale(0.85,1.2) translateY(-6px)' }, { transform:'scale(1.06) rotate(360deg)' }, { transform:'none' }], { duration:700, easing:'cubic-bezier(.2,0,0,1)' });
+      const ring = document.createElement('span'); ring.style.cssText = 'position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 2px #FFF765;pointer-events:none;'; h.appendChild(ring); ring.animate([{ transform:'scale(1)', opacity:0.9 }, { transform:'scale(1.6)', opacity:0 }], { duration:600, easing:'cubic-bezier(.2,0,0,1)' }).onfinish = () => ring.remove(); };
+    this._beeIdle = setInterval(() => { if (Date.now() - last < 6000) return; const seq = [[-5, -1], [5, -1], [0, -4], [0, 0]]; seq.forEach((p, i) => setTimeout(() => { tx = p[0]; ty = p[1]; }, i * 420));
+      setTimeout(() => { const h = hab(); if (h && h.animate) h.animate([{ boxShadow:'0 0 0 0 rgba(255,247,101,0.55)' }, { boxShadow:'0 0 0 14px rgba(255,247,101,0)' }], { duration:1100, easing:'ease-out' }); this._beeHappy(); }, 1700); last = Date.now(); }, 9000);
+    document.addEventListener('pointermove', this._beeMove, { passive:true }); document.addEventListener('input', this._beeType, true); document.addEventListener('pointerdown', this._beeDown, true);
+  }
+  termLife() {
+    if (this._termOn || typeof document === 'undefined' || !window.CSS || !CSS.highlights || typeof Highlight === 'undefined') return; this._termOn = true;
+    const app = () => document.querySelector('[data-screen-label="Monhey App"]');
+    this._termScan = () => { clearTimeout(this._tsT); this._tsT = setTimeout(() => { const root = app(); if (!root) return; if ((this.props.erklaeren ?? 'An') !== 'An') { CSS.highlights.delete('mh-term'); this._terms = []; return; }
+      const out = []; const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => { const p = n.parentElement; if (!p || !n.nodeValue.trim() || p.closest('button,a,input,textarea,[data-mh-sheet],[data-mh-noterm],h1')) return NodeFilter.FILTER_REJECT; return NodeFilter.FILTER_ACCEPT; } });
+      let n; while ((n = w.nextNode())) { const t = n.nodeValue; GL_RE.lastIndex = 0; let m; while ((m = GL_RE.exec(t))) { const st = m.index + m[1].length; const r = new Range(); r.setStart(n, st); r.setEnd(n, st + m[2].length); out.push({ r, k:m[2] }); } }
+      this._terms = out; CSS.highlights.set('mh-term', new Highlight(...out.map(x => x.r))); }, 160); };
+    this._termTap = e => { if ((this.props.erklaeren ?? 'An') !== 'An' || !this._terms || !this._terms.length) return;
+      if (e.target.closest && e.target.closest('[data-mh-explain]')) return;
+      let node, off; if (document.caretRangeFromPoint) { const c = document.caretRangeFromPoint(e.clientX, e.clientY); if (c) { node = c.startContainer; off = c.startOffset; } } else if (document.caretPositionFromPoint) { const c = document.caretPositionFromPoint(e.clientX, e.clientY); if (c) { node = c.offsetNode; off = c.offset; } }
+      const hit = node && this._terms.find(x => { try { return x.r.startContainer === node && off >= x.r.startOffset && off <= x.r.endOffset; } catch (er) { return false; } });
+      if (hit) { CSS.highlights.set('mh-term-on', new Highlight(hit.r)); this.setState({ explainKey: hit.k, peekText:'' }); this._beeHappy && this._beeHappy(); }
+      else if (this.state.explainKey) { CSS.highlights.delete('mh-term-on'); this.setState({ explainKey:null }); } };
+    document.addEventListener('click', this._termTap, true); this._termScan();
+  }
+  componentDidUpdate() { this._termScan && this._termScan(); }
+  beeStop() { if (!this._beeOn) return; this._beeOn = false; this._beeRaf && this._beeRaf(); clearInterval(this._beeIdle); document.removeEventListener('pointermove', this._beeMove); document.removeEventListener('input', this._beeType, true); document.removeEventListener('pointerdown', this._beeDown, true); }
+  componentWillUnmount() { cancelAnimationFrame(this._mRaf); this.beeStop(); this._termTap && document.removeEventListener('click', this._termTap, true); }
   productDetail(s) {
     const p = s.pdProduct; const fromOpt = s.pdFrom === 'options'; const watched = !!p && s.watchProducts.some(x => x.key === p.key);
     if (!p) return { ranges:[], facts:[] };
@@ -2150,7 +2514,18 @@ class Component extends DCLogic {
     return { peekTada:el(o.t), peekTadaFront:el(o.tf) };
   }
 
+  twTick() {
+    const P = ['Ich glaube, dass NVIDIA…','Nasdaq mit weniger Risiko…','Was soll ich jetzt kaufen…?','Wie hole ich mehr heraus aus…?'];
+    const t = this._tw || (this._tw = { i:0, n:0, dir:1 }); const el = this.twRef && this.twRef.current; const p = P[t.i];
+    let wait = 55;
+    if (t.dir === 1) { t.n++; if (t.n >= p.length) { t.n = p.length; t.dir = -1; wait = 1600; } }
+    else { t.n -= 2; wait = 22; if (t.n <= 0) { t.n = 0; t.dir = 1; t.i = (t.i + 1) % P.length; wait = 350; } }
+    if (el) el.placeholder = p.slice(0, Math.max(t.n, 0)) || ' ';
+    this._twT = setTimeout(() => this.twTick(), wait);
+  }
   componentDidMount() {
+    this.beeLife(); setTimeout(() => this.termLife(), 400);
+    clearTimeout(this._twT); this.twTick();
     Promise.all(['gen4.js','gen5.js','gen6.js'].map(f => fetch('assets/bee-v4/' + f).then(x => x.text()))).then(([a, b, c6]) => {
       const g = new Function(a + '\n' + b + '\n' + c6 + ';return {bee5,AN5,stroke,seg,arc,W,bz,rell,P,V,ANT5,WINGS5,mir,robo,RB_CSS};')(), Y = '#FFF765';
       this.g4 = g;
@@ -2184,7 +2559,12 @@ class Component extends DCLogic {
     });
   }
 
-  renderVals() {
+  renderVals() { const r = this.renderVals0(); if (!this.flAssist) return r;
+    const inv = (html, eyes) => { let x = (eyes ? html.replace(/#FFF765/gi, '\u0002') : html).replace(/#0B0B0B/gi, '\u0001').replace(/#FFFFFF\b|#fff\b/gi, '#2B2B2B').replace(/\u0001/g, '#FFFFFF').replace(/currentColor/g, '#FFFFFF').replace(/\u0002/g, '#0B0B0B');
+      const ids = [...new Set([...x.matchAll(/id="([^"]+)"/g)].map(m => m[1]))]; ids.forEach(id => { x = x.split('"' + id + '"').join('"' + id + '-w"').split('#' + id).join('#' + id + '-w'); }); return x; };
+    const W = (el, eyes) => { if (!el || !el.props) return el; const d = el.props.dangerouslySetInnerHTML; if (!d || !d.__html) return React.isValidElement(el) ? React.cloneElement(el, { style:{ ...(el.props.style || {}), color:'#FFFFFF' } }) : el; this._invC = this._invC || {}; const ck = (eyes ? 'e' : '') + d.__html; const c = this._invC[ck] || (this._invC[ck] = inv(d.__html, eyes)); return React.cloneElement(el, { key:(el.key || 'k') + '-w', dangerouslySetInnerHTML:{ __html:c } }); };
+    return { ...r, beeGlyphW:W(r.beeGlyph, true), roboHoverW:W(r.roboHover, true), roboThinkW:W(r.roboThink, true), roboAvaW:W(r.roboAva, true), ideaBeeW:W(r.ideaBee), ideaBeeFrontW:W(r.ideaBeeFront) }; }
+  renderVals0() {
     const bdir = ({ 'Handmade v2':'assets/bee-v2/', 'Handmade v3':'assets/bee-v3/', 'Handmade v4':'assets/bee-v4/' })[this.props.branding]; const v2 = !!bdir;
     const v4 = this.props.branding==='Handmade v4', B4 = this.state.b4 || {}, el4 = k => B4[k] ? React.createElement('span', { style:{ display:'block', width:'100%', height:'100%' }, dangerouslySetInnerHTML:{ __html:B4[k] } }) : null;
     const logoEl = src => React.createElement('img', { src, alt:'', style:{ width: v4 ? 58 : 40, height: v4 ? 58 : 40, margin: v4 ? '-10px -6px -10px -10px' : 0, display:'block', flex:'none' } });
@@ -2209,6 +2589,8 @@ class Component extends DCLogic {
     const heroVals = { heroHex:hx, heroDark:!hx, heroH: hx ? '480px' : '432px', heroM: hx ? '0 -20px 0' : '0 -20px 28px', heroGrad: hx ? 'linear-gradient(180deg,rgba(11,11,11,0.55) 0%,rgba(11,11,11,0) 26%)' : 'linear-gradient(180deg,rgba(11,11,11,0.55) 0%,rgba(11,11,11,0) 26%,rgba(11,11,11,0) 42%,rgba(11,11,11,0.82) 100%)' };
     const brandVals = { ...heroVals, radiusCss: rcss ? React.createElement('style', null, rcss) : null, beeLogoEl: v4 ? hdrBee(false) : v2 ? logoEl(bdir + 'bee-cool.svg') : null, beeLogoWhiteEl: v4 ? hdrBee(true) : v2 ? logoEl(bdir + 'bee-white.svg') : null, brandV4:v4, notV4:!v4, beeSz: v4 ? '58px' : '40px', beeMg: v4 ? '-10px -6px -10px -10px' : '0', peekTrade:(v4 && this.g4) ? (() => { if (this._lm !== this.state.mode) { this._lm = this.state.mode; this._hop = (this._hop || 0) + 1; } return this.beeLive(({ direkt:{}, hebel:{ ant:'alert', lens:'bull', wings:'schwirren' }, puffer:{ ant:'tilt', gdy:6, eyes:true, wings:'winken' } })[this.state.mode] || {}, this._hop); })() : null, peekKi:el4('ki'), peekTradeFront:el4('tradeF'), ...(v4 ? this.tadaEls(this.state.mode || 'direkt') : {}), peekKiFront:el4('kiF'), beeGlyph:el4('glyph'), brandV1:!v2, brandV2:v2, beeMask: v2 ? bdir + 'bee-glyph.svg' : 'assets/robo-bee.svg', beeLogo:(bdir||'') + 'bee-cool.svg', beeLogoWhite:(bdir||'') + 'bee-white.svg' };
     this.ideaMode = (this.props.kiBereich ?? 'Markt-Idee') === 'Markt-Idee';
+    this.flAssist = (this.props.navigation ?? 'Assistent abgesetzt') === 'Assistent abgesetzt';
+    this.payOn = (this.props.paywall ?? 'Aus') === 'An';
     const navAct = ({ detail:'honeys', coach:'coaches', live:'coaches', article:'home' })[this.state.screen] || this.state.screen;
     const s = this.state;
     const h0 = ALL_HONEYS.find(x => x.id === s.honeyId);
@@ -2218,7 +2600,7 @@ class Component extends DCLogic {
     const saved = id => s.watchHoneys.includes(id);
     const saveFill = id => saved(id) ? 1 : 0;
     const saveAnim = id => s.popped === 'h-' + id ? POP : 'none';
-    const isUnlocked = s.member || s.unlocked.includes(s.honeyId);
+    const isUnlocked = !this.payOn || s.member || s.unlocked.includes(s.honeyId);
     const mode = MODES[s.mode];
     const prodWatched = p => s.watchProducts.some(x => x.key === p.wkn + p.issuer);
     const plist = productsFor(h0, s.mode, s.lev);
@@ -2233,7 +2615,7 @@ class Component extends DCLogic {
         copy: () => this.copy(p.wkn),
         broker: () => this.setState({ sheet:'broker', product:p, closing:false }),
         watchFill: w ? 1 : 0,
-        hasStats: !!p.lev, levTxt: p.lev ? String(p.lev).replace('.', ',') + 'x' : '', koTxt: p.lev ? fmtEur(numV(h0.kurs) * (1 - 1 / p.lev)) : '',
+        hasStats: !!p.lev, levTxt: p.lev ? String(p.lev).replace('.', ',') + 'x' : '', koTxt: p.lev ? fmtEur(numV(h0.kurs) * (1 - 1 / p.lev)) : '', pxTxt: p.lev ? fmtEur(numV(h0.kurs) / p.lev * 0.1) : '', levHead: p.lev ? 'Hebel ' + String(p.lev).replace('.', ',') : '', typTxt: ({ direkt:'Aktie', hebel:'Turbo-Zertifikat', puffer:'Discount-Zertifikat' })[s.mode] || 'Zertifikat', lzTxt: ({ direkt:'Unbegrenzt', hebel:'Open End', puffer:'bis 18.12.2026' })[s.mode] || '–', descTxt: s.mode === 'hebel' ? 'Steigt die ' + (h0.basis || 'Aktie').replace(/ Aktie$/, '') + '-Aktie um 1 %, steigt dein Turbo um rund ' + String(p.lev).replace('.', ',') + ' %. Fällt sie auf ' + fmtEur(numV(h0.kurs) * (1 - 1 / p.lev)) + ', ist dein Einsatz weg.' : s.mode === 'puffer' ? 'Du kaufst günstiger als die Aktie und verdienst, solange sie bis zum Laufzeitende nicht stark fällt. Dein Gewinn ist dafür gedeckelt.' : 'Du kaufst die Aktie direkt. Gewinne und Verluste entwickeln sich eins zu eins mit dem Kurs.', levKey: 'lh' + p.lev, subLine: (p.lev ? 'KO ' + fmtEur(numV(h0.kurs) * (1 - 1 / p.lev)) + ' · ' : '') + 'WKN ' + p.wkn,
         sub: (p.lev ? 'Hebel ' + String(p.lev).replace('.', ',') + 'x · KO ' + fmtEur(numV(h0.kurs) * (1 - 1 / p.lev)) + ' · ' : '') + 'WKN ' + p.wkn,
         divider: last ? '0' : '1px solid #ECECE8',
         watch: () => { if (w) { this.setState(st => ({ watchProducts:st.watchProducts.filter(x => x.key !== p.wkn + p.issuer) })); this.showToast('Von Watchlist entfernt'); } else if (this.addProduct(p)) this.showToast(p.issuer + ' auf der Watchlist'); } };
@@ -2265,6 +2647,12 @@ class Component extends DCLogic {
         tipX: hfr < 0.15 ? '0%' : hfr > 0.85 ? '-100%' : '-50%', endTop: (pts[pts.length-1][1] / 120 * 100).toFixed(1) + '%', pct: hov ? fmt1(ser[hi]) : fmtPct(tot), pctColor: (hov ? ser[hi] : tot) >= 0 ? '#FFFFFF' : '#FF5A4E',
         sub: hov ? 'Gesamtwert am ' + dAt(hi) : dashList.length + ' gemerkte Honeys · ' + PERF_RANGES[rIdx][1], open: () => this.go('watchlist') }; }
     const perfSorted = [...dashList].sort((a, b) => b.pct - a.pct);
+
+    const perfCards = [...dashList].sort((a, b) => (b.pcts['3M'] || 0) - (a.pcts['3M'] || 0)).map(x => { const hy = ALL_HONEYS.find(y => y.id === x.honey) || {}; const v = x.pct;
+      const ser = perfSeries(v, x.seed + rIdx * 13); const mn = Math.min(...ser), mx = Math.max(...ser), rg = (mx - mn) || 1;
+      const yv = y => 36 - (y - mn) / rg * 32; const line = ser.map((y, i) => (i ? 'L' : 'M') + (i / (ser.length - 1) * 100).toFixed(1) + ' ' + yv(y).toFixed(1)).join(' '); const area = line + ' L100 40 L0 40 Z'; const endTop = (yv(ser[ser.length - 1]) / 40 * 100).toFixed(1) + '%';
+      return { title: hy.title || x.name, by: 'Honey von ' + (hy.author || x.by), img: hy.image || '', pct: fmtPct(v), color: v < 0 ? '#FF5A4E' : '#33DA00', glow: v < 0 ? 'rgba(255,90,78,0.2)' : 'rgba(51,218,0,0.2)', line, area, endTop, gL:'pcL' + x.id, gA:'pcA' + x.id, gM:'pcM' + x.id,
+        w: '100%', open: () => this.openHoney(x.honey) }; });
     const perfRows = perfSorted.map((x, i) => { const v = x.pct;
       return { name: x.name, by: 'Honey von ' + x.by, pct: fmtPct(v),
         bg: v >= 15 ? '#33DA00' : v < 0 ? 'rgba(255,90,78,0.18)' : 'rgba(255,255,255,0.1)', color: v >= 15 ? '#0B0B0B' : v < 0 ? '#FF5A4E' : '#FFFFFF',
@@ -2274,14 +2662,14 @@ class Component extends DCLogic {
       scrollTopPx: s.screen === 'detail' ? '0px' : 'var(--mh-top,48px)', onMainScroll: e => { const t = e.currentTarget.scrollTop < 400; if (t !== (this.state.heroTop !== false)) this.setState({ heroTop: t }); },
       _chrome: this.syncChrome(s.podOpen ? '#141414' : s.screen === 'detail' ? '#262626' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF'),
       sbBg: s.podOpen ? '#141414' : (s.screen === 'detail' && h0.image && s.heroTop !== false) ? 'transparent' : s.screen === 'home' ? '#2B2B2B' : '#F2F2EF', sbColor: s.podOpen || s.screen === 'home' || (s.screen === 'detail' && h0.image && s.heroTop !== false) ? '#FFFFFF' : '#0B0B0B',
-      hasPerf: dashList.length > 0, noPerf: dashList.length === 0, perf, perfRows, perfAvg: '', perfOpen: s.perfOpen, perfRot: s.perfOpen ? '180deg' : '0deg', perfRows2: s.perfOpen ? '1fr' : '0fr', perfMove: e => { const r = e.currentTarget.getBoundingClientRect(); const i = Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35); if (i !== this.state.perfHover) this.setState({ perfHover:i }); },
+      perfCards, hasPerf: dashList.length > 0, noPerf: dashList.length === 0, perf, perfRows, perfAvg: '', perfOpen: s.perfOpen, perfRot: s.perfOpen ? '180deg' : '0deg', perfRows2: s.perfOpen ? '1fr' : '0fr', perfMove: e => { const r = e.currentTarget.getBoundingClientRect(); const i = Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35); if (i !== this.state.perfHover) this.setState({ perfHover:i }); },
       perfDown: e => { e.preventDefault(); try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} const sel = window.getSelection && window.getSelection(); if (sel) sel.removeAllRanges(); const r = e.currentTarget.getBoundingClientRect(); this.setState({ perfHover: Math.round(Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * 35) }); },
       perfNoMenu: e => e.preventDefault(),
       perfLeave: e => { if (e && e.type === 'pointerleave' && e.pointerType !== 'mouse') return; this.setState({ perfHover:null }); },
       togglePerfList: () => this.setState(st => ({ perfOpen: !st.perfOpen })),
-      perfRanges: PERF_RANGES.map(([k]) => ({ label:k, bg: s.perfRange===k ? '#FFF765' : 'transparent', color: s.perfRange===k ? '#0B0B0B' : '#FFFFFF', pick: () => this.setState({ perfRange:k, perfHover:null }) })),
+      perfRanges: PERF_RANGES.filter(([k]) => k !== '1J').map(([k]) => ({ label:k, bg: s.perfRange===k ? '#FFF765' : 'transparent', color: s.perfRange===k ? '#0B0B0B' : '#FFFFFF', pick: () => this.setState({ perfRange:k, perfHover:null }) })),
       hexHoneys: Array.from({ length:5 }, (_, i, a) => ({ ml: i ? '-7px' : '0', num: i === 4 ? '5' : '' })),
-      hexCoaches: Array.from({ length:3 }, (_, i) => ({ ml: i ? '-7px' : '0', num: i === 2 ? '3' : '' })),
+      hexCoaches: COACHES.slice(0,3).map((c, i) => ({ ml: i ? '-7px' : '0', img: c.img })),
       micColorDark: s.rec ? '#0B0B0B' : '#FFFFFF',
       scrollRef:this.scrollRef, carRef:this.carRef,
       isHome:s.screen==='home', isHoneys:s.screen==='honeys', isWatchlist:s.screen==='watchlist', isCoaches:s.screen==='coaches',
@@ -2303,7 +2691,21 @@ class Component extends DCLogic {
         if (m === 'Karten') return { ...none, wrapM:'32px 0 0', wrapPad:'0', bg:'transparent', radius:'0', cardBg:'#FFFFFF', cardR:'24px', cardPad:'4px 20px', ddPad:'0 8px' };
         if (m === 'Verlauf') return { ...none, wrapM:'8px -20px 0', wrapPad:'72px 24px 72px', bg:'linear-gradient(180deg,#F2F2EF 0,#FFFFFF 64px,#FFFFFF calc(100% - 64px),#F2F2EF 100%)', radius:'0', cardBg:'transparent', cardR:'0', cardPad:'0 4px', ddPad:'0' };
         return { ...none, wrapM:'32px -20px 0', wrapPad:'28px 24px 32px', bg:'#FFFFFF', radius:'32px', cardBg:'transparent', cardR:'0', cardPad:'0 4px', ddPad:'0' }; })(),
-      showNav:true,
+      showNav:true, navClassic: (this.props.navigation ?? 'Assistent abgesetzt') !== 'Assistent abgesetzt', navSplit: (this.props.navigation ?? 'Assistent abgesetzt') === 'Assistent abgesetzt',
+      assistOpen: !!s.assistOpen, assistClosed: !(s.assistOpen || s.sheet === 'ai' || s.sheet === 'idea'), assistX: !!(s.assistOpen || s.sheet === 'ai' || s.sheet === 'idea'), assistBtnBg: (s.assistOpen || s.sheet === 'ai' || s.sheet === 'idea') ? '#FFF765' : 'linear-gradient(180deg,rgba(52,52,52,0.88) 0%,rgba(30,30,30,0.92) 100%)', assistBtnColor: (s.assistOpen || s.sheet === 'ai' || s.sheet === 'idea') ? '#0B0B0B' : '#FFFFFF',
+      toggleAssist: () => { if (s.sheet === 'ai' || s.sheet === 'idea') return this.closeSheet(); this.setState(p => ({ assistOpen: !p.assistOpen, assistText:'' })); },
+      peekAssist: (this.props.navigation ?? 'Assistent abgesetzt') === 'Assistent abgesetzt' && s.screen === 'product' && !s.sheet && !s.assistOpen && !s.explainKey && s.peekOff !== s.productId,
+      explainOpen: !!s.explainKey && !s.sheet && !s.assistOpen && (this.props.erklaeren ?? 'An') === 'An',
+      explain: (() => { const g = GLOSSAR[s.explainKey]; if (!g) return { chips:[] }; const ask = t => () => { CSS.highlights && CSS.highlights.delete('mh-term-on'); this.setState({ explainKey:null, wkId:null }); this.ask(t); };
+        return { title:g[0], text:g[1], chips:[{ label:'Einfacher erklären', go:ask('Erklär mir ' + g[0] + ' noch einfacher') }, { label:'Was heißt das für mich?', go:ask('Was bedeutet ' + g[0] + ' für meine Geldanlage?') }] }; })(),
+      explainClose: () => { CSS.highlights && CSS.highlights.delete('mh-term-on'); this.setState({ explainKey:null }); },
+      peekName: ((QUOTES[s.productId] || {}).name || 'diesem Produkt').replace(/ Aktie$/i, ''), peekPh: 'Frag mich zu ' + ((QUOTES[s.productId] || {}).name || 'diesem Produkt').replace(/ Aktie$/i, '') + ' …',
+      peekText: s.peekText || '', onPeekText: e => this.setState({ peekText: e.target.value }), peekClose: () => this.setState({ peekOff: s.productId, peekText:'' }),
+      onPeekKey: e => { if (e.key === 'Enter' && (s.peekText || '').trim()) { const t = s.peekText, ex = !!s.explainKey; this.setState({ peekText:'', explainKey:null, ...(ex ? { wkId:null } : {}) }); ex ? this.ask(t) : this.routeAsk(t); } },
+      peekSend: () => { if ((s.peekText || '').trim()) { const t = s.peekText, ex = !!s.explainKey; this.setState({ peekText:'', explainKey:null, ...(ex ? { wkId:null } : {}) }); ex ? this.ask(t) : this.routeAsk(t); } },
+      assistText: s.assistText || '', onAssistText: e => this.setState({ assistText: e.target.value }),
+      onAssistKey: e => { if (e.key === 'Enter') this.assistGo(s.assistText); }, assistSend: () => this.assistGo(s.assistText),
+      assistSugg: [['lightbulb','Idee zum Markt','Ich glaube, dass Tech-Werte fallen'],['help','Frage stellen','Was ist ein ETF?'],['search','Produkt suchen','Turbo auf NVIDIA'],['tag','WKN eingeben','918422']].map(([icon, kind, text], i) => ({ icon, kind, text, bt: i ? '1px solid rgba(255,255,255,0.1)' : '0', delay: (80 + i * 60) + 'ms', go: () => this.assistGo(text) })),
       podOpen:s.podOpen, podAnim: s.podPlay ? 'running' : 'paused',
       podMini:['8px','16px','11px','22px','14px','19px','9px'],
       podBars:Array.from({ length:18 }, (_, i) => ({ h: [12,22,16,30,20,26,14,32,24,18,28,12,24,30,16,22,12,18][i] + 'px', dur:(0.6 + (i % 5) * 0.13).toFixed(2) + 's', delay:(-(i * 0.11)).toFixed(2) + 's' })),
@@ -2320,7 +2722,7 @@ class Component extends DCLogic {
       notify:() => this.showToast('Keine neuen Benachrichtigungen'),
       carLabel:(s.car+1)+' / '+HONEYS.length,
       carNext:() => this.carTo((s.car+1)%HONEYS.length),
-      carCards:HONEYS.map(x => ({ ...decorate(x), chanceW:(x.c10 * 10) + '%', riskW:(x.r10 * 10) + '%', chanceHex:hexes(x.c10,'#FFF765'), riskHex:hexes(x.r10,'#262626'), hasImage:!!x.image, noImage:!x.image, slotId:'honey-img-' + x.id, saveFill:saveFill(x.id), saveAnim:saveAnim(x.id),
+      carCards:HONEYS.map(x => ({ ...decorate(x), isAi: x.author === 'Monhey', notAi: x.author !== 'Monhey', coachImg: (COACHES.find(c => c.name === x.author) || {}).img || '', chanceW:(x.c10 * 10) + '%', riskW:(x.r10 * 10) + '%', chanceHex:hexes(x.c10,'#FFF765'), riskHex:hexes(x.r10,'#262626'), hasImage:!!x.image, noImage:!x.image, slotId:'honey-img-' + x.id, saveFill:saveFill(x.id), saveAnim:saveAnim(x.id),
         toggleSave:e => { e.stopPropagation(); this.toggleSave(x.id); },
         open:() => { if (!this.drag || !this.drag.moved) this.openHoney(x.id); } })),
       onCarScroll:() => { const i = this.carIndexFromScroll(); if (i !== this.state.car) this.setState({ car:i }); },
@@ -2347,6 +2749,7 @@ class Component extends DCLogic {
       isProduct:s.screen==='product', isChart:s.screen==='chart', isReport:s.screen==='report', cc:s.screen==='chart' ? this.chartVals(s) : { tfs:[], types:[], candles:[], grid:[], axis:[], vols:[], legend:[], inds:[] }, rp:(s.screen==='report' || s.sheet==='report') ? this.reportVals(s) : { sections:[], table:[], plans:[] }, isReportSheet:s.sheet==='report',
       prodPage:(() => { const all = [...['nvidia','siemens','gold','dax'].map(id => { const x = ALL_HONEYS.find(y => y.id === id); return { id, name:x.basis, by:x.author, honey:id, ...PERF[id] }; }), ...DASH_PRODUCTS, ...SEARCH_PRODS];
         const p = all.find(x => x.id === s.productId) || all[0]; const hy = ALL_HONEYS.find(y => y.id === p.honey) || {}; const M = PROD_META[p.id] || {};
+        const pnN = String(p.name).replace(/ Aktie$/i, ''); const pn = (PROD_NEWS[p.id] || [['vor 1 Std.', pnN + ': Analysten sehen weiteres Potenzial'],['Heute, 09:00', pnN + ' legt im frühen Handel zu'],['Gestern', 'Was die neuen Quartalszahlen für ' + pnN + ' bedeuten']]).map((n, i, arr) => ({ time:n[0], title:n[1], bb: i === arr.length - 1 ? '0' : '1px solid #ECECE8' }));
         const rIdx = Math.max(0, PERF_RANGES.findIndex(r => r[0] === s.perfRange)); const v = p.pcts[PERF_RANGES[rIdx][0]];
         const ser = perfSeries(v, p.seed + rIdx * 13); const mn = Math.min(...ser), mx = Math.max(...ser), pad = (mx - mn) * 0.1 || 1;
         const pts = ser.map((q, i) => [(i / (ser.length - 1)) * 320, 116 - ((q - mn + pad) / (mx - mn + 2 * pad)) * 110]);
@@ -2358,9 +2761,9 @@ class Component extends DCLogic {
         const stockVals = !isStock ? {} : { sector:ST.sector, impLabel:IMP_LABELS[ST.imp - 1], impSegs:IMP_LABELS.map((_, i) => ({ bg: i < ST.imp ? (ST.imp >= 4 ? '#33DA00' : ST.imp === 3 ? '#FFF765' : '#FF6608') : '#ECECE8' })),
           starsTxt:ST.crit.filter(Boolean).length + ' von 4', crit:ST.crit.map((ok, i) => ({ label:CRIT_LABELS[i], icon: ok ? 'check' : 'close', bg: ok ? '#FFF765' : '#F2F2EF', fg: ok ? '#0B0B0B' : '#8A8D86' })),
           ziel:ST.ziel, upside:ST.upside, analysts:ST.analysts, points:ST.points.map(([pos, t]) => ({ text:t, icon: pos ? 'add' : 'remove', bg: pos ? '#33DA00' : '#FFB38A' })),
-          cmp:[['Bewertung (KGV)', ST.kgv, ST.kgvBr, fmt1(ST.kgv), fmt1(ST.kgvBr), 'niedriger ist günstiger'], ['Operative Marge', ST.ebit, ST.ebitBr, ST.ebit + ' %', ST.ebitBr + ' %', 'höher ist besser'], ['Eigenkapitalquote', ST.eq, ST.eqBr, ST.eq + ' %', ST.eqBr + ' %', 'höher ist solider']].map(([l, a, b, va, vb, note]) => { const m = Math.max(a, b) * 1.1; return { label:l, note, nameA:(M.name || hy.basis || p.name).replace(/ Aktie$/i, ''), vA:va, vB:vb, wA:(a / m * 100).toFixed(0) + '%', wB:(b / m * 100).toFixed(0) + '%' }; }),
+          cmp:[['Bewertung (KGV)', ST.kgv, ST.kgvBr, fmt1(ST.kgv), fmt1(ST.kgvBr), 'niedriger ist günstiger'], ['Operative Marge', ST.ebit, ST.ebitBr, ST.ebit + ' %', ST.ebitBr + ' %', 'höher ist besser'], ['Eigenkapitalquote', ST.eq, ST.eqBr, ST.eq + ' %', ST.eqBr + ' %', 'höher ist solider']].map(([l, a, b, va, vb, note]) => { const m = Math.max(a, b) * 1.1; return {  label:l, note, nameA:(M.name || hy.basis || p.name).replace(/ Aktie$/i, ''), vA:va, vB:vb, wA:(a / m * 100).toFixed(0) + '%', wB:(b / m * 100).toFixed(0) + '%' }; }),
           desc:ST.desc, hq:ST.hq, employees:ST.employees, reportTopics:['Bewertung','Gewinnprognosen','Trend','Sensitivität','Bilanz'],
-          reportCta: (s.member || (s.reports || []).includes(p.id)) ? 'Analyse öffnen' : 'Analyse ansehen', reportIcon: (s.member || (s.reports || []).includes(p.id)) ? 'menu_book' : 'lock_open',
+          reportCta: (!this.payOn || s.member || (s.reports || []).includes(p.id)) ? 'Analyse öffnen' : 'Analyse ansehen', reportIcon: (!this.payOn || s.member || (s.reports || []).includes(p.id)) ? 'menu_book' : 'lock_open',
           openReport:() => this.go('report', { productId:p.id }) };
         const IP = INFO_PRODS[p.id], isInfo = !!IP; const fq = s.prodFaq;
         const infoVals = !isInfo ? {} : { sector:IP.sector, intro:IP.intro, chance:IP.chance, risk:IP.risk,
@@ -2369,7 +2772,7 @@ class Component extends DCLogic {
           hasWeights:!!IP.weights, weights:(IP.weights || []).map(([n, w]) => ({ name:n, val:String(w).replace('.', ',') + ' %', w:(w / 15 * 100).toFixed(0) + '%' })),
           hasWays:!!IP.ways, waysTitle:IP.waysTitle || '', ways:(IP.ways || []).map(([ic, t, d, rk], i) => ({ icon:ic, title:t, text:d, risk:rk, bb: i === IP.ways.length - 1 ? '0' : '1px solid #ECECE8', go:() => i === 1 ? this.go('product', { productId:'turbo-dax' }) : this.showToast('Produktauswahl folgt') })),
           faq:IP.faq.map(([q, a], i) => { const open = fq === p.id + i; return { q, a, open, icon: open ? 'remove' : 'add', bb: i === IP.faq.length - 1 ? '0' : '1px solid #ECECE8', toggle:() => this.setState({ prodFaq: open ? null : p.id + i }) }; }) };
-        return { ...stockVals, ...infoVals, honeyLabel: isInfo ? (IP.type === 'Index' ? 'HONEY ZU DIESEM INDEX' : 'HONEY ZU DIESEM PRODUKT') : 'HONEY ZU DIESER AKTIE', isStock, isInfo, showSector: isStock || isInfo, honeyTop: (isStock || isInfo) && !!hy.id, honeyBottom: !isStock && !isInfo && !!hy.id, openChart:() => isStock && this.go('chart', { productId:p.id, chartHover:null }), chartCursor: isStock ? 'pointer' : 'default',
+        return { news:pn, ...stockVals, ...infoVals, honeyLabel: isInfo ? (IP.type === 'Index' ? 'HONEY ZU DIESEM INDEX' : 'HONEY ZU DIESEM PRODUKT') : 'HONEY ZU DIESER AKTIE', isStock, isInfo, showSector: isStock || isInfo, honeyTop: (isStock || isInfo) && !!hy.id, honeyBottom: !isStock && !isInfo && !!hy.id, openChart:() => isStock && this.go('chart', { productId:p.id, chartHover:null }), chartCursor: isStock ? 'pointer' : 'default',
           watchBg: watched ? '#FFF765' : '#fff', watchFill: watched ? 1 : 0, watchLabel: watched ? 'Von Watchlist entfernen' : 'Auf die Watchlist',
           toggleWatch:() => { if (watched) { this.setState(st2 => ({ watchSearch:st2.watchSearch.filter(k => k !== p.id), watchHoneys:st2.watchHoneys.filter(k => k !== p.id) })); this.showToast('Von Watchlist entfernt'); } else { this.setState(st2 => ({ watchSearch:[...st2.watchSearch, p.id] })); this.showToast('Auf deine Watchlist gesetzt'); } },
           name:(qr && (isStock || INFO_PRODS[p.id]) ? qq.name : null) || M.name || hy.basis || p.name, type:(INFO_PRODS[p.id] && INFO_PRODS[p.id].type) || M.type || 'Aktie', wkn:M.wkn || hy.wkn || (qq && qq.wkn), kurs:((isStock || INFO_PRODS[p.id]) && qr ? qr.kurs : null) || M.kurs || hy.kurs, chg:((isStock || INFO_PRODS[p.id]) && qr ? qr.pct : null) || M.chg || hy.chg,
@@ -2390,9 +2793,12 @@ class Component extends DCLogic {
         btnLabel: f ? 'Abonniert' : 'Abonnieren · ' + c.price + ' / Monat', btnShort: f ? 'Abonniert' : c.price, btnBg: f ? '#F2F2EF' : '#262626', btnColor: f ? '#0B0B0B' : '#fff', btnBorder:'0',
         toggle:() => this.subscribe(c) }; }),
       cp:{ ...coachVals(cp0), first:cp0.name.split(' ')[0],
-        bars:cp0.months.map((v,i) => ({ label:MONTHS[i], h:v+'%', bg: i===cp0.months.length-1 ? '#FFF765' : '#E4E4DF' })) },
+        ...(() => { const up = !/^[−-]/.test(cp0.track.trim());
+          const pts = up ? [[0,72],[40,66],[75,70],[110,56],[145,60],[180,44],[215,48],[250,30],[300,16]] : [[0,24],[40,30],[75,26],[110,40],[145,36],[180,50],[215,46],[250,60],[300,70]];
+          const line = pts.map(([x,y], i) => (i ? 'L' : 'M') + x + ' ' + y).join(' ');
+          return { perfLine:line, perfArea:line + ' L300 90 L0 90 Z', perfFill: up ? 'rgba(51,218,0,0.16)' : 'rgba(255,90,78,0.16)', perfStroke: up ? '#33DA00' : '#FF5A4E', perfCol: up ? '#33DA00' : '#FF5A4E' }; })() },
       cpToggle:() => this.subscribe(cp0),
-      cpBtnLabel: cpFollow ? 'Abonniert' : 'Abonnieren · ' + cp0.price + ' / Monat', cpBtnIcon: cpFollow ? 'notifications_active' : 'add',
+      cpBtnLabel: cpFollow ? 'Abonniert' : 'Abonnieren · ' + (s.member ? '79,90 €' : '99 €'), cpShowPrice: !cpFollow, cpNonMember: !s.member, member: s.member, cpBtnIcon: cpFollow ? 'notifications_active' : 'add',
       cpBtnBg: cpFollow ? '#F2F2EF' : '#262626', cpBtnColor: cpFollow ? '#0B0B0B' : '#fff', cpBtnBorder:'0',
       cpBtnNote: cpFollow ? 'Du erhältst alle News und Honeys von ' + cp0.name.split(' ')[0] + '.' : 'Monatlich kündbar · News und Honeys direkt in deinem Feed',
       cpAnim: s.popped === 'c-' + cp0.id ? POP : 'none',
@@ -2400,7 +2806,8 @@ class Component extends DCLogic {
       cpHasHoneys:ALL_HONEYS.some(x => x.author === cp0.name),
       cpNews:NEWS.filter(n => COACHES[n.c].id === cp0.id).concat([{ title:'Wochenausblick', text:'Welche Termine in der kommenden Woche wichtig werden und worauf ich besonders achte.' }]).map((n, i, a) => ({ ...n, bb: i === a.length - 1 ? '0' : '1px solid #ECECE8' }))
         .map(n => ({ bb:n.bb, title:n.title, text:n.text, locked:!cpFollow, blur: cpFollow ? 'none' : 'blur(3px)' })),
-      honeyList:HONEYS.map((x,i) => ({ ...x, delay:(i*60)+'ms', thumbBg: x.image ? '#262626 url(' + x.image + ') center / cover no-repeat' : '#262626', status: (s.member || s.unlocked.includes(x.id)) ? 'GEÖFFNET' : '1,99 €',
+      marketNews:[['09:42','DAX','+0,4 %','DAX startet freundlich, Autowerte gefragt'],['09:15','Nvidia','+1,8 %','Nvidia: Analysten heben Kursziel auf 220 Dollar'],['08:50','EUR/USD','−0,2 %','Euro gibt nach, Anleger warten auf die EZB'],['08:30','Gold','+0,6 %','Goldpreis steigt erneut über 3.300 Dollar'],['Gestern','Siemens Energy','−2,1 %','Siemens Energy nach Rally mit Gewinnmitnahmen']].map(([t,a,c,ti], i, arr) => ({ time:t, asset:a, chg:c, title:ti, col: c.startsWith('+') ? '#33DA00' : '#FF5A4E', bb: i === arr.length - 1 ? '0' : '1px solid #ECECE8' })),
+      honeyList:HONEYS.map((x,i) => ({ ...x, isAi: x.author === 'Monhey', authorName: x.author === 'Monhey' ? 'AI Bee' : x.author, coachImg: (COACHES.find(c => c.name === x.author) || {}).img || '', delay:(i*60)+'ms', thumbBg: x.image ? '#262626 url(' + x.image + ') center / cover no-repeat' : '#262626', status: (!this.payOn || s.member || s.unlocked.includes(x.id)) ? 'GEÖFFNET' : '1,99 €',
         saveFill:saveFill(x.id), saveAnim:saveAnim(x.id), toggleSave:() => this.toggleSave(x.id), open:() => this.openHoney(x.id) })),
       watchHoneys:ALL_HONEYS.filter(x => saved(x.id)).map(x => { const neg = String(x.chg).includes('−') || String(x.chg).includes('–'); return { ...x, ...this.begVals('h:' + x.id, 'honey'), basis:(PROD_META[x.id] && PROD_META[x.id].name) || x.basis, chgBg: neg ? 'rgba(255,90,78,0.14)' : 'rgba(51,218,0,0.16)', chgColor: neg ? '#D63A2F' : '#1F7A00', open:() => this.openHoney(x.id), detail:() => PERF[x.id] ? this.go('product', { productId:x.id }) : this.openHoney(x.id), remove:() => this.toggleSave(x.id) }; }),
       ...(() => {
@@ -2429,16 +2836,23 @@ class Component extends DCLogic {
         detail:() => this.openSheet('product', { pdProduct:p, pdFrom:'watchlist', pdRange:'1M' }),
         remove:() => { this.setState(st => ({ watchProducts:st.watchProducts.filter(x => x.key!==p.key) })); this.showToast('Produkt entfernt'); } })),
       watchProductsEmpty:s.watchProducts.length === 0,
-      askText:s.askText, onAsk:e => this.setState({ askText:e.target.value }), onAskKey:e => { if (e.key==='Enter') this.routeAsk(s.askText); },
+      askText:s.askText, onAsk:e => this.setState(e.target.value ? { askText:e.target.value } : { askText:'', sugDone:false }), onAskKey:e => { if (e.key==='Enter') this.routeAsk(s.askText); },
       rec:s.rec, notRec:!s.rec, micIcon: s.rec ? 'stop' : 'mic', micFill: s.rec ? 1 : 0, micBg: s.rec ? '#FFF765' : 'transparent', micAnim: s.rec ? 'mh-pulse 1.2s ease-out infinite' : 'none', micLabel: s.rec ? 'Aufnahme beenden' : 'Spracheingabe',
       waveBars: Array.from({ length:16 }, (_, i) => ({ h: [14,22,10,26,18,24,12,20,26,16,22,10,24,14,20,12][i] + 'px', dur: (0.7 + (i % 5) * 0.12).toFixed(2) + 's', delay: (-(i * 0.09)).toFixed(2) + 's' })),
       toggleRec:() => { clearTimeout(this._r); const done = () => { this.setState({ rec:false }); this.ideaMode ? this.startIdea(IDEAS.tech_down.say) : this.ask('Was ist ein Turbo?'); }; if (s.rec) done(); else { this.setState({ rec:true }); this._r = setTimeout(done, 3200); } },
-      sendAsk:() => s.askText.trim() ? this.routeAsk(s.askText) : (!this.ideaMode && s.sheet !== 'ai' && this.openSheet('ai')), openAskSheet:() => this.openSheet('ai'), kiIdea:this.ideaMode, kiOld:!this.ideaMode, peekOld: v4 && !this.ideaMode, isIdeaSheet:s.sheet==='idea', ...this.ideaVals(s), typing:s.typing,
+      sendAsk:() => s.askText.trim() ? this.routeAsk(s.askText) : (!this.ideaMode && s.sheet !== 'ai' && this.openSheet('ai')), openAskSheet:() => this.openSheet('ai'), kiIdea:this.ideaMode, kiOld:!this.ideaMode, peekOld: v4 && !this.ideaMode, isIdeaSheet:s.sheet==='idea', isIdeaSheetLight:s.sheet==='idea' && !this.flAssist, isIdeaSheetDark:s.sheet==='idea' && this.flAssist, ...this.ideaVals(s), typing:s.typing,
       askChips:Object.keys(ANSWERS).map(q => ({ label:q, ask:() => { this.setState({ askOpen:false }); this.ask(q); }, keep:(e) => e.preventDefault() })),
-      askFocus:() => { clearTimeout(this._af); this.setState({ askOpen:true }); },
-      askBlur:() => { this._af = setTimeout(() => this.setState({ askOpen:false }), 120); },
+      askFocus:() => { clearTimeout(this._af); clearTimeout(this._twT); const el = this.twRef && this.twRef.current; if (el) el.placeholder = ''; this.setState({ askOpen:true }); },
+      twRef:this.twRef || (this.twRef = React.createRef()), sugOpen: this.ideaMode && s.askOpen && !s.sugDone,
+      ideaSugs:[['Ich glaube, dass Nvidia …','Ich glaube, dass Nvidia ','memory'],['Wie kann ich vom steigenden DAX profitieren?',null,'trending_up'],['Ich glaube, dass der Goldkurs …','Ich glaube, dass der Goldkurs ','diamond']].map(([l,fill,ic]) => ({ label:l, icon:ic, keep:e => e.preventDefault(), pick:() => { if (fill) { this.setState({ askText:fill, sugDone:true }); const el = this.twRef && this.twRef.current; if (el) setTimeout(() => { el.focus(); el.setSelectionRange(fill.length, fill.length); }, 0); } else { this.setState({ askOpen:false }); this.routeAsk(l); } } })),
+      askBlur:() => { this._af = setTimeout(() => this.setState({ askOpen:false, sugDone:false }), 120); clearTimeout(this._twT); this._tw = null; this._twT = setTimeout(() => this.twTick(), 400); },
       flyRows: s.askOpen ? '1fr' : '0fr', flyOp: s.askOpen ? 1 : 0, flyMt: s.askOpen ? '0px' : '-14px',
+      wkHas: !!s.wkId && !s.typing, wk: (() => { const q = QUOTES[s.wkId]; if (!q) return {}; const pc = q.abs / (q.kurs - q.abs) * 100; const fmt = n => n.toLocaleString('de-DE', { minimumFractionDigits:2, maximumFractionDigits:2 });
+        const INFO = { nvidia:'NVIDIA baut die Chips, auf denen die meisten KI-Anwendungen laufen. Die Aktie gilt als Gradmesser für den KI-Boom und schwankt entsprechend stark.', siemens:'Amazon verbindet Onlinehandel mit der Cloud-Sparte AWS. AWS liefert den Großteil des Gewinns und profitiert stark vom KI-Ausbau.', gold:'Xetra-Gold bildet den Goldpreis ab und ist mit physischem Gold hinterlegt. Gold gilt als Absicherung in unsicheren Zeiten.', dax:'Der DAX bündelt die 40 größten Unternehmen Deutschlands. Er zeigt, wie es der deutschen Wirtschaft an der Börse geht.' };
+        return { name:q.name, wkn:q.wkn, exch:q.exch, kurs: fmt(q.kurs) + ' ' + q.cur, chg: (pc >= 0 ? '+' : '') + fmt(pc) + ' %', chgColor: pc >= 0 ? '#33DA00' : '#FF5A4E', info: INFO[s.wkId] || 'Kurzinfo zu ' + q.name + '.', open: () => { const id = s.wkId; this.closeSheet(() => this.go('product', { productId:id })); } }; })(),
+      chatDark:s.chat.map(m => ({ text:m.text, align: m.from==='u' ? 'flex-end' : 'flex-start', bg: m.from==='u' ? '#FFF765' : 'rgba(255,255,255,0.1)', color: m.from==='u' ? '#0B0B0B' : '#FFFFFF' })),
       chat:s.chat.map(m => ({ text:m.text, align: m.from==='u' ? 'flex-end' : 'flex-start', bg: m.from==='u' ? '#262626' : '#fff', color: m.from==='u' ? '#fff' : '#0B0B0B' })),
+      navMain:nav.filter(([k]) => k !== 'assistant').map(([k,l,ic]) => ({ label:l, icon:(v4 && k==='honeys') ? 'hive' : ic, bg: navAct===k ? '#FFF765' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0, hasBadge: k==='watchlist' && watchCount > 0, badge: watchCount, go:() => { this.setState({ assistOpen:false }); this.go(k); } })),
       navItems:nav.map(([k,l,ic]) => ({ label:l, icon:(v4 && k==='honeys') ? 'hive' : ic, isBee: k==='assistant', notBee: k!=='assistant', isHex: false, hexEl: false ? React.createElement('svg', { viewBox:'0 0 24 24', width:'100%', height:'100%', fill:'currentColor', stroke:'currentColor', strokeWidth:2, strokeLinejoin:'round', dangerouslySetInnerHTML:{ __html: '<path d="M12 2.5L18.6 6.25V13.75L12 17.5L5.4 13.75V6.25Z" fill="' + (navAct===k ? 'currentColor' : 'none') + '"/>' + (navAct===k ? '' : '<path d="M5.4 10.5H18.6V13.75L12 17.5L5.4 13.75Z" stroke="none"/>') + '<path d="M12 17.8C10.9 19.3 10 20.3 10 21.3a2 2 0 0 0 4 0c0-1-.9-2-2-3.5Z" stroke="none"/>' } }) : null, bg: navAct===k ? '#FFF765' : 'transparent', color: navAct===k ? '#0B0B0B' : '#B8BCB4', fill: navAct===k ? 1 : 0,
         hasBadge: k==='watchlist' && watchCount > 0, badge: watchCount, go:() => k==='assistant' ? this.openSheet('ai') : this.go(k) })),
       pod:(() => { const ci = POD_CH.reduce((k, c, i) => s.podPos >= c[0] ? i : k, 0); const caps = [h0.kurz, h0.s1, h0.s2, h0.s3];
@@ -2466,12 +2880,16 @@ class Component extends DCLogic {
       toggleDeep:() => this.setState(st => ({ deepShown:!st.deepShown })),
       deepRows: s.deepShown ? '1fr' : '0fr', deepRot: s.deepShown ? '180deg' : '0deg',
       deepLabel:{ technik:'ERKLÄR’S MIR TECHNISCH', hinter:'DIE HINTERGRÜNDE', analyse:'CHART- UND UNTERNEHMENSANALYSE' }[s.focus], deepText:h0.deep[s.focus],
-      modes:MODE_KEYS.map(k => ({ label:MODES[k].label, color: s.mode===k ? '#fff' : '#0B0B0B', pick:() => this.setState({ mode:k }) })),
-      modeX:'calc(' + MODE_KEYS.indexOf(s.mode) + ' * (100% + 4px))', modeKey:s.mode, modeIdx:MODE_KEYS.indexOf(s.mode), ctaLabel:({ direkt:'Direkt traden', hebel:'Mit Hebel traden', puffer:'Mit Puffer traden' })[s.mode] || 'Zeig mir die Optionen',
+      modes:MODE_KEYS.map(k => ({ label:k === 'puffer' ? 'Risikopuffer' : MODES[k].label, color:'#0B0B0B', pick:() => this.setState({ mode:k }) })),
+      modeX:'calc(' + MODE_KEYS.indexOf(s.mode) + ' * (100% + 4px))', modeKey:s.mode, modeIdx:MODE_KEYS.indexOf(s.mode), ctaLabel:({ direkt:'Direkt traden', hebel:'Mit Hebel traden', puffer:'Mit Risikopuffer traden' })[s.mode] || 'Zeig mir die Optionen',
       mode, openOptions:() => this.openSheet('options'),
       share:() => this.showToast('Link zum Honey kopiert'),
-      sheetOpen:!!s.sheet, closeSheet:() => this.closeSheet(), isAiSheet:s.sheet==='ai', chatEmpty:s.chat.length === 0 && !s.typing, chatEmptyOld:s.chat.length === 0 && !s.typing && !this.ideaMode, aiInputBottom: !(s.chat.length === 0 && !s.typing && this.ideaMode), chatEmptyIdea:s.chat.length === 0 && !s.typing && this.ideaMode, aiPlaceholder: this.ideaMode ? 'Ich glaube, dass … oder frag mich etwas' : 'Suche Produkte oder frag irgendwas',
-      sheetAnim, backdropAnim: s.closing ? 'mh-fadeout .24s both' : 'mh-fade .25s both',
+      sheetOpen:!!s.sheet, closeSheet:() => this.closeSheet(), isAiSheet:s.sheet==='ai', isAiSheetLight:s.sheet==='ai' && !this.flAssist, isAiSheetDark:s.sheet==='ai' && this.flAssist, chatEmpty:s.chat.length === 0 && !s.typing, chatEmptyOld:s.chat.length === 0 && !s.typing && !this.ideaMode, aiInputBottom: !(s.chat.length === 0 && !s.typing && this.ideaMode), chatEmptyIdea:s.chat.length === 0 && !s.typing && this.ideaMode, aiPlaceholder: this.ideaMode ? 'Ich glaube, dass … oder frag mich etwas' : 'Suche Produkte oder frag irgendwas',
+      ...(() => { const fl = (this.props.navigation ?? 'Assistent abgesetzt') === 'Assistent abgesetzt' && (s.sheet === 'ai' || s.sheet === 'idea');
+        return { sheetAnim: fl ? (s.closing ? 'mh-assist-out .22s both' : 'mh-assist .32s cubic-bezier(0.2,0,0,1) both') : sheetAnim, shL: fl ? '10px' : '0', shB: fl ? '102px' : '0', shR: fl ? '28px' : '28px 28px 0 0',
+          shBg: fl ? 'rgba(34,34,34,0.74)' : '#F2F2EF', shColor: fl ? '#FFFFFF' : '#0B0B0B', shBlur: fl ? 'blur(26px) saturate(1.5)' : 'none', shShadow: fl ? 'inset 0 0 0 1px rgba(255,255,255,0.14),inset 0 1px 0 rgba(255,255,255,0.16),0 24px 60px rgba(0,0,0,0.4)' : 'none',
+          bdBg: fl ? 'rgba(11,11,11,0.18)' : 'rgba(11,11,11,0.4)', bdBlur: fl ? 'blur(3px)' : 'none', navZ: fl ? 42 : 25, assistUp: fl || !!s.assistOpen }; })(),
+      backdropAnim: s.closing ? 'mh-fadeout .24s both' : 'mh-fade .25s both',
       sheetTop: s.sheet==='report' ? '330px' : (s.sheet==='ai' || s.sheet==='idea') ? '64px' : s.sheet==='product' ? '40px' : s.sheet==='options' ? '64px' : (s.sheet==='broker' ? '150px' : (s.sheet==='register' ? '300px' : (s.sheet==='coachpay' ? '220px' : (s.sheet==='begleit' ? '56px' : '260px')))),
       isProductSheet:s.sheet==='product', pd:this.productDetail(s), isPaySheet:s.sheet==='pay', isOptionsSheet:s.sheet==='options', isBrokerSheet:s.sheet==='broker', isRegisterSheet:s.sheet==='register', isCoachPaySheet:s.sheet==='coachpay',
       cpay:(() => { const c = COACHES.find(x => x.id===s.coachPayId) || COACHES[0]; return { name:c.name, first:c.name.split(' ')[0], img:c.img, price:c.price, topics:c.topics,
